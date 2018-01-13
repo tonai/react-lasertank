@@ -4,10 +4,10 @@
   right: 0;
   bottom: 0;
   left: 0;
-  border: 5px solid black;
   overflow: auto;
 }
 
+.Board__zoom,
 .Board__scene {
   position: absolute;
   transform-style: preserve-3d;

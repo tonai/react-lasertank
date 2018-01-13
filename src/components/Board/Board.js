@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 
 import './Board.css';
 
-import blank from '../../assets/images/blank.png';
-
 import Wall from '../Blocks/Wall/Wall';
+
+const scrollBarWidth = 25;
 
 class Board extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      containerWidth: null
+      containerWidth: null,
+      containerHeight: null
     };
   }
 
@@ -25,68 +26,87 @@ class Board extends Component {
 
   initElement = (el) => {
     this.el = el;
-    this.setState({containerWidth: this.el.offsetWidth});
+    this.setState({
+      containerWidth: this.el.offsetWidth,
+      containerHeight: this.el.offsetHeight
+    });
   };
 
   resize = () => {
-    this.setState({containerWidth: this.el.offsetWidth});
+    this.setState({
+      containerWidth: this.el.offsetWidth,
+      containerHeight: this.el.offsetHeight
+    });
   };
 
   makeArray(from, to) {
-    return Array.apply(null, new Array(to - from)).map(x => from++)
+    return Array.apply(null, new Array(to - from)).map(() => from++)
   }
 
   render() {
-    const w = this.props.width * this.props.size;
-    const h = this.props.height * this.props.size;
+    const size = this.props.size;
+    const width = this.props.width * this.props.size;
+    const height = this.props.height * this.props.size;
     const a = this.props.zAngle * Math.PI / 180;
-    const max = Math.max(w, h);
+    const b = this.props.xAngle * Math.PI / 180;
+    const max = Math.max(width, height);
 
     const x = max / (1 + 1 / Math.sin(a) + 1 / Math.tan(a));
-    const z = x / Math.tan(a);
+    const l = x * Math.cos(a);
+    const L = l * 2 + max;
+    const H = L * Math.cos(b);
 
-    const l = (max + 2 * z * Math.sin(a)) * this.props.scale;
+    const isWider = this.state.containerWidth && L * this.props.scale > this.state.containerWidth;
+    const isHigher = this.state.containerHeight && H * this.props.scale > this.state.containerHeight;
+    const containerWidth = isHigher ? this.state.containerWidth - scrollBarWidth : this.state.containerWidth;
+    const containerHeight = isWider ? this.state.containerHeight - scrollBarWidth : this.state.containerHeight;
 
-    let boardSceneStyles = {
+    const boardZoomStyles = {
+      position: 'absolute',
       width: `${max}px`,
       height: `${max}px`,
-      backgroundColor: `rgba(0,0,0,0.5)`
+      transform: `translateX(-50%) translateY(-50%) scale3d(${this.props.scale}, ${this.props.scale}, ${this.props.scale})`,
+      top: '50%',
+      left: '50%'
     };
-    if (this.state.containerWidth && l > this.state.containerWidth) {
-      const max = Math.max(x, z) * this.props.scale;
-      console.log(x, z, max);
-      boardSceneStyles.top = 0;
-      boardSceneStyles.left = 0;
-      boardSceneStyles.transform = `rotateX(${this.props.xAngle}deg) rotateY(0deg) rotateZ(${a}rad) translateX(${max}px) translateZ(${2 * this.props.size * this.props.scale}px) scale3d(${this.props.scale}, ${this.props.scale}, ${this.props.scale})`;
-      boardSceneStyles.marginTop = `${h * (this.props.scale - 1) / 2}px`;
-      boardSceneStyles.marginLeft = `${w * (this.props.scale - 1) / 2}px`;
-    } else {
-      boardSceneStyles.top = `50%`;
-      boardSceneStyles.left = `50%`;
-      boardSceneStyles.marginTop = `${- max / 2}px`;
-      boardSceneStyles.marginLeft = `${- max / 2}px`;
-      boardSceneStyles.transform = `rotateX(${this.props.xAngle}deg) rotateY(0deg) rotateZ(${a}rad) translateX(0px) translateZ(${2 * this.props.size * this.props.scale}px) scale3d(${this.props.scale}, ${this.props.scale}, ${this.props.scale})`;
-    }
 
+    const boardSceneStyles = {
+      width: `${max}px`,
+      height: `${max}px`,
+      backgroundColor: `rgba(0,0,0,0.5)`,
+      transform: `rotateX(${b}rad) rotateZ(${a}rad)`
+    };
 
     const boardInnerStyles = {
-      width: `${w}px`,
-      height: `${h}px`
+      width: `${width}px`,
+      height: `${height}px`
     };
+
+    if (isWider) {
+      boardSceneStyles.left = l;
+      boardZoomStyles.marginLeft = max * this.props.scale / 2 - containerWidth / 2;
+    }
+
+    if (isHigher) {
+      boardSceneStyles.top = (H - max) / 2;
+      boardZoomStyles.marginTop = max * this.props.scale / 2 - containerHeight / 2;
+    }
 
     const blocks = this.makeArray(0, this.props.width)
       .map(x =>
         this.makeArray(0, this.props.height).map(y =>
-          <Wall key={x + '-' + y} x={x} y={y}/>
+          <Wall key={x + '-' + y} x={x} y={y} size={size}/>
         )
       )
       .reduce((acc, arr) => acc.concat(arr), []);
 
     return (
       <div className="Board" ref={this.initElement}>
-        <div className="Board__scene" style={boardSceneStyles}>
-          <div className="Board__inner" style={boardInnerStyles}>
-            {blocks}
+        <div className="Board__zoom" style={boardZoomStyles}>
+          <div className="Board__scene" style={boardSceneStyles}>
+            <div className="Board__inner" style={boardInnerStyles}>
+              {blocks}
+            </div>
           </div>
         </div>
         <div style={{position:'absolute',left:'50%', width:'2px',top:0,bottom:0,marginLeft:'-1px', backgroundColor:'rgba(255,0,0,0.5)'}}></div>

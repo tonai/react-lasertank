@@ -1,39 +1,31 @@
 .Wall {
   position: absolute;
-  width: 64px;
-  height: 64px;
   transform-style: preserve-3d;
 }
 
 .Wall__side {
   position: absolute;
-  width: 64px;
-  height: 64px;
-  background-color: rgba(255,0,0,0.5);
+  transform-style: preserve-3d;
+  transform-origin: 0 0;
 }
 
 .side--front {
-  transform: rotateY(90deg) translateX(32px) translateY(0) translateZ(-32px);
   background-color: rgba(255,0,0,0.5);
 }
 
 .side--back {
-  transform: rotateY(90deg) translateX(32px) translateY(0) translateZ(32px);
   background-color: rgba(0,255,0,0.5);
 }
 
 .side--left {
-  transform: rotateX(-90deg) translateX(0) translateY(32px) translateZ(-32px);
   background-color: rgba(0,0,255,0.5);
 }
 
 .side--right {
-  transform: rotateX(-90deg) translateX(0) translateY(32px) translateZ(32px);
   background-color: rgba(255,255,0,0.5);
 }
 
 .side--top {
-  transform: translateZ(-64px);
   background-color: rgba(255,0,255,0.5);
 }
 
