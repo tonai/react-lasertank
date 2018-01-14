@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-class Floor extends Component {
+class Water extends Component {
 
   render() {
-    const { settings, size, x, y } = this.props;
+    const { back, front, left, right, settings, size, x, y } = this.props;
 
     const styles = {
       transform: `translateX(${x * size}px) translateY(${y * size}px)`
@@ -12,34 +12,34 @@ class Floor extends Component {
     const sideStyles = {
       width: size,
       height: size,
-      backgroundImage: `url(${settings.spriteSrc})`
+      backgroundColor: 'rgba(0, 100, 255, 0.5)'
     };
 
     return (
-      <div className="Floor pos-abs" style={styles}>
-        <div
-          className="Floor__side side--front pos-abs"
+      <div className="Water pos-abs" style={styles}>
+        {!front && (<div
+          className="Water__side side--front pos-abs"
           style={{...sideStyles, ...settings.sideStyles, transform: `rotateX(-90deg) rotateY(90deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
-        />
-        <div
-          className="Floor__side side--back pos-abs"
+        />)}
+        {!back && (<div
+          className="Water__side side--back pos-abs"
           style={{...sideStyles, ...settings.sideStyles, transform: `rotateY(90deg) rotateZ(-90deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
-        />
-        <div
-          className="Floor__side side--left pos-abs"
+        />)}
+        {!left && (<div
+          className="Water__side side--left pos-abs"
           style={{...sideStyles, ...settings.sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
-        />
-        <div
-          className="Floor__side side--right pos-abs"
+        />)}
+        {!right && (<div
+          className="Water__side side--right pos-abs"
           style={{...sideStyles, ...settings.sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
-        />
+        />)}
         <div
-          className="Floor__side side--top pos-abs"
+          className="Water__side side--top pos-abs"
           style={{...sideStyles, ...settings.topStyles, transform: `rotateZ(180deg) translateZ(${size}px)`}}
         />
         <div
-          className="Floor__side side--bottom pos-abs"
-          style={{...sideStyles, backgroundImage: null, background: 'black'}}
+          className="Water__side side--bottom pos-abs"
+          style={{...sideStyles, ...settings.bottomStyles, backgroundImage: `url(${settings.spriteSrc})`}}
         />
       </div>
     );
@@ -47,9 +47,9 @@ class Floor extends Component {
 
 }
 
-Floor.defaultProps = {
+Water.defaultProps = {
   x: 0,
   y: 0,
 };
 
-export default Floor;
+export default Water;

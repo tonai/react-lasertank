@@ -2,6 +2,7 @@ import boardSettings from './board';
 import generalSettings from './general';
 
 import Floor from '../components/Stateless/Grounds/Floor/Floor';
+import Water from '../components/Stateless/Grounds/Water/Water';
 
 export default {
   floor: {
@@ -12,6 +13,16 @@ export default {
     },
     sideStyles: {
       backgroundPosition: `0px -${boardSettings.size * 3 / 2}px`
+    },
+    bottomStyles: {}
+  },
+  water: {
+    component: Water,
+    spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
+    bottomStyles: {
+      topStyles: {},
+      sideStyles: {},
+      backgroundPosition: `0px -${boardSettings.size / 2}px`
     }
   }
 };

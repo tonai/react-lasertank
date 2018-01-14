@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import boardSettings from '../../settings/board';
 import groundsSettings from '../../settings/grounds';
 
+import map from '../../maps/test.json';
+
 import Board from '../Stateless/Board/Board';
 import Scene from '../Stateful/Scene/Scene';
 import SpritesLoader from '../Stateful/SpritesLoader/SpritesLoader';
@@ -10,8 +12,8 @@ import SceneControls from '../Stateful/SceneControls/SceneControls';
 
 class App extends Component {
   render() {
-    const width = 5;
-    const height = 5;
+    const width = map.grounds.length;
+    const height = map.grounds[0].length;
 
     return (
       <div className="App">
@@ -24,7 +26,13 @@ class App extends Component {
               scale={1}
               styles={{top: 0, right: 0, bottom: 100, left: 0}}
             >
-              <Board size={boardSettings.size} settings={settings}/>
+              <Board
+                width={width}
+                height={height}
+                map={map}
+                size={boardSettings.size}
+                settings={settings}
+              />
             </Scene>
           )}
         </SpritesLoader>

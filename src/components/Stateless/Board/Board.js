@@ -1,25 +1,46 @@
 import React, { Component } from 'react';
-
-import data from './Board.json';
+import { addIndex, map, pipe, unnest } from 'ramda';
 
 class Board extends Component {
 
-  render() {
-    const { settings, size } = this.props;
+  componentAround = (line, x, grounds) => {
+    const { width, height } = this.props;
+    return line.map((cell, y) => {
+      cell.props.back = (cell.props.x > 0 && cell.component === grounds[x - 1][y].component);
+      cell.props.front = (cell.props.x < width - 1 && cell.component === grounds[x + 1][y].component);
+      cell.props.left = (cell.props.y > 0 && cell.component === grounds[x][y - 1].component);
+      cell.props.right = (cell.props.y < height - 1 && cell.component === grounds[x][y + 1].component);
+      return cell;
+    });
+  };
 
-    const blocks = data.grounds
-      .map((line, x) =>
-        line.map((cell, y) => {
-          const componentSettings = settings[cell[0]];
-          const Component = componentSettings.component;
-          return <Component key={x + '-' + y} x={x} y={y} size={size} settings={componentSettings}/>
-        })
-      )
-      .reduce((acc, arr) => acc.concat(arr), []);
+  componentCreate = (cell) => {
+    const Component = cell.component;
+    return (<Component {...cell.props}/>);
+  };
+
+  componentPrepate = (line, x) => {
+    const { settings, size } = this.props;
+    return line.map((cell, y) => {
+      const componentSettings = settings[cell[0]];
+      return {
+        component: componentSettings.component,
+        props: {x, y, key: `${x}-${y}`, size, settings: componentSettings}
+      }
+    });
+  };
+
+  render() {
+    const grounds = pipe(
+      addIndex(map)(this.componentPrepate),
+      grounds => grounds.map(this.componentAround),
+      unnest,
+      map(this.componentCreate)
+    )(this.props.map.grounds);
 
     return (
       <div className="Board">
-        {blocks}
+        {grounds}
       </div>
     );
   }
