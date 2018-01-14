@@ -98,11 +98,11 @@ class Scene extends Component {
     }
 
     return (
-      <div className="Scene" style={styles}>
-        <div className="Scene__container" style={sceneContainerStyles} ref={this.initElement}>
-          <div className="Scene__zoom" style={sceneZoomStyles}>
-            <div className="Scene__3d" style={scene3dStyles}>
-              <div className="Scene__inner" style={sceneInnerStyles}>
+      <div className="Scene pos-abs" style={styles}>
+        <div className="Scene__container pos-abs" style={sceneContainerStyles} ref={this.initElement}>
+          <div className="Scene__zoom pos-abs" style={sceneZoomStyles}>
+            <div className="Scene__3d pos-abs" style={scene3dStyles}>
+              <div className="Scene__inner pos-abs" style={sceneInnerStyles}>
                 {this.props.children}
               </div>
             </div>

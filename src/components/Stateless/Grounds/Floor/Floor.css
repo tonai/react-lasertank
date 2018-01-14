@@ -1,9 +1,0 @@
-.Floor {
-  position: absolute;
-  transform-style: preserve-3d;
-}
-
-.Floor__side {
-  position: absolute;
-  transform-style: preserve-3d;
-}

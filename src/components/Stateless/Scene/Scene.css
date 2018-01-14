@@ -1,13 +1,4 @@
 .Scene,
-.Scene__container,
-.Scene__zoom,
-.Scene__3d,
-.Scene__inner {
-  position: absolute;
-  transform-style: preserve-3d;
-}
-
-.Scene,
 .Scene__container {
   top: 0;
   right: 0;

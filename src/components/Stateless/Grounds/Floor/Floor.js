@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import './Floor.css';
-
 class Floor extends Component {
 
   render() {
@@ -18,29 +16,29 @@ class Floor extends Component {
     };
 
     return (
-      <div className="Floor" style={styles}>
+      <div className="Floor pos-abs" style={styles}>
         <div
-          className="Floor__side side--front"
+          className="Floor__side side--front pos-abs"
           style={{...floorStyles, ...settings.sideStyles, transform: `rotateX(-90deg) rotateY(90deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
         />
         <div
-          className="Floor__side side--back"
+          className="Floor__side side--back pos-abs"
           style={{...floorStyles, ...settings.sideStyles, transform: `rotateY(90deg) rotateZ(-90deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
         />
         <div
-          className="Floor__side side--left"
+          className="Floor__side side--left pos-abs"
           style={{...floorStyles, ...settings.sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
         />
         <div
-          className="Floor__side side--right"
+          className="Floor__side side--right pos-abs"
           style={{...floorStyles, ...settings.sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
         />
         <div
-          className="Floor__side side--top"
+          className="Floor__side side--top pos-abs"
           style={{...floorStyles, ...settings.topStyles, transform: `rotateZ(180deg) translateZ(${size}px)`}}
         />
         <div
-          className="Floor__side side--bottom"
+          className="Floor__side side--bottom pos-abs"
           style={{...floorStyles, backgroundImage: null, background: 'black'}}
         />
       </div>
