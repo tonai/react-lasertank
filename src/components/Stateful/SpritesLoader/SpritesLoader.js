@@ -10,7 +10,7 @@ class SpritesLoader extends Component {
   componentDidMount() {
     const settings = mapObjIndexed(settings => ({...settings}))(this.props.settings);
     const settingsArray = values(settings);
-    const promises = settingsArray.map(ground => import(`../../${ground.spritePath}`));
+    const promises = settingsArray.map(ground => import(`../../../${ground.spritePath}`));
     Promise.all(promises)
       .then(sources => sources.forEach((src, index) => settingsArray[index].spriteSrc = src))
       .then(() => this.setState({settings}));

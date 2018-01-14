@@ -1,7 +1,7 @@
 import boardSettings from './board';
 import generalSettings from './general';
 
-import Floor from '../components/Grounds/Floor/Floor';
+import Floor from '../components/Stateless/Grounds/Floor/Floor';
 
 export default {
   floor: {

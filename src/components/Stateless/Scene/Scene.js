@@ -36,8 +36,7 @@ class Scene extends Component {
   };
 
   render() {
-    const size = this.props.size;
-    const scale = this.props.scale;
+    const { scale, size, styles } = this.props;
     const width = this.props.width * this.props.size;
     const height = this.props.height * this.props.size;
     const containerWidth = this.state.containerWidth;
@@ -88,7 +87,7 @@ class Scene extends Component {
     }
 
     return (
-      <div className="Scene">
+      <div className="Scene" style={styles}>
         <div className="Scene__container" style={sceneContainerStyles} ref={this.initElement}>
           <div className="Scene__zoom" style={sceneZoomStyles}>
             <div className="Scene__3d" style={scene3dStyles}>
