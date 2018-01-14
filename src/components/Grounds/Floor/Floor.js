@@ -4,18 +4,8 @@ import './Floor.css';
 
 class Floor extends Component {
 
-  state = {
-    src: null
-  };
-
-  componentDidMount() {
-    import(`../../../${this.props.settings.sprite}`)
-      .then(src => this.setState({src}));
-  }
-
   render() {
     const { settings, size, x, y } = this.props;
-    const { src } = this.state;
 
     const styles = {
       transform: `translateX(${x * size}px) translateY(${y * size}px)`
@@ -24,7 +14,7 @@ class Floor extends Component {
     const floorStyles = {
       width: size,
       height: size,
-      backgroundImage: `url(${src})`
+      backgroundImage: `url(${settings.spriteSrc})`
     };
 
     return (

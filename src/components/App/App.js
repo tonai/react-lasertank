@@ -5,6 +5,7 @@ import groundsSettings from '../../settings/grounds';
 
 import Board from '../Board/Board';
 import Scene from '../Scene/Scene';
+import SpritesLoader from '../SpritesLoader/SpritesLoader';
 
 class App extends Component {
   render() {
@@ -13,9 +14,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Scene width={width} height={height} size={boardSettings.size} scale={1} xAngle={45} zAngle={45}>
-          <Board width={width} height={height} size={boardSettings.size} settings={groundsSettings}/>
-        </Scene>
+        <SpritesLoader settings={groundsSettings}>
+          {settings => (
+            <Scene width={width} height={height} size={boardSettings.size} scale={1} xAngle={45} zAngle={45}>
+              <Board width={width} height={height} size={boardSettings.size} settings={settings}/>
+            </Scene>
+          )}
+        </SpritesLoader>
       </div>
     );
   }

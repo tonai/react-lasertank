@@ -3,7 +3,7 @@ import generalSettings from './general';
 
 export default {
   floor: {
-    sprite: `${generalSettings.spritesDir}Inside_A4.png`,
+    spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
     topStyles: {
       backgroundPosition: `0px -${boardSettings.size / 2}px`
     },
