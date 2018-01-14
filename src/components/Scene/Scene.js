@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 
-import './Board.css';
+import './Scene.css';
 
-import Wall from '../Blocks/Wall/Wall';
+import Wall from '../Grounds/Floor/Floor';
 
-const scrollBarWidth = 25;
-
-class Board extends Component {
+class Scene extends Component {
 
   constructor(props) {
     super(props);
@@ -45,8 +43,12 @@ class Board extends Component {
 
   render() {
     const size = this.props.size;
+    const scale = this.props.scale;
     const width = this.props.width * this.props.size;
     const height = this.props.height * this.props.size;
+    const containerWidth = this.state.containerWidth;
+    const containerHeight = this.state.containerHeight;
+
     const a = this.props.zAngle * Math.PI / 180;
     const b = this.props.xAngle * Math.PI / 180;
     const max = Math.max(width, height);
@@ -56,40 +58,39 @@ class Board extends Component {
     const L = l * 2 + max;
     const H = L * Math.cos(b);
 
-    const isWider = this.state.containerWidth && L * this.props.scale > this.state.containerWidth;
-    const isHigher = this.state.containerHeight && H * this.props.scale > this.state.containerHeight;
-    const containerWidth = isHigher ? this.state.containerWidth - scrollBarWidth : this.state.containerWidth;
-    const containerHeight = isWider ? this.state.containerHeight - scrollBarWidth : this.state.containerHeight;
+    const isWider = containerWidth && L * scale > containerWidth;
+    const isHigher = containerHeight && H * scale > containerHeight;
 
-    const boardZoomStyles = {
-      position: 'absolute',
-      width: `${max}px`,
-      height: `${max}px`,
-      transform: `translateX(-50%) translateY(-50%) scale3d(${this.props.scale}, ${this.props.scale}, ${this.props.scale})`,
-      top: '50%',
-      left: '50%'
+    const sceneContainerStyles = {
+      marginTop: 2 * size * scale * Math.cos(b)
     };
 
-    const boardSceneStyles = {
+    const sceneZoomStyles = {
+      width: `${max}px`,
+      height: `${max}px`,
+      transform: `translateX(-50%) translateY(-50%) scale3d(${scale}, ${scale}, ${scale})`
+    };
+
+    const scene3dStyles = {
       width: `${max}px`,
       height: `${max}px`,
       backgroundColor: `rgba(0,0,0,0.5)`,
       transform: `rotateX(${b}rad) rotateZ(${a}rad)`
     };
 
-    const boardInnerStyles = {
+    const sceneInnerStyles = {
       width: `${width}px`,
       height: `${height}px`
     };
 
     if (isWider) {
-      boardSceneStyles.left = l;
-      boardZoomStyles.marginLeft = max * this.props.scale / 2 - containerWidth / 2;
+      scene3dStyles.left = l;
+      sceneZoomStyles.marginLeft = max * scale / 2 - containerWidth / 2;
     }
 
     if (isHigher) {
-      boardSceneStyles.top = (H - max) / 2;
-      boardZoomStyles.marginTop = max * this.props.scale / 2 - containerHeight / 2;
+      scene3dStyles.top = (H - max) / 2;
+      sceneZoomStyles.marginTop = max * scale / 2 - containerHeight / 2;
     }
 
     const blocks = this.makeArray(0, this.props.width)
@@ -101,20 +102,20 @@ class Board extends Component {
       .reduce((acc, arr) => acc.concat(arr), []);
 
     return (
-      <div className="Board" ref={this.initElement}>
-        <div className="Board__zoom" style={boardZoomStyles}>
-          <div className="Board__scene" style={boardSceneStyles}>
-            <div className="Board__inner" style={boardInnerStyles}>
-              {blocks}
+      <div className="Scene">
+        <div className="Scene__container" style={sceneContainerStyles} ref={this.initElement}>
+          <div className="Scene__zoom" style={sceneZoomStyles}>
+            <div className="Scene__3d" style={scene3dStyles}>
+              <div className="Scene__inner" style={sceneInnerStyles}>
+                {blocks}
+              </div>
             </div>
           </div>
         </div>
-        <div style={{position:'absolute',left:'50%', width:'2px',top:0,bottom:0,marginLeft:'-1px', backgroundColor:'rgba(255,0,0,0.5)'}}></div>
-        <div style={{position:'absolute',top:'50%', height:'2px',left:0,right:0,marginTop:'-1px', backgroundColor:'rgba(255,0,0,0.5)'}}></div>
       </div>
     );
   }
 
 }
 
-export default Board;
+export default Scene;

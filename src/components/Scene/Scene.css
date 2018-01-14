@@ -1,0 +1,30 @@
+.Scene,
+.Scene__container,
+.Scene__zoom,
+.Scene__3d,
+.Scene__inner {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.Scene,
+.Scene__container {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.Scene {
+  overflow: auto;
+}
+
+.Scene__zoom,
+.Scene__inner {
+  top: 50%;
+  left: 50%;
+}
+
+.Scene__inner {
+  transform: translateX(-50%) translateY(-50%);
+}

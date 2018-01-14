@@ -1,9 +1,9 @@
-.Wall {
+.Floor {
   position: absolute;
   transform-style: preserve-3d;
 }
 
-.Wall__side {
+.Floor__side {
   position: absolute;
   transform-style: preserve-3d;
   transform-origin: 0 0;
