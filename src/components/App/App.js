@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 
-import Board from '../Scene/Scene';
+import boardSettings from '../../settings/board';
+import groundsSettings from '../../settings/grounds';
+
+import Board from '../Board/Board';
+import Scene from '../Scene/Scene';
 
 class App extends Component {
   render() {
+    const width = 5;
+    const height = 5;
+
     return (
       <div className="App">
-        <Board size={64} width={10} height={10} zAngle={45} xAngle={45} scale={1.1}/>
+        <Scene width={width} height={height} size={boardSettings.size} scale={1} xAngle={45} zAngle={45}>
+          <Board width={width} height={height} size={boardSettings.size} settings={groundsSettings}/>
+        </Scene>
       </div>
     );
   }

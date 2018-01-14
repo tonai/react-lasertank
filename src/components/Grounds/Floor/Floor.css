@@ -6,29 +6,4 @@
 .Floor__side {
   position: absolute;
   transform-style: preserve-3d;
-  transform-origin: 0 0;
-}
-
-.side--front {
-  background-color: rgba(255,0,0,0.5);
-}
-
-.side--back {
-  background-color: rgba(0,255,0,0.5);
-}
-
-.side--left {
-  background-color: rgba(0,0,255,0.5);
-}
-
-.side--right {
-  background-color: rgba(255,255,0,0.5);
-}
-
-.side--top {
-  background-color: rgba(255,0,255,0.5);
-}
-
-.side--bottom {
-  background-color: rgba(0,255,255,0.5);
 }

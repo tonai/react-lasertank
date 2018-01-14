@@ -3,27 +3,60 @@ import React, { Component } from 'react';
 import './Floor.css';
 
 class Floor extends Component {
+
+  state = {
+    src: null
+  };
+
+  componentDidMount() {
+    import(`../../../${this.props.settings.sprite}`)
+      .then(src => this.setState({src}));
+  }
+
   render() {
+    const { settings, size, x, y } = this.props;
+    const { src } = this.state;
+
     const styles = {
-      transform: `translateX(${this.props.x * this.props.size}px) translateY(${this.props.y * this.props.size}px)`
+      transform: `translateX(${x * size}px) translateY(${y * size}px)`
     };
 
     const floorStyles = {
-      width: this.props.size,
-      height: this.props.size
+      width: size,
+      height: size,
+      backgroundImage: `url(${src})`
     };
 
     return (
       <div className="Floor" style={styles}>
-        <div className="Floor__side side--front" style={{...floorStyles, transform: `rotateY(-90deg) translateZ(-${this.props.size}px)`}}></div>
-        <div className="Floor__side side--back" style={{...floorStyles, transform: 'rotateY(-90deg)'}}></div>
-        <div className="Floor__side side--left" style={{...floorStyles, transform: 'rotateX(90deg)'}}></div>
-        <div className="Floor__side side--right" style={{...floorStyles, transform: `rotateX(90deg) translateZ(-${this.props.size}px)`}}></div>
-        <div className="Floor__side side--top" style={{...floorStyles, transform: `translateZ(${this.props.size}px)`}}></div>
-        <div className="Floor__side side--bottom" style={floorStyles}></div>
+        <div
+          className="Floor__side side--front"
+          style={{...floorStyles, ...settings.sideStyles, transform: `rotateX(-90deg) rotateY(90deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
+        />
+        <div
+          className="Floor__side side--back"
+          style={{...floorStyles, ...settings.sideStyles, transform: `rotateY(90deg) rotateZ(-90deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
+        />
+        <div
+          className="Floor__side side--left"
+          style={{...floorStyles, ...settings.sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
+        />
+        <div
+          className="Floor__side side--right"
+          style={{...floorStyles, ...settings.sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
+        />
+        <div
+          className="Floor__side side--top"
+          style={{...floorStyles, ...settings.topStyles, transform: `rotateZ(180deg) translateZ(${size}px)`}}
+        />
+        <div
+          className="Floor__side side--bottom"
+          style={{...floorStyles, backgroundImage: null, background: 'black'}}
+        />
       </div>
     );
   }
+
 }
 
 Floor.defaultProps = {

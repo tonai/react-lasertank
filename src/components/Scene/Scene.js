@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import './Scene.css';
 
-import Wall from '../Grounds/Floor/Floor';
-
 class Scene extends Component {
 
   constructor(props) {
@@ -36,10 +34,6 @@ class Scene extends Component {
       containerHeight: this.el.offsetHeight
     });
   };
-
-  makeArray(from, to) {
-    return Array.apply(null, new Array(to - from)).map(() => from++)
-  }
 
   render() {
     const size = this.props.size;
@@ -93,21 +87,13 @@ class Scene extends Component {
       sceneZoomStyles.marginTop = max * scale / 2 - containerHeight / 2;
     }
 
-    const blocks = this.makeArray(0, this.props.width)
-      .map(x =>
-        this.makeArray(0, this.props.height).map(y =>
-          <Wall key={x + '-' + y} x={x} y={y} size={size}/>
-        )
-      )
-      .reduce((acc, arr) => acc.concat(arr), []);
-
     return (
       <div className="Scene">
         <div className="Scene__container" style={sceneContainerStyles} ref={this.initElement}>
           <div className="Scene__zoom" style={sceneZoomStyles}>
             <div className="Scene__3d" style={scene3dStyles}>
               <div className="Scene__inner" style={sceneInnerStyles}>
-                {blocks}
+                {this.props.children}
               </div>
             </div>
           </div>
