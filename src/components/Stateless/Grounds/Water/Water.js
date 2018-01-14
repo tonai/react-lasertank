@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 class Water extends Component {
 
   render() {
-    const { back, front, left, right, settings, size, x, y } = this.props;
-
-    const styles = {
-      transform: `translateX(${x * size}px) translateY(${y * size}px)`
-    };
+    const { back, front, left, right, settings, size, styles } = this.props;
 
     const sideStyles = {
       width: size,

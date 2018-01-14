@@ -25,7 +25,15 @@ class Board extends Component {
       const componentSettings = settings[cell[0]];
       return {
         component: componentSettings.component,
-        props: {x, y, key: `${x}-${y}`, size, settings: componentSettings}
+        props: {
+          x,
+          y,
+          key: `${x}-${y}`,
+          size,
+          settings:
+          componentSettings,
+          styles: {transform: `translateX(${x * size}px) translateY(${y * size}px)`}
+        }
       }
     });
   };

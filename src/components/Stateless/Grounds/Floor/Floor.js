@@ -3,11 +3,7 @@ import React, { Component } from 'react';
 class Floor extends Component {
 
   render() {
-    const { settings, size, x, y } = this.props;
-
-    const styles = {
-      transform: `translateX(${x * size}px) translateY(${y * size}px)`
-    };
+    const { settings, size, styles } = this.props;
 
     const sideStyles = {
       width: size,
