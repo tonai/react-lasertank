@@ -35,6 +35,15 @@ class Scene extends Component {
     });
   };
 
+  modulo(value, modulo) {
+    if (value > modulo) {
+      return this.modulo(value - modulo, modulo);
+    } else if (value < 0) {
+      return this.modulo(value + modulo, modulo)
+    }
+    return value;
+  }
+
   render() {
     const { scale, size, styles } = this.props;
     const width = this.props.width * this.props.size;
@@ -43,19 +52,21 @@ class Scene extends Component {
     const containerHeight = this.state.containerHeight;
 
     const a = this.props.zAngle * Math.PI / 180;
+    const aModulo = this.modulo(a, Math.PI / 2);
     const b = this.props.xAngle * Math.PI / 180;
+    const bModulo = this.modulo(b, Math.PI / 2);
     const max = Math.max(width, height);
 
-    const x = max / (1 + 1 / Math.sin(a) + 1 / Math.tan(a));
-    const l = x * Math.cos(a);
+    const x = max / (1 + 1 / Math.sin(aModulo) + 1 / Math.tan(aModulo));
+    const l = x * Math.cos(aModulo);
     const L = l * 2 + max;
-    const H = L * Math.cos(b);
+    const H = L * Math.cos(bModulo);
 
     const isWider = containerWidth && L * scale > containerWidth;
     const isHigher = containerHeight && H * scale > containerHeight;
 
     const sceneContainerStyles = {
-      marginTop: 2 * size * scale * Math.cos(b)
+      marginTop: 2 * size * scale * Math.cos(bModulo)
     };
 
     const sceneZoomStyles = {
