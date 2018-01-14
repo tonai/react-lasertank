@@ -17,7 +17,7 @@ class App extends Component {
         <SpritesLoader settings={groundsSettings}>
           {settings => (
             <Scene width={width} height={height} size={boardSettings.size} scale={1} xAngle={45} zAngle={45}>
-              <Board width={width} height={height} size={boardSettings.size} settings={settings}/>
+              <Board size={boardSettings.size} settings={settings}/>
             </Scene>
           )}
         </SpritesLoader>
