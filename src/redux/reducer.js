@@ -1,8 +1,9 @@
-import { X_ANGLE_CHANGE, Z_ANGLE_CHANGE } from './actions';
+import { X_ANGLE_CHANGE, Z_ANGLE_CHANGE, ZOOM_CHANGE } from './actions';
 
 const initialState = {
   xAngle : 45,
   zAngle: 45,
+  zoom: 1
 };
 
 export default function reducer(state = initialState, action) {
@@ -17,6 +18,12 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         zAngle: action.value
+      };
+
+    case ZOOM_CHANGE:
+      return {
+        ...state,
+        zoom: action.value
       };
 
     default:

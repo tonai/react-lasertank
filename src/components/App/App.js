@@ -23,7 +23,6 @@ class App extends Component {
               width={width}
               height={height}
               size={boardSettings.size}
-              scale={1}
               styles={{top: 0, right: 0, bottom: 100, left: 0}}
             >
               <Board
