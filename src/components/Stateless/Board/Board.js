@@ -7,7 +7,11 @@ class Board extends Component {
     const { width, height } = this.props;
     return line.map((cell, y) => {
       cell.props.back = (cell.props.x > 0 && cell.component === grounds[x - 1][y].component);
+      cell.props.backLeft = (cell.props.x > 0 && cell.props.y > 0 && cell.component === grounds[x - 1][y - 1].component);
+      cell.props.backRight = (cell.props.x > 0 && cell.props.y < height - 1 && cell.component === grounds[x - 1][y + 1].component);
       cell.props.front = (cell.props.x < width - 1 && cell.component === grounds[x + 1][y].component);
+      cell.props.frontLeft = (cell.props.x < width - 1 && cell.props.y > 0 && cell.component === grounds[x + 1][y - 1].component);
+      cell.props.frontRight = (cell.props.x < width - 1 && cell.props.y < height - 1 && cell.component === grounds[x + 1][y + 1].component);
       cell.props.left = (cell.props.y > 0 && cell.component === grounds[x][y - 1].component);
       cell.props.right = (cell.props.y < height - 1 && cell.component === grounds[x][y + 1].component);
       return cell;
