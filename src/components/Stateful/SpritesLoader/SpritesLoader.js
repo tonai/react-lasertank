@@ -12,7 +12,15 @@ class SpritesLoader extends Component {
     const settingsArray = values(settings);
     const promises = settingsArray.map(ground => import(`../../../${ground.spritePath}`));
     Promise.all(promises)
-      .then(sources => sources.forEach((src, index) => settingsArray[index].spriteSrc = src))
+      .then(sources => sources.map((src, index) => settingsArray[index].spriteSrc = src))
+      .then(() => settingsArray.map(settings => new Promise((resolve, reject) => {
+        const image = new Image();
+        image.onload = () => resolve(image);
+        image.onerror = reject;
+        image.src = settings.spriteSrc;
+      })))
+      .then(promises => Promise.all(promises))
+      .then(images => images.map((image, index) => settingsArray[index].spriteImage = image))
       .then(() => this.setState({settings}));
   }
 

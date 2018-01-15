@@ -2,119 +2,341 @@ import React, { Component } from 'react';
 
 class Block extends Component {
 
-  render() {
+  drawFront = (canvas) => {
+    const { bottom, frontLeft, frontRight, left, right } = this.props;
+    const context = canvas.getContext('2d');
+    context.putImageData(this.data.frontTopLeft0, 16, 0);
+    context.putImageData(this.data.frontTopRight0, 32, 0);
+    if (right || frontRight) {
+      context.putImageData(this.data.frontTopRight0, 0, 0);
+    } else {
+      context.putImageData(this.data.frontTopRight1, 0, 0);
+    }
+    if (left || frontLeft) {
+      context.putImageData(this.data.frontTopLeft0, 48, 0);
+    } else {
+      context.putImageData(this.data.frontTopLeft1, 48, 0);
+    }
+    if (bottom) {
+      context.putImageData(this.data.frontTopLeft0, 16, 32);
+      context.putImageData(this.data.frontTopRight0, 32, 32);
+      if (right || frontRight) {
+        context.putImageData(this.data.frontTopRight0, 0, 32);
+      } else {
+        context.putImageData(this.data.frontTopRight1, 0, 32);
+      }
+      if (left || frontLeft) {
+        context.putImageData(this.data.frontTopLeft0, 48, 32);
+      } else {
+        context.putImageData(this.data.frontTopLeft1, 48, 32);
+      }
+    } else {
+      context.putImageData(this.data.frontBottomLeft0, 16, 32);
+      context.putImageData(this.data.frontBottomRight0, 32, 32);
+      if (right || frontRight) {
+        context.putImageData(this.data.frontBottomRight0, 0, 32);
+      } else {
+        context.putImageData(this.data.frontBottomRight1, 0, 32);
+      }
+      if (left || frontLeft) {
+        context.putImageData(this.data.frontBottomLeft0, 48, 32);
+      } else {
+        context.putImageData(this.data.frontBottomLeft1, 48, 32);
+      }
+    }
+  };
+
+  drawBack = (canvas) => {
+    const { backLeft, backRight, bottom, left, right } = this.props;
+    const context = canvas.getContext('2d');
+    context.putImageData(this.data.frontTopLeft0, 16, 0);
+    context.putImageData(this.data.frontTopRight0, 32, 0);
+    if (right || backRight) {
+      context.putImageData(this.data.frontTopRight0, 0, 0);
+    } else {
+      context.putImageData(this.data.frontTopRight1, 0, 0);
+    }
+    if (left || backLeft) {
+      context.putImageData(this.data.frontTopLeft0, 48, 0);
+    } else {
+      context.putImageData(this.data.frontTopLeft1, 48, 0);
+    }
+    if (bottom) {
+      context.putImageData(this.data.frontTopLeft0, 16, 32);
+      context.putImageData(this.data.frontTopRight0, 32, 32);
+      if (right || backRight) {
+        context.putImageData(this.data.frontTopRight0, 0, 32);
+      } else {
+        context.putImageData(this.data.frontTopRight1, 0, 32);
+      }
+      if (left || backLeft) {
+        context.putImageData(this.data.frontTopLeft0, 48, 32);
+      } else {
+        context.putImageData(this.data.frontTopLeft1, 48, 32);
+      }
+    } else {
+      context.putImageData(this.data.frontBottomLeft0, 16, 32);
+      context.putImageData(this.data.frontBottomRight0, 32, 32);
+      if (right || backRight) {
+        context.putImageData(this.data.frontBottomRight0, 0, 32);
+      } else {
+        context.putImageData(this.data.frontBottomRight1, 0, 32);
+      }
+      if (left || backLeft) {
+        context.putImageData(this.data.frontBottomLeft0, 48, 32);
+      } else {
+        context.putImageData(this.data.frontBottomLeft1, 48, 32);
+      }
+    }
+  };
+
+  drawRight = (canvas) => {
+    const { back, backRight, bottom, front, frontRight } = this.props;
+    const context = canvas.getContext('2d');
+    context.putImageData(this.data.frontTopLeft0, 16, 0);
+    context.putImageData(this.data.frontTopRight0, 32, 0);
+    if (front || frontRight) {
+      context.putImageData(this.data.frontTopRight0, 0, 0);
+    } else {
+      context.putImageData(this.data.frontTopRight1, 0, 0);
+    }
+    if (back || backRight) {
+      context.putImageData(this.data.frontTopLeft0, 48, 0);
+    } else {
+      context.putImageData(this.data.frontTopLeft1, 48, 0);
+    }
+    if (bottom) {
+      context.putImageData(this.data.frontTopLeft0, 16, 32);
+      context.putImageData(this.data.frontTopRight0, 32, 32);
+      if (front || frontRight) {
+        context.putImageData(this.data.frontTopRight0, 0, 32);
+      } else {
+        context.putImageData(this.data.frontTopRight1, 0, 32);
+      }
+      if (back || backRight) {
+        context.putImageData(this.data.frontTopLeft0, 48, 32);
+      } else {
+        context.putImageData(this.data.frontTopLeft1, 48, 32);
+      }
+    } else {
+      context.putImageData(this.data.frontBottomLeft0, 16, 32);
+      context.putImageData(this.data.frontBottomRight0, 32, 32);
+      if (front || frontRight) {
+        context.putImageData(this.data.frontBottomRight0, 0, 32);
+      } else {
+        context.putImageData(this.data.frontBottomRight1, 0, 32);
+      }
+      if (back || backRight) {
+        context.putImageData(this.data.frontBottomLeft0, 48, 32);
+      } else {
+        context.putImageData(this.data.frontBottomLeft1, 48, 32);
+      }
+    }
+  };
+
+  drawLeft = (canvas) => {
+    const { back, backLeft, bottom, front, frontLeft } = this.props;
+    const context = canvas.getContext('2d');
+    context.putImageData(this.data.frontTopLeft0, 16, 0);
+    context.putImageData(this.data.frontTopRight0, 32, 0);
+    if (front || frontLeft) {
+      context.putImageData(this.data.frontTopRight0, 0, 0);
+    } else {
+      context.putImageData(this.data.frontTopRight1, 0, 0);
+    }
+    if (back || backLeft) {
+      context.putImageData(this.data.frontTopLeft0, 48, 0);
+    } else {
+      context.putImageData(this.data.frontTopLeft1, 48, 0);
+    }
+    if (bottom) {
+      context.putImageData(this.data.frontTopLeft0, 16, 32);
+      context.putImageData(this.data.frontTopRight0, 32, 32);
+      if (front || frontLeft) {
+        context.putImageData(this.data.frontTopRight0, 0, 32);
+      } else {
+        context.putImageData(this.data.frontTopRight1, 0, 32);
+      }
+      if (back || backLeft) {
+        context.putImageData(this.data.frontTopLeft0, 48, 32);
+      } else {
+        context.putImageData(this.data.frontTopLeft1, 48, 32);
+      }
+    } else {
+      context.putImageData(this.data.frontBottomLeft0, 16, 32);
+      context.putImageData(this.data.frontBottomRight0, 32, 32);
+      if (front || frontLeft) {
+        context.putImageData(this.data.frontBottomRight0, 0, 32);
+      } else {
+        context.putImageData(this.data.frontBottomRight1, 0, 32);
+      }
+      if (back || backLeft) {
+        context.putImageData(this.data.frontBottomLeft0, 48, 32);
+      } else {
+        context.putImageData(this.data.frontBottomLeft1, 48, 32);
+      }
+    }
+  };
+
+  drawTop = (canvas) => {
     const { back, backLeft, backRight, front, frontLeft, frontRight, left, right, settings, size, styles } = this.props;
+    const context = canvas.getContext('2d');
+    context.putImageData(this.data.topFrontRight0, 16, 16);
+    context.putImageData(this.data.topFrontLeft0, 32, 16);
+    context.putImageData(this.data.topBackRight0, 16, 32);
+    context.putImageData(this.data.topBackLeft0, 32, 32);
+    if (front) {
+      context.putImageData(this.data.topFrontRight0, 16, 48);
+      context.putImageData(this.data.topFrontLeft0, 32, 48);
+      if (right) {
+        frontRight ? context.putImageData(this.data.topFrontRight0, 0, 48) : context.putImageData(this.data.topFrontRight1, 0, 48);
+      } else {
+        context.putImageData(this.data.topFrontRight2, 0, 48)
+      }
+      if (left) {
+        frontLeft ? context.putImageData(this.data.topFrontLeft0, 48, 48) : context.putImageData(this.data.topFrontLeft1, 48, 48);
+      } else {
+        context.putImageData(this.data.topFrontLeft2, 48, 48)
+      }
+    } else {
+      context.putImageData(this.data.topFrontRight3, 16, 48);
+      context.putImageData(this.data.topFrontLeft3, 32, 48);
+      if (right) {
+        context.putImageData(this.data.topFrontRight3, 0, 48)
+      } else {
+        context.putImageData(this.data.topFrontRight4, 0, 48)
+      }
+      if (left) {
+        context.putImageData(this.data.topFrontLeft3, 48, 48)
+      } else {
+        context.putImageData(this.data.topFrontLeft4, 48, 48)
+      }
+    }
+    if (back) {
+      context.putImageData(this.data.topBackRight0, 16, 0);
+      context.putImageData(this.data.topBackLeft0, 32, 0);
+      if (right) {
+        backRight ? context.putImageData(this.data.topBackRight0, 0, 0) : context.putImageData(this.data.topBackRight1, 0, 0);
+      } else {
+        context.putImageData(this.data.topBackRight2, 0, 0);
+      }
+      if (left) {
+        backLeft ? context.putImageData(this.data.topBackLeft0, 48, 0) : context.putImageData(this.data.topBackLeft1, 48, 0);
+      } else {
+        context.putImageData(this.data.topBackLeft2, 48, 0);
+      }
+    } else {
+      context.putImageData(this.data.topBackRight3, 16, 0);
+      context.putImageData(this.data.topBackLeft3, 32, 0);
+      if (right) {
+        context.putImageData(this.data.topBackRight3, 0, 0);
+      } else {
+        context.putImageData(this.data.topBackRight4, 0, 0);
+      }
+      if (left) {
+        context.putImageData(this.data.topBackLeft3, 48, 0);
+      } else {
+        context.putImageData(this.data.topBackLeft4, 48, 0);
+      }
+    }
+    if (left) {
+      context.putImageData(this.data.topFrontLeft0, 48, 16);
+      context.putImageData(this.data.topBackLeft0, 48, 32);
+    } else {
+      context.putImageData(this.data.topFrontLeft2, 48, 16);
+      context.putImageData(this.data.topBackLeft2, 48, 32);
+    }
+    if (right) {
+      context.putImageData(this.data.topFrontRight0, 0, 16);
+      context.putImageData(this.data.topBackRight0, 0, 32);
+    } else {
+      context.putImageData(this.data.topFrontRight2, 0, 16);
+      context.putImageData(this.data.topBackRight2, 0, 32);
+    }
+  };
 
-    const sideStyles = {
-      width: size,
-      height: size
+  componentWillMount() {
+    this.canvas = document.createElement('canvas');
+    this.context = this.canvas.getContext('2d');
+    this.prepareImageData();
+  }
+
+  prepareImageData() {
+    const { width, height } = this.props.settings.spriteImage;
+    this.canvas.width = width;
+    this.canvas.height = height;
+    this.context.drawImage(this.props.settings.spriteImage, 0, 0);
+
+    this.data = {
+      topFrontRight0: this.context.getImageData(32, 48, 16, 16), // front && right && frontRight
+      topFrontRight1: this.context.getImageData(32, 16, 16, 16), // front && right && !frontRight
+      topFrontRight2: this.context.getImageData(0, 48, 16, 16), // front && !right
+      topFrontRight3: this.context.getImageData(32, 80, 16, 16), // !front && right
+      topFrontRight4: this.context.getImageData(0, 80, 16, 16), // !front && !right
+      topBackRight0: this.context.getImageData(32, 64, 16, 16), // back && right && backRight
+      topBackRight1: this.context.getImageData(32, 0, 16, 16), // back && right && !backRight
+      topBackRight2: this.context.getImageData(0, 64, 16, 16), // back && !right
+      topBackRight3: this.context.getImageData(32, 32, 16, 16), // !back && right
+      topBackRight4: this.context.getImageData(0, 32, 16, 16), // !back && !right
+      topFrontLeft0: this.context.getImageData(16, 48, 16, 16), // front && left && frontLeft
+      topFrontLeft1: this.context.getImageData(48, 16, 16, 16), // front && left && !frontLeft
+      topFrontLeft2: this.context.getImageData(48, 48, 16, 16), // front && !left
+      topFrontLeft3: this.context.getImageData(16, 80, 16, 16), // !front && left
+      topFrontLeft4: this.context.getImageData(48, 80, 16, 16), // !front && !left
+      topBackLeft0: this.context.getImageData(16, 64, 16, 16), // back && left && backLeft
+      topBackLeft1: this.context.getImageData(48, 0, 16, 16), // back && left && !backLeft
+      topBackLeft2: this.context.getImageData(48, 64, 16, 16), // back && !left
+      topBackLeft3: this.context.getImageData(16, 32, 16, 16), // !back && left
+      topBackLeft4: this.context.getImageData(48, 32, 16, 16), // !back && !left
+      frontTopRight0: this.context.getImageData(32, 96, 16, 32), // right
+      frontTopRight1: this.context.getImageData(0, 96, 16, 32), // !right
+      frontBottomRight0: this.context.getImageData(32, 128, 16, 32), // right
+      frontBottomRight1: this.context.getImageData(0, 128, 16, 32), // !right
+      frontTopLeft0: this.context.getImageData(16, 96, 16, 32), // left
+      frontTopLeft1: this.context.getImageData(48, 96, 16, 32), // !left
+      frontBottomLeft0: this.context.getImageData(16, 128, 16, 32), // left
+      frontBottomLeft1: this.context.getImageData(48, 128, 16, 32), // !left
     };
+  }
 
-    const sidePartStyles = {
-      width: size / 2,
-      height: size / 2,
-      backgroundImage: `url(${settings.spriteSrc})`
-    };
-
-    const frontTopRightPos = right || frontRight ? `${- size * 2 / 2}px ${- size * 6 / 2}px` : `0px ${- size * 6 / 2}px`;
-    const frontBottomRightPos = right || frontRight ? `${- size * 2 / 2}px ${- size * 9 / 2}px` : `0px ${- size * 9 / 2}px`;
-    const frontTopLeftPos = left || frontLeft ? `${- size / 2}px ${- size * 6 / 2}px` : `${- size * 3 / 2}px ${- size * 6 / 2}px`;
-    const frontBottomLeftPos = left || frontLeft ? `${- size / 2}px ${- size * 9 / 2}px` : `${- size * 3 / 2}px ${- size * 9 / 2}px`;
-
-    const rightTopFront = front || frontRight ? `${- size * 2 / 2}px ${- size * 6 / 2}px` : `0px ${- size * 6 / 2}px`;
-    const rightBottomFront = front || frontRight ? `${- size * 2 / 2}px ${- size * 9 / 2}px` : `0px ${- size * 9 / 2}px`;
-    const rightTopBack = back || backRight ? `${- size / 2}px ${- size * 6 / 2}px` : `${- size * 3 / 2}px ${- size * 6 / 2}px`;
-    const rightBottomBack = back || backRight ? `${- size / 2}px ${- size * 9 / 2}px` : `${- size * 3 / 2}px ${- size * 9 / 2}px`;
-
-    const backTopRightPos = right || backRight ? `${- size * 2 / 2}px ${- size * 6 / 2}px` : `0px ${- size * 6 / 2}px`;
-    const backBottomRightPos = right || backRight ? `${- size * 2 / 2}px ${- size * 9 / 2}px` : `0px ${- size * 9 / 2}px`;
-    const backTopLeftPos = left || backLeft ? `${- size / 2}px ${- size * 6 / 2}px` : `${- size * 3 / 2}px ${- size * 6 / 2}px`;
-    const backBottomLeftPos = left || backLeft ? `${- size / 2}px ${- size * 9 / 2}px` : `${- size * 3 / 2}px ${- size * 9 / 2}px`;
-
-    const leftTopFront = front || frontLeft ? `${- size * 2 / 2}px ${- size * 6 / 2}px` : `0px ${- size * 6 / 2}px`;
-    const leftBottomFront = front || frontLeft ? `${- size * 2 / 2}px ${- size * 9 / 2}px` : `0px ${- size * 9 / 2}px`;
-    const leftTopBack = back || backLeft ? `${- size / 2}px ${- size * 6 / 2}px` : `${- size * 3 / 2}px ${- size * 6 / 2}px`;
-    const leftBottomBack = back || backLeft ? `${- size / 2}px ${- size * 9 / 2}px` : `${- size * 3 / 2}px ${- size * 9 / 2}px`;
-
-    const topFrontRight = front
-      ? (right
-        ? (frontRight ? `${-size * 2 / 2}px ${- size * 3 / 2}px` : `${-size * 2 / 2}px ${- size / 2}px`)
-        : `0px ${- size * 3 / 2}px`)
-      : (right
-        ? `${-size * 2 / 2}px ${- size * 5 / 2}px`
-        : `0px ${- size * 5 / 2}px`);
-    const topBackRight = back
-      ? (right
-        ? (backRight ? `${-size * 2 / 2}px ${- size * 4 / 2}px` : `${-size * 2 / 2}px 0px`)
-        : `0px ${- size * 4 / 2}px`)
-      : (right
-        ? `${-size * 2 / 2}px ${- size * 2 / 2}px`
-        : `0px ${- size * 2 / 2}px`);
-    const topFrontLeft = front
-      ? (left
-        ? (frontLeft ? `${- size / 2}px ${- size * 3 / 2}px` : `${- size * 3 / 2}px ${- size / 2}px`)
-        : `${- size * 3 / 2}px ${- size * 3 / 2}px`)
-      : (left
-        ? `${- size / 2}px ${- size * 5 / 2}px`
-        : `${- size * 3 / 2}px ${- size * 5 / 2}px`);
-    const topBackLeft = back
-      ? (left
-        ? (backLeft ? `${- size / 2}px ${- size * 4 / 2}px` : `${- size * 3 / 2}px 0px`)
-        : `${- size * 3 / 2}px ${- size * 4 / 2}px`)
-      : (left
-        ? `${- size / 2}px ${- size * 2 / 2}px`
-        : `${- size * 3 / 2}px ${- size * 2 / 2}px`);
-
+  render() {
+    const { back, front, left, right, size, styles } = this.props;
     return (
       <div className="Block pos-abs" style={styles}>
-        <div
+        {!front && (<canvas
           className="Block__side side--front pos-abs"
-          style={{...sideStyles, transform: `rotateX(-90deg) rotateY(90deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
-        >
-          <div className="side--top-right pos-abs" style={{...sidePartStyles, backgroundPosition: frontTopRightPos}}/>
-          <div className="side--bottom-right pos-abs" style={{...sidePartStyles, top: size / 2, backgroundPosition: frontBottomRightPos}}/>
-          <div className="side--top-left pos-abs" style={{...sidePartStyles, left: size / 2, backgroundPosition: frontTopLeftPos}}/>
-          <div className="side--bottom-left pos-abs" style={{...sidePartStyles, left: size / 2, top: size / 2, backgroundPosition: frontBottomLeftPos}}/>
-        </div>
-        <div
+          width={size}
+          height={size}
+          ref={this.drawFront}
+          style={{transform: `rotateX(-90deg) rotateY(90deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
+        />)}
+        {!back && (<canvas
           className="Block__side side--back pos-abs"
-          style={{...sideStyles, transform: `rotateY(90deg) rotateZ(-90deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
-        >
-          <div className="side--top-right pos-abs" style={{...sidePartStyles, backgroundPosition: backTopRightPos}}/>
-          <div className="side--bottom-right pos-abs" style={{...sidePartStyles, top: size / 2, backgroundPosition: backBottomRightPos}}/>
-          <div className="side--top-left pos-abs" style={{...sidePartStyles, left: size / 2, backgroundPosition: backTopLeftPos}}/>
-          <div className="side--bottom-left pos-abs" style={{...sidePartStyles, left: size / 2, top: size / 2, backgroundPosition: backBottomLeftPos}}/>
-        </div>
-        <div
-          className="Block__side side--left pos-abs"
-          style={{...sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
-        >
-          <div className="side--top-front pos-abs" style={{...sidePartStyles, backgroundPosition: leftTopFront}}/>
-          <div className="side--bottom-front pos-abs" style={{...sidePartStyles, top: size / 2, backgroundPosition: leftBottomFront}}/>
-          <div className="side--top-back pos-abs" style={{...sidePartStyles, left: size / 2, backgroundPosition: leftTopBack}}/>
-          <div className="side--bottom-back pos-abs" style={{...sidePartStyles, left: size / 2, top: size / 2, backgroundPosition: leftBottomBack}}/>
-        </div>
-        <div
+          width={size}
+          height={size}
+          ref={this.drawBack}
+          style={{transform: `rotateY(90deg) rotateZ(-90deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
+        />)}
+        {!right && (<canvas
           className="Block__side side--right pos-abs"
-          style={{...sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
-        >
-          <div className="side--top-front pos-abs" style={{...sidePartStyles, backgroundPosition: rightTopFront}}/>
-          <div className="side--bottom-front pos-abs" style={{...sidePartStyles, top: size / 2, backgroundPosition: rightBottomFront}}/>
-          <div className="side--top-back pos-abs" style={{...sidePartStyles, left: size / 2, backgroundPosition: rightTopBack}}/>
-          <div className="side--bottom-back pos-abs" style={{...sidePartStyles, left: size / 2, top: size / 2, backgroundPosition: rightBottomBack}}/>
-        </div>
-        <div
+          width={size}
+          height={size}
+          ref={this.drawRight}
+          style={{transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
+        />)}
+        {!left && (<canvas
+          className="Block__side side--left pos-abs"
+          width={size}
+          height={size}
+          ref={this.drawLeft}
+          style={{transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
+        />)}
+        <canvas
           className="Block__side side--top pos-abs"
-          style={{...sideStyles, transform: `rotateZ(-90deg) translateZ(${size}px)`}}
-        >
-          <div className="side--front-right pos-abs" style={{...sidePartStyles, top: size / 2, backgroundPosition: topFrontRight}}/>
-          <div className="side--back-right pos-abs" style={{...sidePartStyles, backgroundPosition: topBackRight}}/>
-          <div className="side--front-left pos-abs" style={{...sidePartStyles, left: size / 2, top: size / 2, backgroundPosition: topFrontLeft}}/>
-          <div className="side--back-left pos-abs" style={{...sidePartStyles, left: size / 2, backgroundPosition: topBackLeft}}/>
-        </div>
-        <div
-          className="Block__side side--bottom pos-abs"
-          style={{...sideStyles, backgroundImage: null, background: 'black'}}
+          width={size}
+          height={size}
+          ref={this.drawTop}
+          style={{transform: `rotateZ(-90deg) translateZ(${size}px)`}}
         />
       </div>
     );

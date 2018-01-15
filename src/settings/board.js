@@ -1,3 +1,3 @@
 export default {
-  size: 32
+  size: 64
 };
