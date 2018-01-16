@@ -1,9 +1,12 @@
-{
-  "grounds": [
+[
+  [
     [["floor"], ["floor"], ["floor"], ["water"], ["floor"]],
     [["floor"], ["floor"], ["floor"], ["water"], ["floor"]],
     [["floor"], ["floor"], ["water"], ["water"], ["floor"]],
     [["floor"], ["floor"], ["water"], ["floor"], ["floor"]],
     [["floor"], ["floor"], ["water"], ["floor"], ["floor"]]
+  ],
+  [
+    [["floor"], ["floor"], ["floor"], [""], ["floor"]]
   ]
-}
+]

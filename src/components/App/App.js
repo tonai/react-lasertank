@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { unnest } from 'ramda';
 
 import boardSettings from '../../settings/board';
 import groundsSettings from '../../settings/grounds';
@@ -11,22 +12,30 @@ import SpritesLoader from '../Stateful/SpritesLoader/SpritesLoader';
 import SceneControls from '../Stateful/SceneControls/SceneControls';
 
 class App extends Component {
+
+  maxLength(acc, array) {
+    return Math.max(acc, array.length);
+  }
+
   render() {
-    const width = map.grounds.length;
-    const height = map.grounds[0].length;
+    const depth = map.length;
+    const width = map.reduce(this.maxLength, 0);
+    const height = unnest(map).reduce(this.maxLength, 0);
+    console.log(depth, width, height);
 
     return (
       <div className="App">
         <SpritesLoader settings={groundsSettings}>
           {settings => (
             <Scene
+              depth={depth}
               width={width}
               height={height}
               size={boardSettings.size}
-              scale={1}
               styles={{top: 0, right: 0, bottom: 100, left: 0}}
             >
               <Board
+                depth={depth}
                 width={width}
                 height={height}
                 map={map}
@@ -40,6 +49,7 @@ class App extends Component {
       </div>
     );
   }
+
 }
 
 export default App;

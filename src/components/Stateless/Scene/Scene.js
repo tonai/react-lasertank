@@ -46,8 +46,9 @@ class Scene extends Component {
 
   render() {
     const { scale, size, styles } = this.props;
-    const width = this.props.width * this.props.size;
-    const height = this.props.height * this.props.size;
+    const width = this.props.width * size;
+    const height = this.props.height * size;
+    const depth = this.props.depth * size;
     const containerWidth = this.state.containerWidth;
     const containerHeight = this.state.containerHeight;
 
@@ -61,13 +62,10 @@ class Scene extends Component {
     const l = x * Math.cos(aModulo);
     const L = l * 2 + max;
     const H = L * Math.cos(bModulo);
+    const D = depth * Math.sin(bModulo);
 
     const isWider = containerWidth && L * scale > containerWidth;
-    const isHigher = containerHeight && H * scale > containerHeight;
-
-    const sceneContainerStyles = {
-      marginTop: 2 * size * scale * Math.cos(bModulo)
-    };
+    const isHigher = containerHeight && (H / 2 + D + height / 2 - max / 2) * scale > containerHeight / 2;
 
     const sceneZoomStyles = {
       width: `${max}px`,
@@ -94,12 +92,12 @@ class Scene extends Component {
 
     if (isHigher) {
       scene3dStyles.top = (H - max) / 2;
-      sceneZoomStyles.marginTop = max * scale / 2 - containerHeight / 2;
+      sceneZoomStyles.marginTop = D * scale + max * scale / 2 - containerHeight / 2;
     }
 
     return (
       <div className="Scene pos-abs" style={styles}>
-        <div className="Scene__container pos-abs" style={sceneContainerStyles} ref={this.initElement}>
+        <div className="Scene__container pos-abs" ref={this.initElement}>
           <div className="Scene__zoom pos-abs" style={sceneZoomStyles}>
             <div className="Scene__3d pos-abs" style={scene3dStyles}>
               <div className="Scene__inner pos-abs" style={sceneInnerStyles}>

@@ -3,56 +3,72 @@ import { addIndex, map, pipe, unnest } from 'ramda';
 
 class Board extends Component {
 
-  componentAround = (line, x, grounds) => {
-    const { width, height } = this.props;
-    return line.map((cell, y) => {
-      cell.props.back = (cell.props.x > 0 && cell.component === grounds[x - 1][y].component);
-      cell.props.backLeft = (cell.props.x > 0 && cell.props.y > 0 && cell.component === grounds[x - 1][y - 1].component);
-      cell.props.backRight = (cell.props.x > 0 && cell.props.y < height - 1 && cell.component === grounds[x - 1][y + 1].component);
-      cell.props.front = (cell.props.x < width - 1 && cell.component === grounds[x + 1][y].component);
-      cell.props.frontLeft = (cell.props.x < width - 1 && cell.props.y > 0 && cell.component === grounds[x + 1][y - 1].component);
-      cell.props.frontRight = (cell.props.x < width - 1 && cell.props.y < height - 1 && cell.component === grounds[x + 1][y + 1].component);
-      cell.props.left = (cell.props.y > 0 && cell.component === grounds[x][y - 1].component);
-      cell.props.right = (cell.props.y < height - 1 && cell.component === grounds[x][y + 1].component);
-      return cell;
+  componentAround = (table, z, board) => {
+    const { depth, height, width } = this.props;
+    return table.map((line, x) => {
+      return line.map((cell, y) => {
+        if (cell.component) {
+          cell.props.bottom = (cell.props.z > 0 && this.isSameComponent(board, cell, z - 1, 1, y));
+          cell.props.top = (cell.props.z < depth - 1 && this.isSameComponent(board, cell, z + 1, x, y));
+          cell.props.back = (cell.props.x > 0 && this.isSameComponent(board, cell, z, x - 1, y));
+          cell.props.backLeft = (cell.props.x > 0 && cell.props.y > 0 && this.isSameComponent(board, cell, z, x - 1, y - 1));
+          cell.props.backRight = (cell.props.x > 0 && cell.props.y < height - 1 && this.isSameComponent(board, cell, z, x - 1, y + 1));
+          cell.props.front = (cell.props.x < width - 1 && this.isSameComponent(board, cell, z, x + 1, y));
+          cell.props.frontLeft = (cell.props.x < width - 1 && cell.props.y > 0 && this.isSameComponent(board, cell, z, x + 1, y - 1));
+          cell.props.frontRight = (cell.props.x < width - 1 && cell.props.y < height - 1 && this.isSameComponent(board, cell, z, x + 1, y + 1));
+          cell.props.left = (cell.props.y > 0 && this.isSameComponent(board, cell, z, x, y - 1));
+          cell.props.right = (cell.props.y < height - 1 && this.isSameComponent(board, cell, z, x, y + 1));
+        }
+        return cell;
+      });
     });
   };
 
   componentCreate = (cell) => {
-    const Component = cell.component;
-    return (<Component {...cell.props}/>);
+    if (cell.component) {
+      const Component = cell.component;
+      return (<Component {...cell.props}/>);
+    }
   };
 
-  componentPrepate = (line, x) => {
+  componentPrepate = (table, z) => {
     const { settings, size } = this.props;
-    return line.map((cell, y) => {
-      const componentSettings = settings[cell[0]];
-      return {
-        component: componentSettings.component,
-        props: {
-          x,
-          y,
-          key: `${x}-${y}`,
-          size,
-          settings:
-          componentSettings,
-          styles: {transform: `translateX(${x * size}px) translateY(${y * size}px)`}
+    return table.map((line, x) => {
+      return line.map((cell, y) => {
+        const componentSettings = settings[cell[0]];
+        return {
+          component: componentSettings && componentSettings.component,
+          props: {
+            x,
+            y,
+            z,
+            key: `${z}-${x}-${y}`,
+            size,
+            settings:
+            componentSettings,
+            styles: {transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}
+          }
         }
-      }
+      });
     });
   };
 
+  isSameComponent(board, cell, z, x, y) {
+    return board[z] && board[z][x] && board[z][x][y] && cell.component === board[z][x][y].component;
+  }
+
   render() {
-    const grounds = pipe(
+    const board = pipe(
       addIndex(map)(this.componentPrepate),
-      grounds => grounds.map(this.componentAround),
+      board => board.map(this.componentAround),
+      unnest,
       unnest,
       map(this.componentCreate)
-    )(this.props.map.grounds);
+    )(this.props.map);
 
     return (
       <div className="Board">
-        {grounds}
+        {board}
       </div>
     );
   }
