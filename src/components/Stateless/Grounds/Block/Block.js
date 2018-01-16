@@ -352,48 +352,49 @@ class Block extends Component {
 
   prepareImageData() {
     const { width, height } = this.props.settings.spriteImage;
-    this.canvas.width = width;
+    const [ x, y ] = this.props.settings.spriteOffset;
+      this.canvas.width = width;
     this.canvas.height = height;
     this.context.drawImage(this.props.settings.spriteImage, 0, 0);
 
     this.data = {
-      topFrontRight0: this.context.getImageData(32, 48, 16, 16), // front && right && frontRight
-      topFrontRight1: this.context.getImageData(32, 16, 16, 16), // front && right && !frontRight
-      topFrontRight2: this.context.getImageData(0, 48, 16, 16), // front && !right
-      topFrontRight3: this.context.getImageData(32, 80, 16, 16), // !front && right
-      topFrontRight4: this.context.getImageData(0, 80, 16, 16), // !front && !right
-      topBackRight0: this.context.getImageData(32, 64, 16, 16), // back && right && backRight
-      topBackRight1: this.context.getImageData(32, 0, 16, 16), // back && right && !backRight
-      topBackRight2: this.context.getImageData(0, 64, 16, 16), // back && !right
-      topBackRight3: this.context.getImageData(32, 32, 16, 16), // !back && right
-      topBackRight4: this.context.getImageData(0, 32, 16, 16), // !back && !right
-      topFrontLeft0: this.context.getImageData(16, 48, 16, 16), // front && left && frontLeft
-      topFrontLeft1: this.context.getImageData(48, 16, 16, 16), // front && left && !frontLeft
-      topFrontLeft2: this.context.getImageData(48, 48, 16, 16), // front && !left
-      topFrontLeft3: this.context.getImageData(16, 80, 16, 16), // !front && left
-      topFrontLeft4: this.context.getImageData(48, 80, 16, 16), // !front && !left
-      topBackLeft0: this.context.getImageData(16, 64, 16, 16), // back && left && backLeft
-      topBackLeft1: this.context.getImageData(48, 0, 16, 16), // back && left && !backLeft
-      topBackLeft2: this.context.getImageData(48, 64, 16, 16), // back && !left
-      topBackLeft3: this.context.getImageData(16, 32, 16, 16), // !back && left
-      topBackLeft4: this.context.getImageData(48, 32, 16, 16), // !back && !left
+      topFrontRight0: this.context.getImageData(32 + x, 48 + y, 16, 16), // front && right && frontRight
+      topFrontRight1: this.context.getImageData(32 + x, 16 + y, 16, 16), // front && right && !frontRight
+      topFrontRight2: this.context.getImageData(x, 48 + y, 16, 16), // front && !right
+      topFrontRight3: this.context.getImageData(32 + x, 80 + y, 16, 16), // !front && right
+      topFrontRight4: this.context.getImageData(x, 80 + y, 16, 16), // !front && !right
+      topBackRight0: this.context.getImageData(32 + x, 64 + y, 16, 16), // back && right && backRight
+      topBackRight1: this.context.getImageData(32 + x, y, 16, 16), // back && right && !backRight
+      topBackRight2: this.context.getImageData(x, 64 + y, 16, 16), // back && !right
+      topBackRight3: this.context.getImageData(32 + x, 32 + y, 16, 16), // !back && right
+      topBackRight4: this.context.getImageData(x, 32 + y, 16, 16), // !back && !right
+      topFrontLeft0: this.context.getImageData(16 + x, 48 + y, 16, 16), // front && left && frontLeft
+      topFrontLeft1: this.context.getImageData(48 + x, 16 + y, 16, 16), // front && left && !frontLeft
+      topFrontLeft2: this.context.getImageData(48 + x, 48 + y, 16, 16), // front && !left
+      topFrontLeft3: this.context.getImageData(16 + x, 80 + y, 16, 16), // !front && left
+      topFrontLeft4: this.context.getImageData(48 + x, 80 + y, 16, 16), // !front && !left
+      topBackLeft0: this.context.getImageData(16 + x, 64 + y, 16, 16), // back && left && backLeft
+      topBackLeft1: this.context.getImageData(48 + x, y, 16, 16), // back && left && !backLeft
+      topBackLeft2: this.context.getImageData(48 + x, 64 + y, 16, 16), // back && !left
+      topBackLeft3: this.context.getImageData(16 + x, 32 + y, 16, 16), // !back && left
+      topBackLeft4: this.context.getImageData(48 + x, 32 + y, 16, 16), // !back && !left
 
-      frontTopTopRight0: this.context.getImageData(32, 96, 16, 16), // right
-      frontTopTopRight1: this.context.getImageData(0, 96, 16, 16), // !right
-      frontTopBottomRight0: this.context.getImageData(32, 128, 16, 16), // right
-      frontTopBottomRight1: this.context.getImageData(0, 128, 16, 16), // !right
-      frontTopTopLeft0: this.context.getImageData(16, 96, 16, 16), // left
-      frontTopTopLeft1: this.context.getImageData(48, 96, 16, 16), // !left
-      frontTopBottomLeft0: this.context.getImageData(16, 128, 16, 16), // left
-      frontTopBottomLeft1: this.context.getImageData(48, 128, 16, 16), // !left
-      frontBottomTopRight0: this.context.getImageData(32, 112, 16, 16), // right
-      frontBottomTopRight1: this.context.getImageData(0, 112, 16, 16), // !right
-      frontBottomBottomRight0: this.context.getImageData(32, 144, 16, 16), // right
-      frontBottomBottomRight1: this.context.getImageData(0, 144, 16, 16), // !right
-      frontBottomTopLeft0: this.context.getImageData(16, 112, 16, 16), // left
-      frontBottomTopLeft1: this.context.getImageData(48, 112, 16, 16), // !left
-      frontBottomBottomLeft0: this.context.getImageData(16, 144, 16, 16), // left
-      frontBottomBottomLeft1: this.context.getImageData(48, 144, 16, 16), // !left
+      frontTopTopRight0: this.context.getImageData(32 + x, 96 + y, 16, 16), // right
+      frontTopTopRight1: this.context.getImageData(x, 96 + y, 16, 16), // !right
+      frontTopBottomRight0: this.context.getImageData(32 + x, 128 + y, 16, 16), // right
+      frontTopBottomRight1: this.context.getImageData(x, 128 + y, 16, 16), // !right
+      frontTopTopLeft0: this.context.getImageData(16 + x, 96 + y, 16, 16), // left
+      frontTopTopLeft1: this.context.getImageData(48 + x, 96 + y, 16, 16), // !left
+      frontTopBottomLeft0: this.context.getImageData(16 + x, 128 + y, 16, 16), // left
+      frontTopBottomLeft1: this.context.getImageData(48 + x, 128 + y, 16, 16), // !left
+      frontBottomTopRight0: this.context.getImageData(32 + x, 112 + y, 16, 16), // right
+      frontBottomTopRight1: this.context.getImageData(x, 112 + y, 16, 16), // !right
+      frontBottomBottomRight0: this.context.getImageData(32 + x, 144 + y, 16, 16), // right
+      frontBottomBottomRight1: this.context.getImageData(x, 144 + y, 16, 16), // !right
+      frontBottomTopLeft0: this.context.getImageData(16 + x, 112 + y, 16, 16), // left
+      frontBottomTopLeft1: this.context.getImageData(48 + x, 112 + y, 16, 16), // !left
+      frontBottomBottomLeft0: this.context.getImageData(16 + x, 144 + y, 16, 16), // left
+      frontBottomBottomLeft1: this.context.getImageData(48 + x, 144 + y, 16, 16), // !left
     };
   }
 

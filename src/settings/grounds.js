@@ -10,6 +10,7 @@ export default {
   floor: {
     component: Floor,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
+    spriteOffset: [0, 0],
     topStyles: {
       backgroundPosition: `0px -${boardSettings.size / 2}px`
     },
@@ -21,6 +22,7 @@ export default {
   water: {
     component: Water,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
+    spriteOffset: [0, 0],
     bottomStyles: {
       topStyles: {},
       sideStyles: {},
@@ -29,11 +31,13 @@ export default {
   },
   block: {
     component: Block,
-    spritePath: `${generalSettings.spritesDir}Inside_A4.png`
+    spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
+    spriteOffset: [0, 0]
   },
   empty: {
     component: Empty,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
+    spriteOffset: [0, 0],
     bottomStyles: {
       topStyles: {},
       sideStyles: {},
