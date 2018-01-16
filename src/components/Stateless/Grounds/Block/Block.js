@@ -179,15 +179,15 @@ class Block extends Component {
   };
 
   drawTop = (canvas) => {
-    const { back, backLeft, backRight, front, frontLeft, frontRight, left, right, settings, size, styles } = this.props;
+    const { back, backLeft, backRight, front, frontLeft, frontRight, left, right } = this.props;
     const context = canvas.getContext('2d');
-    context.putImageData(this.data.topFrontRight0, 16, 16);
-    context.putImageData(this.data.topFrontLeft0, 32, 16);
-    context.putImageData(this.data.topBackRight0, 16, 32);
-    context.putImageData(this.data.topBackLeft0, 32, 32);
+    context.putImageData(this.data.topFrontLeft0, 16, 16);
+    context.putImageData(this.data.topFrontRight0, 32, 16);
+    context.putImageData(this.data.topBackLeft0, 16, 32);
+    context.putImageData(this.data.topBackRight0, 32, 32);
     if (front) {
-      context.putImageData(this.data.topFrontRight0, 16, 48);
-      context.putImageData(this.data.topFrontLeft0, 32, 48);
+      context.putImageData(this.data.topFrontLeft0, 16, 48);
+      context.putImageData(this.data.topFrontRight0, 32, 48);
       if (right) {
         frontRight ? context.putImageData(this.data.topFrontRight0, 0, 48) : context.putImageData(this.data.topFrontRight1, 0, 48);
       } else {
@@ -199,8 +199,8 @@ class Block extends Component {
         context.putImageData(this.data.topFrontLeft2, 48, 48)
       }
     } else {
-      context.putImageData(this.data.topFrontRight3, 16, 48);
-      context.putImageData(this.data.topFrontLeft3, 32, 48);
+      context.putImageData(this.data.topFrontLeft3, 16, 48);
+      context.putImageData(this.data.topFrontRight3, 32, 48);
       if (right) {
         context.putImageData(this.data.topFrontRight3, 0, 48)
       } else {
@@ -213,8 +213,8 @@ class Block extends Component {
       }
     }
     if (back) {
-      context.putImageData(this.data.topBackRight0, 16, 0);
-      context.putImageData(this.data.topBackLeft0, 32, 0);
+      context.putImageData(this.data.topBackLeft0, 16, 0);
+      context.putImageData(this.data.topBackRight0, 32, 0);
       if (right) {
         backRight ? context.putImageData(this.data.topBackRight0, 0, 0) : context.putImageData(this.data.topBackRight1, 0, 0);
       } else {
@@ -226,8 +226,8 @@ class Block extends Component {
         context.putImageData(this.data.topBackLeft2, 48, 0);
       }
     } else {
-      context.putImageData(this.data.topBackRight3, 16, 0);
-      context.putImageData(this.data.topBackLeft3, 32, 0);
+      context.putImageData(this.data.topBackLeft3, 16, 0);
+      context.putImageData(this.data.topBackRight3, 32, 0);
       if (right) {
         context.putImageData(this.data.topBackRight3, 0, 0);
       } else {
