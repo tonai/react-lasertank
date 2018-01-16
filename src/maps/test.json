@@ -1,12 +1,12 @@
 [
   [
-    [["floor"], ["floor"], ["floor"], ["water"], ["floor"]],
-    [["floor"], ["floor"], ["floor"], ["water"], ["floor"]],
-    [["floor"], ["floor"], ["water"], ["water"], ["floor"]],
-    [["floor"], ["floor"], ["water"], ["floor"], ["floor"]],
-    [["floor"], ["floor"], ["water"], ["floor"], ["floor"]]
+    [["block"], ["block"], ["block"], ["water"], ["block"]],
+    [["block"], ["block"], ["block"], ["water"], ["block"]],
+    [["block"], ["block"], ["water"], ["water"], ["block"]],
+    [["block"], ["block"], ["water"], ["block"], ["block"]],
+    [["block"], ["block"], ["water"], ["block"], ["block"]]
   ],
   [
-    [["floor"], ["floor"], ["floor"], [""], ["floor"]]
+    [["block"], ["block"], ["block"], [], ["block"]]
   ]
 ]

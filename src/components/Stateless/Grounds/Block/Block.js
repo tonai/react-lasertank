@@ -3,250 +3,339 @@ import React, { Component } from 'react';
 class Block extends Component {
 
   drawFront = (canvas) => {
-    const { bottom, frontLeft, frontRight, left, right } = this.props;
+    const { bottom, frontLeft, frontRight, left, name, right, top } = this.props;
     const context = canvas.getContext('2d');
-    context.putImageData(this.data.frontTopLeft0, 16, 0);
-    context.putImageData(this.data.frontTopRight0, 32, 0);
-    if (right || frontRight) {
-      context.putImageData(this.data.frontTopRight0, 0, 0);
+    if (top === name) {
+      context.putImageData(this.data.frontTopBottomLeft0, 16, 0);
+      context.putImageData(this.data.frontTopBottomRight0, 32, 0);
     } else {
-      context.putImageData(this.data.frontTopRight1, 0, 0);
+      context.putImageData(this.data.frontTopTopLeft0, 16, 0);
+      context.putImageData(this.data.frontTopTopRight0, 32, 0);
     }
-    if (left || frontLeft) {
-      context.putImageData(this.data.frontTopLeft0, 48, 0);
+    if (right === name || frontRight === name) {
+      top === name ? context.putImageData(this.data.frontTopBottomRight0, 0, 0) : context.putImageData(this.data.frontTopTopRight0, 0, 0);
     } else {
-      context.putImageData(this.data.frontTopLeft1, 48, 0);
+      top === name ? context.putImageData(this.data.frontTopBottomRight1, 0, 0) : context.putImageData(this.data.frontTopTopRight1, 0, 0);
     }
-    if (bottom) {
-      context.putImageData(this.data.frontTopLeft0, 16, 32);
-      context.putImageData(this.data.frontTopRight0, 32, 32);
-      if (right || frontRight) {
-        context.putImageData(this.data.frontTopRight0, 0, 32);
-      } else {
-        context.putImageData(this.data.frontTopRight1, 0, 32);
-      }
-      if (left || frontLeft) {
-        context.putImageData(this.data.frontTopLeft0, 48, 32);
-      } else {
-        context.putImageData(this.data.frontTopLeft1, 48, 32);
-      }
+    if (left === name || frontLeft === name) {
+      top === name ? context.putImageData(this.data.frontTopBottomLeft0, 48, 0) : context.putImageData(this.data.frontTopTopLeft0, 48, 0);
     } else {
-      context.putImageData(this.data.frontBottomLeft0, 16, 32);
-      context.putImageData(this.data.frontBottomRight0, 32, 32);
-      if (right || frontRight) {
-        context.putImageData(this.data.frontBottomRight0, 0, 32);
-      } else {
-        context.putImageData(this.data.frontBottomRight1, 0, 32);
-      }
-      if (left || frontLeft) {
-        context.putImageData(this.data.frontBottomLeft0, 48, 32);
-      } else {
-        context.putImageData(this.data.frontBottomLeft1, 48, 32);
-      }
+      top === name ? context.putImageData(this.data.frontTopBottomLeft1, 48, 0) : context.putImageData(this.data.frontTopTopLeft1, 48, 0);
+    }
+
+    context.putImageData(this.data.frontBottomTopLeft0, 16, 16);
+    context.putImageData(this.data.frontBottomTopRight0, 32, 16);
+    if (right === name || frontRight === name) {
+      context.putImageData(this.data.frontBottomTopRight0, 0, 16);
+    } else {
+      context.putImageData(this.data.frontBottomTopRight1, 0, 16);
+    }
+    if (right === name || frontLeft === name) {
+      context.putImageData(this.data.frontBottomTopLeft0, 48, 16);
+    } else {
+      context.putImageData(this.data.frontBottomTopLeft1, 48, 16);
+    }
+
+    context.putImageData(this.data.frontTopBottomLeft0, 16, 32);
+    context.putImageData(this.data.frontTopBottomRight0, 32, 32);
+    if (right === name || frontRight === name) {
+      context.putImageData(this.data.frontTopBottomRight0, 0, 32);
+    } else {
+      context.putImageData(this.data.frontTopBottomRight1, 0, 32);
+    }
+    if (left === name || frontLeft === name) {
+      context.putImageData(this.data.frontTopBottomLeft0, 48, 32);
+    } else {
+      context.putImageData(this.data.frontTopBottomLeft1, 48, 32);
+    }
+
+    if (bottom === name) {
+      context.putImageData(this.data.frontBottomTopLeft0, 16, 48);
+      context.putImageData(this.data.frontBottomTopRight0, 32, 48);
+    } else {
+      context.putImageData(this.data.frontBottomBottomLeft0, 16, 48);
+      context.putImageData(this.data.frontBottomBottomRight0, 32, 48);
+    }
+    if (right === name || frontRight === name) {
+      bottom === name ? context.putImageData(this.data.frontBottomTopRight0, 0, 48) : context.putImageData(this.data.frontBottomBottomRight0, 0, 48);
+    } else {
+      bottom === name ? context.putImageData(this.data.frontBottomTopRight1, 0, 48) : context.putImageData(this.data.frontBottomBottomRight1, 0, 48);
+    }
+    if (left === name || frontLeft === name) {
+      bottom === name ? context.putImageData(this.data.frontBottomTopLeft0, 48, 48) : context.putImageData(this.data.frontBottomBottomLeft0, 48, 48);
+    } else {
+      bottom === name ? context.putImageData(this.data.frontBottomTopLeft1, 48, 48) : context.putImageData(this.data.frontBottomBottomLeft1, 48, 48);
     }
   };
 
   drawBack = (canvas) => {
-    const { backLeft, backRight, bottom, left, right } = this.props;
+    const { backLeft, backRight, bottom, left, name, right, top } = this.props;
     const context = canvas.getContext('2d');
-    context.putImageData(this.data.frontTopLeft0, 16, 0);
-    context.putImageData(this.data.frontTopRight0, 32, 0);
-    if (right || backRight) {
-      context.putImageData(this.data.frontTopRight0, 0, 0);
+    if (top === name) {
+      context.putImageData(this.data.frontTopBottomLeft0, 16, 0);
+      context.putImageData(this.data.frontTopBottomRight0, 32, 0);
     } else {
-      context.putImageData(this.data.frontTopRight1, 0, 0);
+      context.putImageData(this.data.frontTopTopLeft0, 16, 0);
+      context.putImageData(this.data.frontTopTopRight0, 32, 0);
     }
-    if (left || backLeft) {
-      context.putImageData(this.data.frontTopLeft0, 48, 0);
+    if (right === name || backRight === name) {
+      top === name ? context.putImageData(this.data.frontTopBottomRight0, 0, 0) : context.putImageData(this.data.frontTopTopRight0, 0, 0);
     } else {
-      context.putImageData(this.data.frontTopLeft1, 48, 0);
+      top === name ? context.putImageData(this.data.frontTopBottomRight1, 0, 0) : context.putImageData(this.data.frontTopTopRight1, 0, 0);
     }
-    if (bottom) {
-      context.putImageData(this.data.frontTopLeft0, 16, 32);
-      context.putImageData(this.data.frontTopRight0, 32, 32);
-      if (right || backRight) {
-        context.putImageData(this.data.frontTopRight0, 0, 32);
-      } else {
-        context.putImageData(this.data.frontTopRight1, 0, 32);
-      }
-      if (left || backLeft) {
-        context.putImageData(this.data.frontTopLeft0, 48, 32);
-      } else {
-        context.putImageData(this.data.frontTopLeft1, 48, 32);
-      }
+    if (left === name || backLeft === name) {
+      top === name ? context.putImageData(this.data.frontTopBottomLeft0, 48, 0) : context.putImageData(this.data.frontTopTopLeft0, 48, 0);
     } else {
-      context.putImageData(this.data.frontBottomLeft0, 16, 32);
-      context.putImageData(this.data.frontBottomRight0, 32, 32);
-      if (right || backRight) {
-        context.putImageData(this.data.frontBottomRight0, 0, 32);
-      } else {
-        context.putImageData(this.data.frontBottomRight1, 0, 32);
-      }
-      if (left || backLeft) {
-        context.putImageData(this.data.frontBottomLeft0, 48, 32);
-      } else {
-        context.putImageData(this.data.frontBottomLeft1, 48, 32);
-      }
+      top === name ? context.putImageData(this.data.frontTopBottomLeft1, 48, 0) : context.putImageData(this.data.frontTopTopLeft1, 48, 0);
+    }
+
+    context.putImageData(this.data.frontBottomTopLeft0, 16, 16);
+    context.putImageData(this.data.frontBottomTopRight0, 32, 16);
+    if (right === name || backRight === name) {
+      context.putImageData(this.data.frontBottomTopRight0, 0, 16);
+    } else {
+      context.putImageData(this.data.frontBottomTopRight1, 0, 16);
+    }
+    if (left === name || backLeft === name) {
+      context.putImageData(this.data.frontBottomTopLeft0, 48, 16);
+    } else {
+      context.putImageData(this.data.frontBottomTopLeft1, 48, 16);
+    }
+
+    context.putImageData(this.data.frontTopBottomLeft0, 16, 32);
+    context.putImageData(this.data.frontTopBottomRight0, 32, 32);
+    if (right === name || backRight === name) {
+      context.putImageData(this.data.frontTopBottomRight0, 0, 32);
+    } else {
+      context.putImageData(this.data.frontTopBottomRight1, 0, 32);
+    }
+    if (left === name || backLeft === name) {
+      context.putImageData(this.data.frontTopBottomLeft0, 48, 32);
+    } else {
+      context.putImageData(this.data.frontTopBottomLeft1, 48, 32);
+    }
+
+    if (bottom === name) {
+      context.putImageData(this.data.frontBottomTopLeft0, 16, 48);
+      context.putImageData(this.data.frontBottomTopRight0, 32, 48);
+    } else {
+      context.putImageData(this.data.frontBottomBottomLeft0, 16, 48);
+      context.putImageData(this.data.frontBottomBottomRight0, 32, 48);
+    }
+    if (right === name || backRight === name) {
+      bottom === name ? context.putImageData(this.data.frontBottomTopRight0, 0, 48) : context.putImageData(this.data.frontBottomBottomRight0, 0, 48);
+    } else {
+      bottom === name ? context.putImageData(this.data.frontBottomTopRight1, 0, 48) : context.putImageData(this.data.frontBottomBottomRight1, 0, 48);
+    }
+    if (left === name || backLeft === name) {
+      bottom === name ? context.putImageData(this.data.frontBottomTopLeft0, 48, 48) : context.putImageData(this.data.frontBottomBottomLeft0, 48, 48);
+    } else {
+      bottom === name ? context.putImageData(this.data.frontBottomTopLeft1, 48, 48) : context.putImageData(this.data.frontBottomBottomLeft1, 48, 48);
     }
   };
 
   drawRight = (canvas) => {
-    const { back, backRight, bottom, front, frontRight } = this.props;
+    const { back, backRight, bottom, front, frontRight, name, top } = this.props;
     const context = canvas.getContext('2d');
-    context.putImageData(this.data.frontTopLeft0, 16, 0);
-    context.putImageData(this.data.frontTopRight0, 32, 0);
-    if (front || frontRight) {
-      context.putImageData(this.data.frontTopRight0, 0, 0);
+
+    if (top === name) {
+      context.putImageData(this.data.frontTopBottomLeft0, 16, 0);
+      context.putImageData(this.data.frontTopBottomRight0, 32, 0);
     } else {
-      context.putImageData(this.data.frontTopRight1, 0, 0);
+      context.putImageData(this.data.frontTopTopLeft0, 16, 0);
+      context.putImageData(this.data.frontTopTopRight0, 32, 0);
     }
-    if (back || backRight) {
-      context.putImageData(this.data.frontTopLeft0, 48, 0);
+    if (front === name || frontRight === name) {
+      top === name ? context.putImageData(this.data.frontTopBottomRight0, 0, 0) : context.putImageData(this.data.frontTopTopRight0, 0, 0);
     } else {
-      context.putImageData(this.data.frontTopLeft1, 48, 0);
+      top === name ? context.putImageData(this.data.frontTopBottomRight1, 0, 0) : context.putImageData(this.data.frontTopTopRight1, 0, 0);
     }
-    if (bottom) {
-      context.putImageData(this.data.frontTopLeft0, 16, 32);
-      context.putImageData(this.data.frontTopRight0, 32, 32);
-      if (front || frontRight) {
-        context.putImageData(this.data.frontTopRight0, 0, 32);
-      } else {
-        context.putImageData(this.data.frontTopRight1, 0, 32);
-      }
-      if (back || backRight) {
-        context.putImageData(this.data.frontTopLeft0, 48, 32);
-      } else {
-        context.putImageData(this.data.frontTopLeft1, 48, 32);
-      }
+    if (back === name || backRight === name) {
+      top === name ? context.putImageData(this.data.frontTopBottomLeft0, 48, 0) : context.putImageData(this.data.frontTopTopLeft0, 48, 0);
     } else {
-      context.putImageData(this.data.frontBottomLeft0, 16, 32);
-      context.putImageData(this.data.frontBottomRight0, 32, 32);
-      if (front || frontRight) {
-        context.putImageData(this.data.frontBottomRight0, 0, 32);
-      } else {
-        context.putImageData(this.data.frontBottomRight1, 0, 32);
-      }
-      if (back || backRight) {
-        context.putImageData(this.data.frontBottomLeft0, 48, 32);
-      } else {
-        context.putImageData(this.data.frontBottomLeft1, 48, 32);
-      }
+      top === name ? context.putImageData(this.data.frontTopBottomLeft1, 48, 0) : context.putImageData(this.data.frontTopTopLeft1, 48, 0);
+    }
+
+    context.putImageData(this.data.frontBottomTopLeft0, 16, 16);
+    context.putImageData(this.data.frontBottomTopRight0, 32, 16);
+    if (front === name || frontRight === name) {
+      context.putImageData(this.data.frontBottomTopRight0, 0, 16);
+    } else {
+      context.putImageData(this.data.frontBottomTopRight1, 0, 16);
+    }
+    if (back === name || backRight === name) {
+      context.putImageData(this.data.frontBottomTopLeft0, 48, 16);
+    } else {
+      context.putImageData(this.data.frontBottomTopLeft1, 48, 16);
+    }
+
+    context.putImageData(this.data.frontTopBottomLeft0, 16, 32);
+    context.putImageData(this.data.frontTopBottomRight0, 32, 32);
+    if (front === name || frontRight === name) {
+      context.putImageData(this.data.frontTopBottomRight0, 0, 32);
+    } else {
+      context.putImageData(this.data.frontTopBottomRight1, 0, 32);
+    }
+    if (back === name || backRight === name) {
+      context.putImageData(this.data.frontTopBottomLeft0, 48, 32);
+    } else {
+      context.putImageData(this.data.frontTopBottomLeft1, 48, 32);
+    }
+
+    if (bottom === name) {
+      context.putImageData(this.data.frontBottomTopLeft0, 16, 48);
+      context.putImageData(this.data.frontBottomTopRight0, 32, 48);
+    } else {
+      context.putImageData(this.data.frontBottomBottomLeft0, 16, 48);
+      context.putImageData(this.data.frontBottomBottomRight0, 32, 48);
+    }
+    if (front === name || frontRight === name) {
+      bottom === name ? context.putImageData(this.data.frontBottomTopRight0, 0, 48) : context.putImageData(this.data.frontBottomBottomRight0, 0, 48);
+    } else {
+      bottom === name ? context.putImageData(this.data.frontBottomTopRight1, 0, 48) : context.putImageData(this.data.frontBottomBottomRight1, 0, 48);
+    }
+    if (back === name || backRight === name) {
+      bottom === name ? context.putImageData(this.data.frontBottomTopLeft0, 48, 48) : context.putImageData(this.data.frontBottomBottomLeft0, 48, 48);
+    } else {
+      bottom === name ? context.putImageData(this.data.frontBottomTopLeft1, 48, 48) : context.putImageData(this.data.frontBottomBottomLeft1, 48, 48);
     }
   };
 
   drawLeft = (canvas) => {
-    const { back, backLeft, bottom, front, frontLeft } = this.props;
+    const { back, backLeft, bottom, front, frontLeft, name, top } = this.props;
     const context = canvas.getContext('2d');
-    context.putImageData(this.data.frontTopLeft0, 16, 0);
-    context.putImageData(this.data.frontTopRight0, 32, 0);
-    if (front || frontLeft) {
-      context.putImageData(this.data.frontTopRight0, 0, 0);
+    if (top === name) {
+      context.putImageData(this.data.frontTopBottomLeft0, 16, 0);
+      context.putImageData(this.data.frontTopBottomRight0, 32, 0);
     } else {
-      context.putImageData(this.data.frontTopRight1, 0, 0);
+      context.putImageData(this.data.frontTopTopLeft0, 16, 0);
+      context.putImageData(this.data.frontTopTopRight0, 32, 0);
     }
-    if (back || backLeft) {
-      context.putImageData(this.data.frontTopLeft0, 48, 0);
+    if (front === name || frontLeft === name) {
+      top === name ? context.putImageData(this.data.frontTopBottomRight0, 0, 0) : context.putImageData(this.data.frontTopTopRight0, 0, 0);
     } else {
-      context.putImageData(this.data.frontTopLeft1, 48, 0);
+      top === name ? context.putImageData(this.data.frontTopBottomRight1, 0, 0) : context.putImageData(this.data.frontTopTopRight1, 0, 0);
     }
-    if (bottom) {
-      context.putImageData(this.data.frontTopLeft0, 16, 32);
-      context.putImageData(this.data.frontTopRight0, 32, 32);
-      if (front || frontLeft) {
-        context.putImageData(this.data.frontTopRight0, 0, 32);
-      } else {
-        context.putImageData(this.data.frontTopRight1, 0, 32);
-      }
-      if (back || backLeft) {
-        context.putImageData(this.data.frontTopLeft0, 48, 32);
-      } else {
-        context.putImageData(this.data.frontTopLeft1, 48, 32);
-      }
+    if (back === name || backLeft === name) {
+      top === name ? context.putImageData(this.data.frontTopBottomLeft0, 48, 0) : context.putImageData(this.data.frontTopTopLeft0, 48, 0);
     } else {
-      context.putImageData(this.data.frontBottomLeft0, 16, 32);
-      context.putImageData(this.data.frontBottomRight0, 32, 32);
-      if (front || frontLeft) {
-        context.putImageData(this.data.frontBottomRight0, 0, 32);
-      } else {
-        context.putImageData(this.data.frontBottomRight1, 0, 32);
-      }
-      if (back || backLeft) {
-        context.putImageData(this.data.frontBottomLeft0, 48, 32);
-      } else {
-        context.putImageData(this.data.frontBottomLeft1, 48, 32);
-      }
+      top === name ? context.putImageData(this.data.frontTopBottomLeft1, 48, 0) : context.putImageData(this.data.frontTopTopLeft1, 48, 0);
+    }
+
+    context.putImageData(this.data.frontBottomTopLeft0, 16, 16);
+    context.putImageData(this.data.frontBottomTopRight0, 32, 16);
+    if (front === name || frontLeft === name) {
+      context.putImageData(this.data.frontBottomTopRight0, 0, 16);
+    } else {
+      context.putImageData(this.data.frontBottomTopRight1, 0, 16);
+    }
+    if (back === name || backLeft === name) {
+      context.putImageData(this.data.frontBottomTopLeft0, 48, 16);
+    } else {
+      context.putImageData(this.data.frontBottomTopLeft1, 48, 16);
+    }
+
+    context.putImageData(this.data.frontTopBottomLeft0, 16, 32);
+    context.putImageData(this.data.frontTopBottomRight0, 32, 32);
+    if (front === name || frontLeft === name) {
+      context.putImageData(this.data.frontTopBottomRight0, 0, 32);
+    } else {
+      context.putImageData(this.data.frontTopBottomRight1, 0, 32);
+    }
+    if (back === name || backLeft === name) {
+      context.putImageData(this.data.frontTopBottomLeft0, 48, 32);
+    } else {
+      context.putImageData(this.data.frontTopBottomLeft1, 48, 32);
+    }
+
+    if (bottom === name) {
+      context.putImageData(this.data.frontBottomTopLeft0, 16, 48);
+      context.putImageData(this.data.frontBottomTopRight0, 32, 48);
+    } else {
+      context.putImageData(this.data.frontBottomBottomLeft0, 16, 48);
+      context.putImageData(this.data.frontBottomBottomRight0, 32, 48);
+    }
+    if (front === name || frontLeft === name) {
+      bottom === name ? context.putImageData(this.data.frontBottomTopRight0, 0, 48) : context.putImageData(this.data.frontBottomBottomRight0, 0, 48);
+    } else {
+      bottom === name ? context.putImageData(this.data.frontBottomTopRight1, 0, 48) : context.putImageData(this.data.frontBottomBottomRight1, 0, 48);
+    }
+    if (back === name || backLeft === name) {
+      bottom === name ? context.putImageData(this.data.frontBottomTopLeft0, 48, 48) : context.putImageData(this.data.frontBottomBottomLeft0, 48, 48);
+    } else {
+      bottom === name ? context.putImageData(this.data.frontBottomTopLeft1, 48, 48) : context.putImageData(this.data.frontBottomBottomLeft1, 48, 48);
     }
   };
 
   drawTop = (canvas) => {
-    const { back, backLeft, backRight, front, frontLeft, frontRight, left, right } = this.props;
+    const { back, backLeft, backRight, front, frontLeft, frontRight, left, name, right } = this.props;
     const context = canvas.getContext('2d');
     context.putImageData(this.data.topFrontLeft0, 16, 16);
     context.putImageData(this.data.topFrontRight0, 32, 16);
     context.putImageData(this.data.topBackLeft0, 16, 32);
     context.putImageData(this.data.topBackRight0, 32, 32);
-    if (front) {
+    if (front === name) {
       context.putImageData(this.data.topFrontLeft0, 16, 48);
       context.putImageData(this.data.topFrontRight0, 32, 48);
-      if (right) {
-        frontRight ? context.putImageData(this.data.topFrontRight0, 0, 48) : context.putImageData(this.data.topFrontRight1, 0, 48);
+      if (right === name) {
+        frontRight === name ? context.putImageData(this.data.topFrontRight0, 0, 48) : context.putImageData(this.data.topFrontRight1, 0, 48);
       } else {
         context.putImageData(this.data.topFrontRight2, 0, 48)
       }
-      if (left) {
-        frontLeft ? context.putImageData(this.data.topFrontLeft0, 48, 48) : context.putImageData(this.data.topFrontLeft1, 48, 48);
+      if (left === name) {
+        frontLeft === name ? context.putImageData(this.data.topFrontLeft0, 48, 48) : context.putImageData(this.data.topFrontLeft1, 48, 48);
       } else {
         context.putImageData(this.data.topFrontLeft2, 48, 48)
       }
     } else {
       context.putImageData(this.data.topFrontLeft3, 16, 48);
       context.putImageData(this.data.topFrontRight3, 32, 48);
-      if (right) {
+      if (right === name) {
         context.putImageData(this.data.topFrontRight3, 0, 48)
       } else {
         context.putImageData(this.data.topFrontRight4, 0, 48)
       }
-      if (left) {
+      if (left === name) {
         context.putImageData(this.data.topFrontLeft3, 48, 48)
       } else {
         context.putImageData(this.data.topFrontLeft4, 48, 48)
       }
     }
-    if (back) {
+    if (back === name) {
       context.putImageData(this.data.topBackLeft0, 16, 0);
       context.putImageData(this.data.topBackRight0, 32, 0);
-      if (right) {
-        backRight ? context.putImageData(this.data.topBackRight0, 0, 0) : context.putImageData(this.data.topBackRight1, 0, 0);
+      if (right === name) {
+        backRight === name ? context.putImageData(this.data.topBackRight0, 0, 0) : context.putImageData(this.data.topBackRight1, 0, 0);
       } else {
         context.putImageData(this.data.topBackRight2, 0, 0);
       }
-      if (left) {
-        backLeft ? context.putImageData(this.data.topBackLeft0, 48, 0) : context.putImageData(this.data.topBackLeft1, 48, 0);
+      if (left === name) {
+        backLeft === name ? context.putImageData(this.data.topBackLeft0, 48, 0) : context.putImageData(this.data.topBackLeft1, 48, 0);
       } else {
         context.putImageData(this.data.topBackLeft2, 48, 0);
       }
     } else {
       context.putImageData(this.data.topBackLeft3, 16, 0);
       context.putImageData(this.data.topBackRight3, 32, 0);
-      if (right) {
+      if (right === name) {
         context.putImageData(this.data.topBackRight3, 0, 0);
       } else {
         context.putImageData(this.data.topBackRight4, 0, 0);
       }
-      if (left) {
+      if (left === name) {
         context.putImageData(this.data.topBackLeft3, 48, 0);
       } else {
         context.putImageData(this.data.topBackLeft4, 48, 0);
       }
     }
-    if (left) {
+    if (left === name) {
       context.putImageData(this.data.topFrontLeft0, 48, 16);
       context.putImageData(this.data.topBackLeft0, 48, 32);
     } else {
       context.putImageData(this.data.topFrontLeft2, 48, 16);
       context.putImageData(this.data.topBackLeft2, 48, 32);
     }
-    if (right) {
+    if (right === name) {
       context.putImageData(this.data.topFrontRight0, 0, 16);
       context.putImageData(this.data.topBackRight0, 0, 32);
     } else {
@@ -288,43 +377,52 @@ class Block extends Component {
       topBackLeft2: this.context.getImageData(48, 64, 16, 16), // back && !left
       topBackLeft3: this.context.getImageData(16, 32, 16, 16), // !back && left
       topBackLeft4: this.context.getImageData(48, 32, 16, 16), // !back && !left
-      frontTopRight0: this.context.getImageData(32, 96, 16, 32), // right
-      frontTopRight1: this.context.getImageData(0, 96, 16, 32), // !right
-      frontBottomRight0: this.context.getImageData(32, 128, 16, 32), // right
-      frontBottomRight1: this.context.getImageData(0, 128, 16, 32), // !right
-      frontTopLeft0: this.context.getImageData(16, 96, 16, 32), // left
-      frontTopLeft1: this.context.getImageData(48, 96, 16, 32), // !left
-      frontBottomLeft0: this.context.getImageData(16, 128, 16, 32), // left
-      frontBottomLeft1: this.context.getImageData(48, 128, 16, 32), // !left
+
+      frontTopTopRight0: this.context.getImageData(32, 96, 16, 16), // right
+      frontTopTopRight1: this.context.getImageData(0, 96, 16, 16), // !right
+      frontTopBottomRight0: this.context.getImageData(32, 128, 16, 16), // right
+      frontTopBottomRight1: this.context.getImageData(0, 128, 16, 16), // !right
+      frontTopTopLeft0: this.context.getImageData(16, 96, 16, 16), // left
+      frontTopTopLeft1: this.context.getImageData(48, 96, 16, 16), // !left
+      frontTopBottomLeft0: this.context.getImageData(16, 128, 16, 16), // left
+      frontTopBottomLeft1: this.context.getImageData(48, 128, 16, 16), // !left
+      frontBottomTopRight0: this.context.getImageData(32, 112, 16, 16), // right
+      frontBottomTopRight1: this.context.getImageData(0, 112, 16, 16), // !right
+      frontBottomBottomRight0: this.context.getImageData(32, 144, 16, 16), // right
+      frontBottomBottomRight1: this.context.getImageData(0, 144, 16, 16), // !right
+      frontBottomTopLeft0: this.context.getImageData(16, 112, 16, 16), // left
+      frontBottomTopLeft1: this.context.getImageData(48, 112, 16, 16), // !left
+      frontBottomBottomLeft0: this.context.getImageData(16, 144, 16, 16), // left
+      frontBottomBottomLeft1: this.context.getImageData(48, 144, 16, 16), // !left
     };
   }
 
   render() {
-    const { back, front, left, right, size, styles } = this.props;
+    const { back, front, left, name, right, size, styles } = this.props;
     return (
       <div className="Block pos-abs" style={styles}>
-        {!front && (<canvas
+        {front !== name && (<canvas
           className="Block__side side--front pos-abs"
           width={size}
           height={size}
           ref={this.drawFront}
           style={{transform: `rotateX(-90deg) rotateY(90deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
         />)}
-        {!back && (<canvas
+        {back !== name && (<canvas
           className="Block__side side--back pos-abs"
           width={size}
           height={size}
           ref={this.drawBack}
           style={{transform: `rotateY(90deg) rotateZ(-90deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
         />)}
-        {!right && (<canvas
+        {right !== name && (<canvas
           className="Block__side side--right pos-abs"
           width={size}
           height={size}
           ref={this.drawRight}
           style={{transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
         />)}
-        {!left && (<canvas
+        {left !== name && (<canvas
           className="Block__side side--left pos-abs"
           width={size}
           height={size}

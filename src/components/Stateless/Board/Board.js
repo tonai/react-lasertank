@@ -4,20 +4,19 @@ import { addIndex, map, pipe, unnest } from 'ramda';
 class Board extends Component {
 
   componentAround = (table, z, board) => {
-    const { depth, height, width } = this.props;
     return table.map((line, x) => {
       return line.map((cell, y) => {
         if (cell.component) {
-          cell.props.bottom = (cell.props.z > 0 && this.isSameComponent(board, cell, z - 1, 1, y));
-          cell.props.top = (cell.props.z < depth - 1 && this.isSameComponent(board, cell, z + 1, x, y));
-          cell.props.back = (cell.props.x > 0 && this.isSameComponent(board, cell, z, x - 1, y));
-          cell.props.backLeft = (cell.props.x > 0 && cell.props.y > 0 && this.isSameComponent(board, cell, z, x - 1, y - 1));
-          cell.props.backRight = (cell.props.x > 0 && cell.props.y < height - 1 && this.isSameComponent(board, cell, z, x - 1, y + 1));
-          cell.props.front = (cell.props.x < width - 1 && this.isSameComponent(board, cell, z, x + 1, y));
-          cell.props.frontLeft = (cell.props.x < width - 1 && cell.props.y > 0 && this.isSameComponent(board, cell, z, x + 1, y - 1));
-          cell.props.frontRight = (cell.props.x < width - 1 && cell.props.y < height - 1 && this.isSameComponent(board, cell, z, x + 1, y + 1));
-          cell.props.left = (cell.props.y > 0 && this.isSameComponent(board, cell, z, x, y - 1));
-          cell.props.right = (cell.props.y < height - 1 && this.isSameComponent(board, cell, z, x, y + 1));
+          cell.props.bottom = this.getComponentName(board, z - 1, 1, y);
+          cell.props.top = this.getComponentName(board, z + 1, x, y);
+          cell.props.back = this.getComponentName(board, z, x - 1, y);
+          cell.props.backLeft = this.getComponentName(board, z, x - 1, y - 1);
+          cell.props.backRight = this.getComponentName(board, z, x - 1, y + 1);
+          cell.props.front = this.getComponentName(board, z, x + 1, y);
+          cell.props.frontLeft = this.getComponentName(board, z, x + 1, y - 1);
+          cell.props.frontRight = this.getComponentName(board, z, x + 1, y + 1);
+          cell.props.left = this.getComponentName(board, z, x, y - 1);
+          cell.props.right = this.getComponentName(board, z, x, y + 1);
         }
         return cell;
       });
@@ -39,6 +38,7 @@ class Board extends Component {
         return {
           component: componentSettings && componentSettings.component,
           props: {
+            name: cell[0],
             x,
             y,
             z,
@@ -53,8 +53,8 @@ class Board extends Component {
     });
   };
 
-  isSameComponent(board, cell, z, x, y) {
-    return board[z] && board[z][x] && board[z][x][y] && cell.component === board[z][x][y].component;
+  getComponentName(board, z, x, y) {
+    return board[z] && board[z][x] && board[z][x][y] && board[z][x][y].props.name;
   }
 
   render() {
