@@ -21,7 +21,6 @@ class App extends Component {
     const depth = map.length;
     const width = map.reduce(this.maxLength, 0);
     const height = unnest(map).reduce(this.maxLength, 0);
-    console.log(depth, width, height);
 
     return (
       <div className="App">
