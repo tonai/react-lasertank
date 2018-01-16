@@ -22,7 +22,7 @@ class SceneControls extends Component {
         </label>
         <label>
           Zoom :
-          <input type="range" min="1" max="2" step="0.1" onChange={onZoomChange} value={zoom} />
+          <input type="range" min="0.5" max="2" step="0.1" onChange={onZoomChange} value={zoom} />
         </label>
       </div>
     );
