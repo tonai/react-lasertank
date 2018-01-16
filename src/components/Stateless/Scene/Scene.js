@@ -45,7 +45,7 @@ class Scene extends Component {
   }
 
   render() {
-    const { scale, size, styles } = this.props;
+    const { depth, scale, size, styles } = this.props;
     const width = this.props.width * this.props.size;
     const height = this.props.height * this.props.size;
     const containerWidth = this.state.containerWidth;
@@ -66,7 +66,7 @@ class Scene extends Component {
     const isHigher = containerHeight && H * scale > containerHeight;
 
     const sceneContainerStyles = {
-      marginTop: 2 * size * scale * Math.cos(bModulo)
+      marginTop: depth * size * scale * Math.cos(bModulo)
     };
 
     const sceneZoomStyles = {
