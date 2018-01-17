@@ -22,12 +22,7 @@ export default {
   water: {
     component: Water,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
-    spriteOffset: [0, 0],
-    bottomStyles: {
-      topStyles: {},
-      sideStyles: {},
-      backgroundPosition: `0px -${boardSettings.size / 2}px`
-    }
+    spriteOffset: [0, 0]
   },
   block: {
     component: Block,
