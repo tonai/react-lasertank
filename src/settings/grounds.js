@@ -22,12 +22,14 @@ export default {
   water: {
     component: Water,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
-    spriteOffset: [0, 0]
+    spriteOffset: [0, 0],
+    spriteTopConnect: false
   },
   block: {
     component: Block,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
-    spriteOffset: [0, 0]
+    spriteOffset: [0, 0],
+    spriteTopConnect: false
   },
   empty: {
     component: Empty,
