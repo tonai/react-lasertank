@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class Floor extends Component {
+class Floor extends PureComponent {
 
   render() {
     const { settings, size, styles } = this.props;

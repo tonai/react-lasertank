@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class Water extends Component {
+class Water extends PureComponent {
 
   render() {
     const { back, front, left, right, settings, size, styles } = this.props;

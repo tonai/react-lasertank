@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { unnest } from 'ramda';
 
 import boardSettings from '../../settings/board';
@@ -11,7 +11,7 @@ import Scene from '../Stateful/Scene/Scene';
 import SpritesLoader from '../Stateful/SpritesLoader/SpritesLoader';
 import SceneControls from '../Stateful/SceneControls/SceneControls';
 
-class App extends Component {
+class App extends PureComponent {
 
   maxLength(acc, array) {
     return Math.max(acc, array.length);

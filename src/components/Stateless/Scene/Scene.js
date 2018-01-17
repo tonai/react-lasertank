@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import './Scene.css';
 
-class Scene extends Component {
+class Scene extends PureComponent {
 
   constructor(props) {
     super(props);

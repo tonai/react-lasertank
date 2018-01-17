@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import './SceneControls.css';
 
 import { handleXAngleChange, handleZAngleChange, handleZoomChange } from '../../../redux/actions';
 
-class SceneControls extends Component {
+class SceneControls extends PureComponent {
 
   render() {
     const { onXAngleChange, onZAngleChange, onZoomChange, styles, xAngle, zAngle, zoom } = this.props;

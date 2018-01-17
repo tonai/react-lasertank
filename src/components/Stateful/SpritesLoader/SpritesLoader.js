@@ -1,7 +1,7 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import { mapObjIndexed, values } from 'ramda';
 
-class SpritesLoader extends Component {
+class SpritesLoader extends PureComponent {
 
   state = {
     settings: null

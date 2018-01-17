@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class Block extends Component {
+class Block extends PureComponent {
 
   drawFront = (canvas) => {
     const { bottom, frontLeft, frontRight, left, name, right, top } = this.props;

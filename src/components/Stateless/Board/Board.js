@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { addIndex, map, pipe, unnest } from 'ramda';
 
-class Board extends Component {
+class Board extends PureComponent {
 
   componentAround = (table, z, board) => {
     return table.map((line, x) => {
