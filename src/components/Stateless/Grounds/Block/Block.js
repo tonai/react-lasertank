@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 
 import { loadTextureData, setSideTexture, setTopTexture } from '../../../../services/texture';
+import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles,
+  getTopStyles } from '../../../../services/styles';
 
 class Block extends PureComponent {
 
@@ -70,35 +72,35 @@ class Block extends PureComponent {
           width={size}
           height={size}
           ref={this.drawFront}
-          style={{transform: `rotateX(-90deg) rotateY(90deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
+          style={getFrontStyles(size)}
         />)}
         {back !== name && (<canvas
           className="Block__side side--back pos-abs"
           width={size}
           height={size}
           ref={this.drawBack}
-          style={{transform: `rotateY(90deg) rotateZ(-90deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
+          style={getBackStyles(size)}
         />)}
         {right !== name && (<canvas
           className="Block__side side--right pos-abs"
           width={size}
           height={size}
           ref={this.drawRight}
-          style={{transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
+          style={getRightStyles(size)}
         />)}
         {left !== name && (<canvas
           className="Block__side side--left pos-abs"
           width={size}
           height={size}
           ref={this.drawLeft}
-          style={{transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
+          style={getLeftStyles(size)}
         />)}
         {top !== name && (<canvas
           className="Block__side side--top pos-abs"
           width={size}
           height={size}
           ref={this.drawTop}
-          style={{transform: `rotateZ(-90deg) translateZ(${size}px)`}}
+          style={getTopStyles(size)}
         />)}
       </div>
     );

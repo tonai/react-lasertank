@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react';
+
 import { loadTextureData, setTopTexture } from '../../../../services/texture';
+import { getBackStyles, getBottomStyles, getFrontStyles, getLeftStyles, getRightStyles,
+  getTopStyles } from '../../../../services/styles';
 
 class Water extends PureComponent {
 
@@ -25,30 +28,30 @@ class Water extends PureComponent {
       <div className="Water pos-abs" style={styles}>
         {!front && (<div
           className="Water__side side--front pos-abs"
-          style={{...sideStyles, transform: `rotateX(-90deg) rotateY(90deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
+          style={{...sideStyles, ...getFrontStyles(size)}}
         />)}
         {!back && (<div
           className="Water__side side--back pos-abs"
-          style={{...sideStyles, transform: `rotateY(90deg) rotateZ(-90deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
+          style={{...sideStyles, ...getBackStyles(size)}}
         />)}
         {!right && (<div
           className="Water__side side--right pos-abs"
-          style={{...sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(-${size / 2}px)`}}
+          style={{...sideStyles, ...getRightStyles(size)}}
         />)}
         {!left && (<div
           className="Water__side side--left pos-abs"
-          style={{...sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(${size / 2}px)`}}
+          style={{...sideStyles, ...getLeftStyles(size)}}
         />)}
         {!top && (<div
           className="Water__side side--top pos-abs"
-          style={{...sideStyles, transform: `rotateZ(-90deg) translateZ(${size}px)`}}
+          style={{...sideStyles, ...getTopStyles(size)}}
         />)}
         {!bottom && (<canvas
           className="Water__side side--bottom pos-abs"
           width={size}
           height={size}
           ref={this.drawTop}
-          style={{transform: `rotateZ(-90deg)`}}
+          style={getBottomStyles(size)}
         />)}
       </div>
     );
