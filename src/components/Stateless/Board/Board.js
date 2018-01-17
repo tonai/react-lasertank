@@ -8,7 +8,23 @@ class Board extends PureComponent {
       return line.map((cell, y) => {
         if (cell) {
           cell.props.bottom = this.getComponentName(board, z - 1, x, y);
+          cell.props.bottomBack = this.getComponentName(board, z - 1, x - 1, y);
+          cell.props.bottomBackLeft = this.getComponentName(board, z - 1, x - 1, y - 1);
+          cell.props.bottomBackRight = this.getComponentName(board, z - 1, x - 1, y + 1);
+          cell.props.bottomFront = this.getComponentName(board, z - 1, x + 1, y);
+          cell.props.bottomFrontLeft = this.getComponentName(board, z - 1, x + 1, y - 1);
+          cell.props.bottomFrontRight = this.getComponentName(board, z - 1, x + 1, y + 1);
+          cell.props.bottomLeft = this.getComponentName(board, z - 1, x, y - 1);
+          cell.props.bottomRight = this.getComponentName(board, z - 1, x, y + 1);
           cell.props.top = this.getComponentName(board, z + 1, x, y);
+          cell.props.topBack = this.getComponentName(board, z + 1, x - 1, y);
+          cell.props.topBackLeft = this.getComponentName(board, z + 1, x - 1, y - 1);
+          cell.props.topBackRight = this.getComponentName(board, z + 1, x - 1, y + 1);
+          cell.props.topFront = this.getComponentName(board, z + 1, x + 1, y);
+          cell.props.topFrontLeft = this.getComponentName(board, z + 1, x + 1, y - 1);
+          cell.props.topFrontRight = this.getComponentName(board, z + 1, x + 1, y + 1);
+          cell.props.topLeft = this.getComponentName(board, z + 1, x, y - 1);
+          cell.props.topRight = this.getComponentName(board, z + 1, x, y + 1);
           cell.props.back = this.getComponentName(board, z, x - 1, y);
           cell.props.backLeft = this.getComponentName(board, z, x - 1, y - 1);
           cell.props.backRight = this.getComponentName(board, z, x - 1, y + 1);

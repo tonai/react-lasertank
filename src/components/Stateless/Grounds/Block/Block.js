@@ -30,7 +30,7 @@ class Block extends PureComponent {
     } else {
       context.putImageData(this.data.frontBottomTopRight1, 0, 16);
     }
-    if (right === name || frontLeft === name) {
+    if (left === name || frontLeft === name) {
       context.putImageData(this.data.frontBottomTopLeft0, 48, 16);
     } else {
       context.putImageData(this.data.frontBottomTopLeft1, 48, 16);
@@ -268,74 +268,75 @@ class Block extends PureComponent {
   };
 
   drawTop = (canvas) => {
-    const { back, backLeft, backRight, front, frontLeft, frontRight, left, name, right } = this.props;
+    const { back, backLeft, backRight, front, frontLeft, frontRight, left, name, right, topBack, topBackLeft,
+      topBackRight, topFront, topFrontLeft, topFrontRight, topLeft, topRight } = this.props;
     const context = canvas.getContext('2d');
     context.putImageData(this.data.topFrontLeft0, 16, 16);
     context.putImageData(this.data.topFrontRight0, 32, 16);
     context.putImageData(this.data.topBackLeft0, 16, 32);
     context.putImageData(this.data.topBackRight0, 32, 32);
-    if (front === name) {
+    if (front === name && topFront !== name) {
       context.putImageData(this.data.topFrontLeft0, 16, 48);
       context.putImageData(this.data.topFrontRight0, 32, 48);
-      if (right === name) {
-        frontRight === name ? context.putImageData(this.data.topFrontRight0, 0, 48) : context.putImageData(this.data.topFrontRight1, 0, 48);
+      if (right === name && topRight !== name) {
+        frontRight === name && topFrontRight !== name ? context.putImageData(this.data.topFrontRight0, 0, 48) : context.putImageData(this.data.topFrontRight1, 0, 48);
       } else {
         context.putImageData(this.data.topFrontRight2, 0, 48)
       }
-      if (left === name) {
-        frontLeft === name ? context.putImageData(this.data.topFrontLeft0, 48, 48) : context.putImageData(this.data.topFrontLeft1, 48, 48);
+      if (left === name && topLeft !== name) {
+        frontLeft === name && topFrontLeft !== name ? context.putImageData(this.data.topFrontLeft0, 48, 48) : context.putImageData(this.data.topFrontLeft1, 48, 48);
       } else {
         context.putImageData(this.data.topFrontLeft2, 48, 48)
       }
     } else {
       context.putImageData(this.data.topFrontLeft3, 16, 48);
       context.putImageData(this.data.topFrontRight3, 32, 48);
-      if (right === name) {
+      if (right === name && topRight !== name) {
         context.putImageData(this.data.topFrontRight3, 0, 48)
       } else {
         context.putImageData(this.data.topFrontRight4, 0, 48)
       }
-      if (left === name) {
+      if (left === name && topLeft !== name) {
         context.putImageData(this.data.topFrontLeft3, 48, 48)
       } else {
         context.putImageData(this.data.topFrontLeft4, 48, 48)
       }
     }
-    if (back === name) {
+    if (back === name && topBack !== name) {
       context.putImageData(this.data.topBackLeft0, 16, 0);
       context.putImageData(this.data.topBackRight0, 32, 0);
-      if (right === name) {
-        backRight === name ? context.putImageData(this.data.topBackRight0, 0, 0) : context.putImageData(this.data.topBackRight1, 0, 0);
+      if (right === name && topRight !== name) {
+        backRight === name && topBackRight !== name ? context.putImageData(this.data.topBackRight0, 0, 0) : context.putImageData(this.data.topBackRight1, 0, 0);
       } else {
         context.putImageData(this.data.topBackRight2, 0, 0);
       }
-      if (left === name) {
-        backLeft === name ? context.putImageData(this.data.topBackLeft0, 48, 0) : context.putImageData(this.data.topBackLeft1, 48, 0);
+      if (left === name && topLeft !== name) {
+        backLeft === name && topBackLeft !== name ? context.putImageData(this.data.topBackLeft0, 48, 0) : context.putImageData(this.data.topBackLeft1, 48, 0);
       } else {
         context.putImageData(this.data.topBackLeft2, 48, 0);
       }
     } else {
       context.putImageData(this.data.topBackLeft3, 16, 0);
       context.putImageData(this.data.topBackRight3, 32, 0);
-      if (right === name) {
+      if (right === name && topRight !== name) {
         context.putImageData(this.data.topBackRight3, 0, 0);
       } else {
         context.putImageData(this.data.topBackRight4, 0, 0);
       }
-      if (left === name) {
+      if (left === name && topLeft !== name) {
         context.putImageData(this.data.topBackLeft3, 48, 0);
       } else {
         context.putImageData(this.data.topBackLeft4, 48, 0);
       }
     }
-    if (left === name) {
+    if (left === name && topLeft !== name) {
       context.putImageData(this.data.topFrontLeft0, 48, 16);
       context.putImageData(this.data.topBackLeft0, 48, 32);
     } else {
       context.putImageData(this.data.topFrontLeft2, 48, 16);
       context.putImageData(this.data.topBackLeft2, 48, 32);
     }
-    if (right === name) {
+    if (right === name && topRight !== name) {
       context.putImageData(this.data.topFrontRight0, 0, 16);
       context.putImageData(this.data.topBackRight0, 0, 32);
     } else {
