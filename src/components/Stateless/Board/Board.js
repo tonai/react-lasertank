@@ -6,8 +6,8 @@ class Board extends Component {
   componentAround = (table, z, board) => {
     return table.map((line, x) => {
       return line.map((cell, y) => {
-        if (cell.component) {
-          cell.props.bottom = this.getComponentName(board, z - 1, 1, y);
+        if (cell) {
+          cell.props.bottom = this.getComponentName(board, z - 1, x, y);
           cell.props.top = this.getComponentName(board, z + 1, x, y);
           cell.props.back = this.getComponentName(board, z, x - 1, y);
           cell.props.backLeft = this.getComponentName(board, z, x - 1, y - 1);
@@ -24,16 +24,19 @@ class Board extends Component {
   };
 
   componentCreate = (cell) => {
-    if (cell.component) {
+    if (cell) {
       const Component = cell.component;
       return (<Component {...cell.props}/>);
     }
   };
 
-  componentPrepate = (table, z) => {
+  componentPrepare = (table, z) => {
     const { settings, size } = this.props;
     return table.map((line, x) => {
       return line.map((cell, y) => {
+        if (!cell || !cell[0] || !settings[cell[0]]) {
+          return null;
+        }
         const componentSettings = settings[cell[0]];
         return {
           component: componentSettings && componentSettings.component,
@@ -59,7 +62,7 @@ class Board extends Component {
 
   render() {
     const board = pipe(
-      addIndex(map)(this.componentPrepate),
+      addIndex(map)(this.componentPrepare),
       board => board.map(this.componentAround),
       unnest,
       unnest,
