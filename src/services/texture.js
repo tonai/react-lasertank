@@ -59,21 +59,21 @@ export function loadTextureData(settings) {
 export function setTopTexture(canvas, name, settings, props) {
   const { back, backLeft, backRight, front, frontLeft, frontRight, left, right, topBack, topBackLeft, topBackRight,
     topFront, topFrontLeft, topFrontRight, topLeft, topRight } = props;
-  const { spritePath, spriteOffset, spriteTopConnect } = settings;
+  const { spriteConnect, spritePath, spriteOffset, spriteTopConnect } = settings;
   const [ x, y ] = spriteOffset;
   
   const context = canvas.getContext('2d');
   const data = spritesData[`${spritePath}-${x}-${y}`];
 
   // Tests
-  const frontTest = (front === name && !(topFront === name && spriteTopConnect));
-  const backTest = back === name && !(topBack === name && spriteTopConnect);
-  const rightTest = (right === name && !(topRight === name && spriteTopConnect));
-  const leftTest = left === name && !(topLeft === name && spriteTopConnect);
-  const frontRightTest = frontRight === name && !(topFrontRight === name && spriteTopConnect);
-  const frontLeftTest = frontLeft === name && !(topFrontLeft === name && spriteTopConnect);
-  const backRightTest = backRight === name && !(topBackRight === name && spriteTopConnect);
-  const backLeftTest = backLeft === name && !(topBackLeft === name && spriteTopConnect);
+  const frontTest = (spriteConnect && front === name && !(topFront === name && spriteTopConnect));
+  const backTest = (spriteConnect && back === name && !(topBack === name && spriteTopConnect));
+  const rightTest = (spriteConnect && right === name && !(topRight === name && spriteTopConnect));
+  const leftTest = (spriteConnect && left === name && !(topLeft === name && spriteTopConnect));
+  const frontRightTest = (spriteConnect && frontRight === name && !(topFrontRight === name && spriteTopConnect));
+  const frontLeftTest = (spriteConnect && frontLeft === name && !(topFrontLeft === name && spriteTopConnect));
+  const backRightTest = (spriteConnect && backRight === name && !(topBackRight === name && spriteTopConnect));
+  const backLeftTest = (spriteConnect && backLeft === name && !(topBackLeft === name && spriteTopConnect));
 
   // Center
   context.putImageData(data.top_1_1, 16, 16);
@@ -160,17 +160,17 @@ export function setTopTexture(canvas, name, settings, props) {
 
 export function setSideTexture(canvas, name, settings, props) {
   const { bottom, frontLeft, frontRight, left, right, top } = props;
-  const { spritePath, spriteOffset } = settings;
+  const { spriteConnect, spritePath, spriteOffset } = settings;
   const [ x, y ] = spriteOffset;
   
   const context = canvas.getContext('2d');
   const data = spritesData[`${spritePath}-${x}-${y}`];
 
   // Tests.
-  const topTest = (top === name);
-  const bottomTest = (bottom === name);
-  const rightTest = (right === name || frontRight === name);
-  const leftTest = (left === name || frontLeft === name);
+  const topTest = (spriteConnect && top === name);
+  const bottomTest = (spriteConnect && bottom === name);
+  const rightTest = (spriteConnect && (right === name || frontRight === name));
+  const leftTest = (spriteConnect && (left === name || frontLeft === name));
 
   // Center
   context.putImageData(data.front_1_1, 16, 16);

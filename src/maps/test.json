@@ -7,7 +7,7 @@
     [["wall"], ["water"], ["wall"], ["floor"], ["wall"]]
   ],
   [
-    [],
-    [null, null, null, ["wall"], null]
+    [null, null, null, ["block"], ["block"]],
+    [null, null, null, ["block"], ["block"]]
   ]
 ]
