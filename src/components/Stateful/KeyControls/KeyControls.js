@@ -11,16 +11,19 @@ const KEY_UP = 'ArrowUp';
 class KeyControls extends PureComponent {
 
   handleKeyPress = (e) => {
-    const { onKeyDown, onKeyLeft, onKeyRight, onKeyUp, player } = this.props;
+    const { onKeyDown, onKeyLeft, onKeyRight, onKeyUp, playerControls } = this.props;
+    if (!playerControls) {
+      return;
+    }
     switch(e.key) {
       case KEY_DOWN:
-        return onKeyDown(player);
+        return onKeyDown();
       case KEY_LEFT:
-        return onKeyLeft(player);
+        return onKeyLeft();
       case KEY_RIGHT:
-        return onKeyRight(player);
+        return onKeyRight();
       case KEY_UP:
-        return onKeyUp(player);
+        return onKeyUp();
       default:
     }
   };
@@ -39,11 +42,15 @@ class KeyControls extends PureComponent {
 
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onKeyDown: (player) => dispatch(handleKeyDown(player)),
-  onKeyLeft: (player) => dispatch(handleKeyLeft(player)),
-  onKeyRight: (player) => dispatch(handleKeyRight(player)),
-  onKeyUp: (player) => dispatch(handleKeyUp(player))
+const mapStatToProps = (state) => ({
+  playerControls: state.playerControls
 });
 
-export default connect(null, mapDispatchToProps)(KeyControls);
+const mapDispatchToProps = (dispatch) => ({
+  onKeyDown: () => dispatch(handleKeyDown()),
+  onKeyLeft: () => dispatch(handleKeyLeft()),
+  onKeyRight: () => dispatch(handleKeyRight()),
+  onKeyUp: () => dispatch(handleKeyUp())
+});
+
+export default connect(mapStatToProps, mapDispatchToProps)(KeyControls);

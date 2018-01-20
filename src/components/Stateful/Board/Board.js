@@ -7,6 +7,7 @@ const mapStateToProps = (state) => ({
   height: state.height,
   map: state.map,
   player: state.player,
+  settings: state.blocksSettings,
   width: state.width
 });
 

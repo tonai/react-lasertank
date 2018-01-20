@@ -2,15 +2,21 @@ import React, { PureComponent } from 'react';
 
 import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles,
   getTopStyles } from '../../../../services/styles';
+import gameSettings from '../../../../settings/game';
 
 class Player extends PureComponent {
 
   render() {
     const { direction, size, styles } = this.props;
+    const playerStyles = {
+      ...styles,
+      transition: `all ${gameSettings.transitionTimer}ms linear`
+    };
     const rotationStyles = {
       width: size,
       height: size,
-      transform: `rotateZ(${direction}deg)`
+      transform: `rotateZ(${direction}deg)`,
+      transition: `all ${gameSettings.transitionTimer}ms linear`
     };
     const sideStyles = {
       width: size,
@@ -18,7 +24,7 @@ class Player extends PureComponent {
       backgroundColor: 'rgba(0, 255, 0, 0.5)'
     };
     return (
-      <div className="pos-abs" style={styles}>
+      <div className="pos-abs" style={playerStyles}>
         <div className="pos-abs" style={rotationStyles}>
           <div
             className="side--front pos-abs"

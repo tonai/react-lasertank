@@ -15,7 +15,12 @@ export function initMap() {
     table.map((line, x) =>
       line.map((cell, y) => {
         if (cell && cell[0] === 'player') {
-          player = {direction: 0, x, y, z};
+          player = {
+            playerDirection: 0,
+            playerX: x,
+            playerY: y,
+            playerZ: z
+          };
           return null
         }
         return cell;
@@ -27,7 +32,7 @@ export function initMap() {
   const width = map.reduce(maxLength, 0);
   const height = unnest(map).reduce(maxLength, 0);
 
-  return { depth, height, map, player, width };
+  return { depth, height, map, width, ...player };
 }
 
 export function getBlock(cell, settings, size, x, y, z) {
@@ -43,7 +48,6 @@ export function getBlock(cell, settings, size, x, y, z) {
       x,
       y,
       z,
-      key: `${z}-${x}-${y}`,
       size,
       settings: componentSettings,
       styles: {transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}

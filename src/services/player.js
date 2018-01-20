@@ -1,73 +1,88 @@
 import mathMod from 'ramda/es/mathMod';
+import { addAdjacentProps } from './board';
 
-export function getPlayerOnKeyUp(player) {
-  const direction = mathMod(player.direction, 360);
-  switch (direction) {
+export function getPlayerOnKeyUp(board, playerDirection, playerX, playerY, playerZ) {
+  const props =  addAdjacentProps(board, playerX, playerY, playerZ);
+  const { back, bottomBack, bottomFront, bottomLeft, bottomRight, front, left, right } = props;
+
+  switch (mathMod(playerDirection, 360)) {
     case 0:
-      if (player.front || !player.bottomFront) {
-        return player;
+      if (!front && bottomFront) {
+        return {playerDirection, playerX: playerX + 1, playerY, playerZ};
       }
-      return {...player, x: player.x + 1};
+      return null;
 
     case 180:
-      if (player.back || !player.bottomBack) {
-        return player;
+      if (!back && bottomBack) {
+        return {playerDirection, playerX: playerX - 1, playerY, playerZ};
       }
-      return {...player, x: player.x - 1};
+      return null;
 
     case 90:
-      if (player.right || !player.bottomRight) {
-        return player;
+      if (!right && bottomRight) {
+        return {playerDirection, playerX, playerY: playerY + 1, playerZ};
       }
-      return {...player, y: player.y + 1};
+      return null;
 
     case 270:
-      if (player.left || !player.bottomLeft) {
-        return player;
+      if (!left && bottomLeft) {
+        return {playerDirection, playerX, playerY: playerY - 1, playerZ};
       }
-      return {...player, y: player.y - 1};
+      return null;
 
     default:
+      return null;
   }
 }
 
-export function getPlayerOnKeyDown(player) {
-  const direction = mathMod(player.direction, 360);
-  switch (direction) {
+export function getPlayerOnKeyDown(board, playerDirection, playerX, playerY, playerZ) {
+  const props =  addAdjacentProps(board, playerX, playerY, playerZ);
+  const { back, bottomBack, bottomFront, bottomLeft, bottomRight, front, left, right } = props;
+
+  switch (mathMod(playerDirection, 360)) {
     case 0:
-      if (player.back || !player.bottomBack) {
-        return player;
+      if (!front && bottomFront) {
+        return {playerDirection, playerX: playerX - 1, playerY, playerZ};
       }
-      return {...player, x: player.x - 1};
+      return null;
 
     case 180:
-      if (player.front || !player.bottomFront) {
-        return player;
+      if (!back && bottomBack) {
+        return {playerDirection, playerX: playerX + 1, playerY, playerZ};
       }
-      return {...player, x: player.x + 1};
+      return null;
 
     case 90:
-      if (player.left || !player.bottomLeft) {
-        return player;
+      if (!right && bottomRight) {
+        return {playerDirection, playerX, playerY: playerY - 1, playerZ};
       }
-      return {...player, y: player.y - 1};
+      return null;
 
     case 270:
-      if (player.right || !player.bottomRight) {
-        return player;
+      if (!left && bottomLeft) {
+        return {playerDirection, playerX, playerY: playerY + 1, playerZ};
       }
-      return {...player, y: player.y + 1};
+      return null;
 
     default:
+      return null;
   }
 }
 
-export function getPlayerOnKeyLeft(player) {
-  const direction = mathMod(player.direction, 360);
-  return {...player, direction: direction - 90};
+export function getPlayerOnKeyLeft(board, playerDirection, playerX, playerY, playerZ) {
+  return {
+    playerDirection: playerDirection - 90,
+    playerX,
+    playerY,
+    playerZ
+  };
 }
 
-export function getPlayerOnKeyRight(player) {
-  const direction = mathMod(player.direction, 360);
-  return {...player, direction: direction + 90};
+export function getPlayerOnKeyRight(board, playerDirection, playerX, playerY, playerZ) {
+  return {
+    playerDirection: playerDirection + 90,
+    playerX,
+    playerY,
+    playerZ
+  };
 }

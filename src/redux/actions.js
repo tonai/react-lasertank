@@ -23,33 +23,52 @@ export function handleZoomChange(value) {
 }
 
 export const KEY_DOWN = 'KEY_DOWN';
-export function handleKeyDown(player) {
+export function handleKeyDown() {
   return {
-    type: KEY_DOWN,
-    player
+    type: KEY_DOWN
   }
 }
 
 export const KEY_LEFT = 'KEY_LEFT';
-export function handleKeyLeft(player) {
+export function handleKeyLeft() {
   return {
-    type: KEY_LEFT,
-    player
+    type: KEY_LEFT
   }
 }
 
 export const KEY_RIGHT = 'KEY_RIGHT';
-export function handleKeyRight(player) {
+export function handleKeyRight() {
   return {
-    type: KEY_RIGHT,
-    player
+    type: KEY_RIGHT
   }
 }
 
 export const KEY_UP = 'KEY_UP';
-export function handleKeyUp(player) {
+export function handleKeyUp() {
   return {
-    type: KEY_UP,
-    player
+    type: KEY_UP
   }
+}
+
+export const SPRITES_LOADED = 'SPRITES_LOADED';
+export function handleSpritesLoaded(settings) {
+  return {
+    type: SPRITES_LOADED,
+    settings
+  };
+}
+
+export const BOARD_LOADED = 'BOARD_LOADED';
+export function handleBoardLoaded(board) {
+  return {
+    type: BOARD_LOADED,
+    board
+  };
+}
+
+export const PLAYER_UPDATED = 'PLAYER_UPDATED';
+export function handlePlayerUpdate() {
+  return {
+    type: PLAYER_UPDATED
+  };
 }
