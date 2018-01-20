@@ -17,13 +17,11 @@ class Water extends PureComponent {
 
   render() {
     const { back, bottom, front, left, right, size, styles, top } = this.props;
-
     const sideStyles = {
       width: size,
       height: size,
       backgroundColor: 'rgba(0, 100, 255, 0.5)'
     };
-
     return (
       <div className="Water pos-abs" style={styles}>
         {!front && (<div

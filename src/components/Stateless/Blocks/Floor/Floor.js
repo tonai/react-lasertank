@@ -12,7 +12,6 @@ class Floor extends PureComponent {
 
   render() {
     const { bottom, size, styles } = this.props;
-
     return (
       <div className="Floor pos-abs" style={styles}>
         {!bottom && (<canvas
