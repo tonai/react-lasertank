@@ -4,7 +4,7 @@ import { loadTextureData, setSideTexture, setTopTexture } from '../../../../serv
 import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles,
   getTopStyles } from '../../../../services/styles';
 
-class Block extends PureComponent {
+class Wall extends PureComponent {
 
   drawFront = (canvas) => {
     const { bottom, frontLeft, frontRight, left, name, right, settings, top } = this.props;
@@ -66,37 +66,37 @@ class Block extends PureComponent {
   render() {
     const { back, front, left, name, right, size, styles, top } = this.props;
     return (
-      <div className="Block pos-abs" style={styles}>
+      <div className="Wall pos-abs" style={styles}>
         {front !== name && (<canvas
-          className="Block__side side--front pos-abs"
+          className="Wall__side side--front pos-abs"
           width={size}
           height={size}
           ref={this.drawFront}
           style={getFrontStyles(size)}
         />)}
         {back !== name && (<canvas
-          className="Block__side side--back pos-abs"
+          className="Wall__side side--back pos-abs"
           width={size}
           height={size}
           ref={this.drawBack}
           style={getBackStyles(size)}
         />)}
         {right !== name && (<canvas
-          className="Block__side side--right pos-abs"
+          className="Wall__side side--right pos-abs"
           width={size}
           height={size}
           ref={this.drawRight}
           style={getRightStyles(size)}
         />)}
         {left !== name && (<canvas
-          className="Block__side side--left pos-abs"
+          className="Wall__side side--left pos-abs"
           width={size}
           height={size}
           ref={this.drawLeft}
           style={getLeftStyles(size)}
         />)}
         {top !== name && (<canvas
-          className="Block__side side--top pos-abs"
+          className="Wall__side side--top pos-abs"
           width={size}
           height={size}
           ref={this.drawTop}
@@ -108,9 +108,9 @@ class Block extends PureComponent {
 
 }
 
-Block.defaultProps = {
+Wall.defaultProps = {
   x: 0,
   y: 0,
 };
 
-export default Block;
+export default Wall;

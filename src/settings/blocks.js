@@ -1,8 +1,8 @@
 import generalSettings from './general';
 
 import Floor from '../components/Stateless/Blocks/Floor/Floor';
+import Wall from '../components/Stateless/Blocks/Wall/Wall';
 import Water from '../components/Stateless/Blocks/Water/Water';
-import Block from '../components/Stateless/Blocks/Block/Block';
 
 export default {
   floor: {
@@ -11,14 +11,14 @@ export default {
     spriteOffset: [0, 0],
     spriteTopConnect: false
   },
-  water: {
-    component: Water,
+  wall: {
+    component: Wall,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
     spriteOffset: [0, 0],
     spriteTopConnect: false
   },
-  block: {
-    component: Block,
+  water: {
+    component: Water,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
     spriteOffset: [0, 0],
     spriteTopConnect: false
