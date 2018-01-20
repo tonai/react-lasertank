@@ -2,12 +2,12 @@
   [
     [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
     [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
+    [["wall"], ["block"], ["wall"], ["wall"], ["wall"]],
     [["wall"], ["water"], ["wall"], ["floor"], ["floor"]],
     [["wall"], ["water"], ["wall"], ["floor"], ["wall"]]
   ],
   [
-    [null, null, null, ["block"], ["block"]],
+    [["player"], null, null, ["block"], ["block"]],
     [null, null, null, ["block"], ["block"]]
   ]
 ]

@@ -2,6 +2,7 @@ import generalSettings from './general';
 
 import Block from '../components/Stateless/Blocks/Block/Block';
 import Floor from '../components/Stateless/Blocks/Floor/Floor';
+import Player from '../components/Stateless/Blocks/Player/Player';
 import Wall from '../components/Stateless/Blocks/Wall/Wall';
 import Water from '../components/Stateless/Blocks/Water/Water';
 
@@ -19,6 +20,9 @@ export default {
     spriteOffset: [0, 0],
     spriteConnect: true,
     spriteTopConnect: false
+  },
+  player: {
+    component: Player
   },
   wall: {
     component: Wall,
