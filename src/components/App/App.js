@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { unnest } from 'ramda';
 
 import boardSettings from '../../settings/board';
-import groundsSettings from '../../settings/grounds';
+import blocksSettings from '../../settings/blocks';
 
 import map from '../../maps/test.json';
 
@@ -24,7 +24,7 @@ class App extends PureComponent {
 
     return (
       <div className="App">
-        <SpritesLoader settings={groundsSettings}>
+        <SpritesLoader settings={blocksSettings}>
           {settings => (
             <Scene
               depth={depth}

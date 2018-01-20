@@ -1,10 +1,10 @@
 import boardSettings from './board';
 import generalSettings from './general';
 
-import Floor from '../components/Stateless/Grounds/Floor/Floor';
-import Water from '../components/Stateless/Grounds/Water/Water';
-import Block from '../components/Stateless/Grounds/Block/Block';
-import Empty from '../components/Stateless/Grounds/Empty/Empty';
+import Floor from '../components/Stateless/Blocks/Floor/Floor';
+import Water from '../components/Stateless/Blocks/Water/Water';
+import Block from '../components/Stateless/Blocks/Block/Block';
+import Empty from '../components/Stateless/Blocks/Empty/Empty';
 
 export default {
   floor: {

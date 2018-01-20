@@ -10,7 +10,7 @@ class SpritesLoader extends PureComponent {
   componentDidMount() {
     const settings = mapObjIndexed(settings => ({...settings}))(this.props.settings);
     const settingsArray = values(settings);
-    const promises = settingsArray.map(ground => import(`../../../${ground.spritePath}`));
+    const promises = settingsArray.map(block => import(`../../../${block.spritePath}`));
     Promise.all(promises)
       .then(sources => sources.map((src, index) => settingsArray[index].spriteSrc = src))
       .then(() => settingsArray.map(settings => new Promise((resolve, reject) => {
