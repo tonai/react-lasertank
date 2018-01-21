@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { handlePlayerUpdated, handlePlayerUpdateRelativePos } from '../../../../redux/actions';
 import gameSettings from '../../../../settings/game';
 
-import Floor from '../../../Stateless/Blocks/Floor/Floor';
+import Floor from '../../../Stateless/Grounds/Floor/Floor';
 
 const mapStateToProps = () => ({});
 

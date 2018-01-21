@@ -2,7 +2,7 @@ import generalSettings from './general';
 
 import Block from '../components/Stateful/Blocks/Block/Block';
 import Empty from '../components/Stateful/Blocks/Empty/Empty';
-import Floor from '../components/Stateful/Blocks/Floor/Floor';
+import Floor from '../components/Stateful/Grounds/Floor/Floor';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
 import Water from '../components/Stateful/Blocks/Water/Water';
 
