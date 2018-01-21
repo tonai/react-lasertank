@@ -1,5 +1,5 @@
-import { BOARD_LOADED, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP, PLAYER_UPDATED, SPRITES_LOADED, X_ANGLE_CHANGE,
-  Z_ANGLE_CHANGE, ZOOM_CHANGE } from './actions';
+import { BOARD_LOADED, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP, PLAYER_UPDATED, PLAYER_UPDATE_RELATIVE_POS,
+  SPRITES_LOADED, X_ANGLE_CHANGE, Z_ANGLE_CHANGE, ZOOM_CHANGE } from './actions';
 
 import blocksSettings from '../settings/blocks';
 
@@ -43,8 +43,7 @@ export default function reducer(state = initialState, action) {
       if (player) {
         return {
           ...state,
-          ...player,
-          playerControls: false
+          ...player
         };
       }
       return state;
@@ -54,8 +53,7 @@ export default function reducer(state = initialState, action) {
       if (player) {
         return {
           ...state,
-          ...player,
-          playerControls: false
+          ...player
         };
       }
       return state;
@@ -75,6 +73,14 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         playerControls: true
+      };
+
+    case PLAYER_UPDATE_RELATIVE_POS:
+      return {
+        ...state,
+        playerX: state.playerX + action.x,
+        playerY: state.playerY + action.y,
+        playerZ: state.playerZ + action.z
       };
 
     case SPRITES_LOADED:

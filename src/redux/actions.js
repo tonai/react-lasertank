@@ -67,8 +67,18 @@ export function handleBoardLoaded(board) {
 }
 
 export const PLAYER_UPDATED = 'PLAYER_UPDATED';
-export function handlePlayerUpdate() {
+export function handlePlayerUpdated() {
   return {
     type: PLAYER_UPDATED
+  };
+}
+
+export const PLAYER_UPDATE_RELATIVE_POS = 'PLAYER_UPDATE_RELATIVE_POS';
+export function handlePlayerUpdateRelativePos(x, y, z) {
+  return {
+    type: PLAYER_UPDATE_RELATIVE_POS,
+    x,
+    y,
+    z
   };
 }

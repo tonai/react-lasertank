@@ -1,14 +1,15 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 import { addIndex, map, pipe, unnest } from 'ramda';
 
 import { addAdjacentProps, getBlock } from '../../../services/board';
-import { handleBoardLoaded } from '../../../redux/actions';
 
 import KeyControls from '../../Stateful/KeyControls/KeyControls';
 import Player from '../../Stateful/Player/Player';
 
 class Board extends PureComponent {
+
+  board = [];
+  componentsCounter = 0;
 
   addAdjacentProps = (table, z, board) => {
     return table.map((line, x) => {
@@ -19,6 +20,17 @@ class Board extends PureComponent {
         return this.createComponent(cell, `${z}-${x}-${y}`);
       });
     });
+  };
+
+  addEmptyBlocks = (table) => {
+    const { height, width } = this.props;
+    for (let i = 0; i < width; i++) {
+      for (let j = 0; j < height; j++) {
+        table[i] = table[i] || [];
+        table[i][j] = table[i][j] || ['empty'];
+      }
+    }
+    return table;
   };
 
   boardInit = (table, z) => {
@@ -32,43 +44,45 @@ class Board extends PureComponent {
 
   createComponent = (cell, key) => {
     if (cell) {
+      this.componentsCounter++;
       const Component = cell.component;
-      return (<Component key={key} {...cell.props}/>);
+      return (<Component key={key} {...cell.props} ref={this.initComponent}/>);
     }
   };
 
-  componentDidMount() {
-    const board = pipe(
-      addIndex(map)(this.boardInit),
-      board => board.map(this.addAdjacentProps)
-    )(this.props.map);
-    this.props.onBoardLoaded(board);
-  }
+  initComponent = (component) => {
+    this.componentsCounter--;
+    if (component.getWrappedInstance) {
+      component = component.getWrappedInstance();
+    }
+    const { x, y, z } = component.props;
+    this.board[z] = this.board[z] || [];
+    this.board[z][x] = this.board[z][x] || [];
+    this.board[z][x][y] = component;
+    if (this.componentsCounter === 0) {
+      this.props.onBoardLoaded(this.board);
+    }
+  };
 
   render() {
-    const { board, size } = this.props;
-    if (board) {
-      return (
-        <div className="Board">
-          {unnest(unnest(board))}
-          <Player size={size}/>
-          <KeyControls/>
-        </div>
-      );
-    }
-    return null;
+    const { size } = this.props;
+    const board = pipe(
+      map(this.addEmptyBlocks),
+      addIndex(map)(this.boardInit),
+      board => board.map(this.addAdjacentProps),
+      unnest,
+      unnest
+    )(this.props.map);
+
+    return (
+      <div className="Board">
+        {board}
+        <Player size={size}/>
+        <KeyControls/>
+      </div>
+    );
   }
 
 }
 
-const mapStateToProps = (state) => ({
-  blocksSettings: state.blocksSettings,
-  board: state.board,
-  map: state.map
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onBoardLoaded: (board) => dispatch(handleBoardLoaded(board))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Board);
+export default Board;

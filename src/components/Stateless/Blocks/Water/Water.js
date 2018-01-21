@@ -16,7 +16,7 @@ class Water extends PureComponent {
   }
 
   render() {
-    const { back, bottom, front, left, right, size, styles, top } = this.props;
+    const { back, bottom, front, left, name, right, size, styles, top } = this.props;
     const sideStyles = {
       width: size,
       height: size,
@@ -40,7 +40,7 @@ class Water extends PureComponent {
           className="Water__side side--left pos-abs"
           style={{...sideStyles, ...getLeftStyles(size)}}
         />)}
-        {!top && (<div
+        {top !== name && (<div
           className="Water__side side--top pos-abs"
           style={{...sideStyles, ...getTopStyles(size)}}
         />)}

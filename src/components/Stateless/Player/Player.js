@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 
 import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles,
-  getTopStyles } from '../../../../services/styles';
-import gameSettings from '../../../../settings/game';
+  getTopStyles } from '../../../services/styles';
+import gameSettings from '../../../settings/game';
 
 class Player extends PureComponent {
 

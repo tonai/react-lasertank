@@ -36,7 +36,7 @@ export function initMap() {
 }
 
 export function getBlock(cell, settings, size, x, y, z) {
-  if (!cell || !cell[0] || !settings[cell[0]]) {
+  if (!cell || !cell[0]) {
     return null;
   }
   const componentSettings = settings[cell[0]];

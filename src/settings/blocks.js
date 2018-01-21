@@ -1,10 +1,10 @@
 import generalSettings from './general';
 
-import Block from '../components/Stateless/Blocks/Block/Block';
-import Floor from '../components/Stateless/Blocks/Floor/Floor';
-import Player from '../components/Stateless/Blocks/Player/Player';
-import Wall from '../components/Stateless/Blocks/Wall/Wall';
-import Water from '../components/Stateless/Blocks/Water/Water';
+import Block from '../components/Stateful/Blocks/Block/Block';
+import Empty from '../components/Stateful/Blocks/Empty/Empty';
+import Floor from '../components/Stateful/Blocks/Floor/Floor';
+import Wall from '../components/Stateful/Blocks/Wall/Wall';
+import Water from '../components/Stateful/Blocks/Water/Water';
 
 export default {
   block: {
@@ -12,30 +12,35 @@ export default {
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
     spriteOffset: [448, 320],
     spriteConnect: false,
-    spriteTopConnect: false
+    spriteTopConnect: false,
+    allowMovement: false
+  },
+  empty: {
+    component: Empty,
+    allowMovement: true
   },
   floor: {
     component: Floor,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
     spriteOffset: [0, 0],
     spriteConnect: true,
-    spriteTopConnect: false
-  },
-  player: {
-    component: Player
+    spriteTopConnect: false,
+    allowMovement: true
   },
   wall: {
     component: Wall,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
     spriteOffset: [0, 0],
     spriteConnect: true,
-    spriteTopConnect: false
+    spriteTopConnect: false,
+    allowMovement: false
   },
   water: {
     component: Water,
     spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
     spriteOffset: [0, 0],
     spriteConnect: true,
-    spriteTopConnect: false
+    spriteTopConnect: false,
+    allowMovement: true
   }
 };
