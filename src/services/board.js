@@ -21,7 +21,6 @@ export function initMap() {
             playerY: y,
             playerZ: z
           };
-          return null
         }
         return cell;
       })

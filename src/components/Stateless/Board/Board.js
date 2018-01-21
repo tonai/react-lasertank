@@ -36,9 +36,12 @@ class Board extends PureComponent {
   boardInit = (table, z) => {
     const { blocksSettings, size } = this.props;
     return table.map((line, x) =>
-      line.map((cell, y) =>
-        getBlock(cell, blocksSettings, size, x, y, z)
-      )
+      line.map((cell, y) => {
+        if (cell[0] === 'player') {
+          cell[0] = 'floor';
+        }
+        return getBlock(cell, blocksSettings, size, x, y, z)
+      })
     );
   };
 

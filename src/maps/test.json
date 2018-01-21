@@ -7,11 +7,14 @@
     [["wall"], ["water"], ["wall"], ["floor"], ["wall"]]
   ],
   [
-    [["block"], null, null, ["block"], ["block"]],
-    [null, null, null, ["block"], ["block"]]
+    [["wall"], null, ["player"], ["block"], ["block"]],
+    [["floor"], null, ["floor"], ["block"], ["block"]],
+    [["floor"], null, ["floor"], ["floor"], ["floor"]],
+    [["floor"], null, ["floor"], null, null],
+    [["floor"], null, ["floor"], null, ["floor"]]
   ],
   [
-    [["block"]]
+    [["wall"]]
   ],
   [
     [["player"]]
