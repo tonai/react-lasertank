@@ -108,9 +108,4 @@ class Block extends PureComponent {
 
 }
 
-Block.defaultProps = {
-  x: 0,
-  y: 0,
-};
-
 export default Block;

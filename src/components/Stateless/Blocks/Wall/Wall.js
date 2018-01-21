@@ -107,10 +107,4 @@ class Wall extends PureComponent {
   }
 
 }
-
-Wall.defaultProps = {
-  x: 0,
-  y: 0,
-};
-
 export default Wall;

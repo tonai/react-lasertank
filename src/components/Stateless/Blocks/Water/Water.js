@@ -57,9 +57,4 @@ class Water extends PureComponent {
 
 }
 
-Water.defaultProps = {
-  x: 0,
-  y: 0,
-};
-
 export default Water;

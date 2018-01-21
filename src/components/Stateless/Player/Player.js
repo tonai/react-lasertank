@@ -53,9 +53,4 @@ class Player extends PureComponent {
 
 }
 
-Player.defaultProps = {
-  x: 0,
-  y: 0,
-};
-
 export default Player;

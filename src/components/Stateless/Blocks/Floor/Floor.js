@@ -27,9 +27,4 @@ class Floor extends PureComponent {
 
 }
 
-Floor.defaultProps = {
-  x: 0,
-  y: 0,
-};
-
 export default Floor;
