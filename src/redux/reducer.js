@@ -76,11 +76,19 @@ export default function reducer(state = initialState, action) {
       };
 
     case PLAYER_UPDATE_RELATIVE_POS:
+      if (state.board[state.playerZ + action.z]
+        && state.board[state.playerZ + action.z][state.playerX + action.x]
+        && state.board[state.playerZ + action.z][state.playerX + action.x][state.playerY + action.y]) {
+        return {
+          ...state,
+          playerX: state.playerX + action.x,
+          playerY: state.playerY + action.y,
+          playerZ: state.playerZ + action.z
+        };
+      }
       return {
         ...state,
-        playerX: state.playerX + action.x,
-        playerY: state.playerY + action.y,
-        playerZ: state.playerZ + action.z
+        playerControls: true
       };
 
     case SPRITES_LOADED:

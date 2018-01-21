@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { getBottomStyles } from '../../../../services/styles';
 import { loadTextureData, setTopTexture } from '../../../../services/texture';
 
-class Floor extends PureComponent {
+class Ice extends PureComponent {
 
   componentWillMount() {
     loadTextureData(this.props.settings);
@@ -17,7 +17,7 @@ class Floor extends PureComponent {
   render() {
     const { size, styles } = this.props;
     return (
-      <div className="Floor pos-abs" style={styles}>
+      <div className="Ice pos-abs" style={styles}>
         <canvas
           className="Water__side side--bottom pos-abs"
           width={size}
@@ -31,4 +31,4 @@ class Floor extends PureComponent {
 
 }
 
-export default Floor;
+export default Ice;

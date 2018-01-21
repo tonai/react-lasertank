@@ -3,15 +3,15 @@
     [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
     [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
     [["wall"], ["block"], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["water"], ["wall"], ["floor"], ["floor"]],
-    [["wall"], ["water"], ["wall"], ["floor"], ["wall"]]
+    [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
+    [["wall"], ["water"], ["wall"], ["wall"], ["wall"]]
   ],
   [
     [["wall"], null, ["player"], ["block"], ["block"]],
     [["floor"], null, ["floor"], ["block"], ["block"]],
     [["floor"], null, ["floor"], ["floor"], ["floor"]],
-    [["floor"], null, ["floor"], null, null],
-    [["floor"], null, ["floor"], null, ["floor"]]
+    [["floor"], null, ["floor"], ["ice"], ["ice"]],
+    [["floor"], null, ["floor"], ["ice"], ["ice"]]
   ],
   [
     [["wall"]]
