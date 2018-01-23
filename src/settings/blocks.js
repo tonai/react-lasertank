@@ -10,12 +10,16 @@ import Water from '../components/Stateful/Blocks/Water/Water';
 export default {
   block: {
     component: Block,
-    spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
-    spriteOffset: [448, 320],
-    spriteConnect: false,
-    spriteTopConnect: false,
-    spriteWithFront: true,
-    allowMovement: false
+    allowMovement: false,
+    sprites: [
+      {
+        path: `${generalSettings.spritesDir}Inside_A4.png`,
+        offset: [448, 320],
+        connect: false,
+        topConnect: false,
+        withFront: true
+      }
+    ]
   },
   empty: {
     component: Empty,
@@ -23,38 +27,54 @@ export default {
   },
   floor: {
     component: Floor,
-    spritePath: `${generalSettings.spritesDir}Dungeon_A2.png`,
-    spriteOffset: [64 * 7, (64 + 32) * 2],
-    spriteConnect: true,
-    spriteTopConnect: false,
-    spriteWithFront: false,
-    allowMovement: true
+    allowMovement: true,
+    sprites: [
+      {
+        path: `${generalSettings.spritesDir}Dungeon_A2.png`,
+        offset: [64 * 7, (64 + 32) * 2],
+        connect: true,
+        topConnect: false,
+        withFront: false
+      }
+    ]
   },
   ice: {
     component: Ice,
-    spritePath: `${generalSettings.spritesDir}Dungeon_A2.png`,
-    spriteOffset: [64 * 2, (64 + 32) * 3],
-    spriteConnect: true,
-    spriteTopConnect: false,
-    spriteWithFront: false,
-    allowMovement: true
+    allowMovement: true,
+    sprites: [
+      {
+        path: `${generalSettings.spritesDir}Dungeon_A2.png`,
+        offset: [64 * 2, (64 + 32) * 3],
+        connect: true,
+        topConnect: false,
+        withFront: false
+      }
+    ]
   },
   wall: {
     component: Wall,
-    spritePath: `${generalSettings.spritesDir}Outside_A4.png`,
-    spriteOffset: [0, 0],
-    spriteConnect: true,
-    spriteTopConnect: false,
-    spriteWithFront: true,
-    allowMovement: false
+    allowMovement: false,
+    sprites: [
+      {
+        path: `${generalSettings.spritesDir}Outside_A4.png`,
+        offset: [0, 0],
+        connect: true,
+        topConnect: false,
+        withFront: true
+      }
+    ]
   },
   water: {
     component: Water,
-    spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
-    spriteOffset: [0, 0],
-    spriteConnect: true,
-    spriteTopConnect: false,
-    spriteWithFront: false,
-    allowMovement: true
+    allowMovement: true,
+    sprites: [
+      {
+        path: `${generalSettings.spritesDir}Inside_A4.png`,
+        offset: [0, 0],
+        connect: true,
+        topConnect: false,
+        withFront: false
+      }
+    ]
   }
 };

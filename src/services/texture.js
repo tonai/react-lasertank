@@ -1,16 +1,16 @@
 const spritesData = {};
 
-function getCacheKey(settings) {
-  const { spritePath, spriteOffset, spriteWithFront } = settings;
-  const [ x, y ] = spriteOffset;
-  return `${spritePath}-${x}-${y}-${+spriteWithFront}`;
+function getCacheKey(sprite) {
+  const { path, offset, withFront } = sprite;
+  const [ x, y ] = offset;
+  return `${path}-${x}-${y}-${+withFront}`;
 }
 
-export function loadTextureData(settings) {
-  const { spriteImage, spriteOffset, spriteWithFront } = settings;
-  const { width, height } = spriteImage;
-  const [ x, y ] = spriteOffset;
-  const cacheKey = getCacheKey(settings);
+function loadTextureData(sprite) {
+  const { image, offset, withFront } = sprite;
+  const { width, height } = image;
+  const [ x, y ] = offset;
+  const cacheKey = getCacheKey(sprite);
 
   if (!spritesData[cacheKey]) {
     const canvas = document.createElement('canvas');
@@ -18,7 +18,7 @@ export function loadTextureData(settings) {
     canvas.height = height;
 
     const context = canvas.getContext('2d');
-    context.drawImage(spriteImage, 0, 0);
+    context.drawImage(image, 0, 0);
 
     spritesData[cacheKey] = {
       top_0_0: context.getImageData(x, 32 + y, 16, 16),
@@ -43,7 +43,7 @@ export function loadTextureData(settings) {
       corner_1_1: context.getImageData(48 + x, 16 + y, 16, 16),
     };
 
-    if (spriteWithFront) {
+    if (withFront) {
       spritesData[cacheKey] = {
         ...spritesData[cacheKey],
         front_0_0: context.getImageData(x, 96 + y, 16, 16),
@@ -67,24 +67,28 @@ export function loadTextureData(settings) {
   }
 }
 
-export function setTopTexture(canvas, name, settings, props) {
+export function loadTextures(sprites) {
+  sprites.forEach(loadTextureData);
+}
+
+export function setTopTexture(canvas, name, sprite, props) {
   const { back, backLeft, backRight, front, frontLeft, frontRight, left, right, topBack, topBackLeft, topBackRight,
     topFront, topFrontLeft, topFrontRight, topLeft, topRight } = props;
-  const { spriteConnect, spriteTopConnect } = settings;
-  const cacheKey = getCacheKey(settings);
+  const { connect, topConnect } = sprite;
+  const cacheKey = getCacheKey(sprite);
   
   const context = canvas.getContext('2d');
   const data = spritesData[cacheKey];
 
   // Tests
-  const frontTest = (spriteConnect && front === name && !(topFront === name && spriteTopConnect));
-  const backTest = (spriteConnect && back === name && !(topBack === name && spriteTopConnect));
-  const rightTest = (spriteConnect && right === name && !(topRight === name && spriteTopConnect));
-  const leftTest = (spriteConnect && left === name && !(topLeft === name && spriteTopConnect));
-  const frontRightTest = (spriteConnect && frontRight === name && !(topFrontRight === name && spriteTopConnect));
-  const frontLeftTest = (spriteConnect && frontLeft === name && !(topFrontLeft === name && spriteTopConnect));
-  const backRightTest = (spriteConnect && backRight === name && !(topBackRight === name && spriteTopConnect));
-  const backLeftTest = (spriteConnect && backLeft === name && !(topBackLeft === name && spriteTopConnect));
+  const frontTest = (connect && front === name && !(topFront === name && topConnect));
+  const backTest = (connect && back === name && !(topBack === name && topConnect));
+  const rightTest = (connect && right === name && !(topRight === name && topConnect));
+  const leftTest = (connect && left === name && !(topLeft === name && topConnect));
+  const frontRightTest = (connect && frontRight === name && !(topFrontRight === name && topConnect));
+  const frontLeftTest = (connect && frontLeft === name && !(topFrontLeft === name && topConnect));
+  const backRightTest = (connect && backRight === name && !(topBackRight === name && topConnect));
+  const backLeftTest = (connect && backLeft === name && !(topBackLeft === name && topConnect));
 
   // Center
   context.putImageData(data.top_1_1, 16, 16);
@@ -169,19 +173,19 @@ export function setTopTexture(canvas, name, settings, props) {
   }
 }
 
-export function setSideTexture(canvas, name, settings, props) {
+export function setSideTexture(canvas, name, sprite, props) {
   const { bottom, frontLeft, frontRight, left, right, top } = props;
-  const { spriteConnect } = settings;
-  const cacheKey = getCacheKey(settings);
+  const { connect } = sprite;
+  const cacheKey = getCacheKey(sprite);
   
   const context = canvas.getContext('2d');
   const data = spritesData[cacheKey];
 
   // Tests.
-  const topTest = (spriteConnect && top === name);
-  const bottomTest = (spriteConnect && bottom === name);
-  const rightTest = (spriteConnect && (right === name || frontRight === name));
-  const leftTest = (spriteConnect && (left === name || frontLeft === name));
+  const topTest = (connect && top === name);
+  const bottomTest = (connect && bottom === name);
+  const rightTest = (connect && (right === name || frontRight === name));
+  const leftTest = (connect && (left === name || frontLeft === name));
 
   // Center
   context.putImageData(data.front_1_1, 16, 16);

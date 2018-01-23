@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import { loadTextureData, setSideTexture, setTopTexture } from '../../../../services/texture';
+import { loadTextures, setSideTexture, setTopTexture } from '../../../../services/texture';
 import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles,
   getTopStyles } from '../../../../services/styles';
 
@@ -10,7 +10,7 @@ class Block extends PureComponent {
 
   drawBack = (canvas) => {
     const { backLeft, backRight, bottom, left, name, right, settings, top } = this.props;
-    setSideTexture(canvas, name, settings, {
+    setSideTexture(canvas, name, settings.sprites[0], {
       top: top,
       bottom: bottom,
       right: right,
@@ -22,7 +22,7 @@ class Block extends PureComponent {
 
   drawFront = (canvas) => {
     const { bottom, frontLeft, frontRight, left, name, right, settings, top } = this.props;
-    setSideTexture(canvas, name, settings, {
+    setSideTexture(canvas, name, settings.sprites[0], {
       top: top,
       bottom: bottom,
       right: right,
@@ -34,7 +34,7 @@ class Block extends PureComponent {
 
   drawLeft = (canvas) => {
     const { back, backLeft, bottom, front, frontLeft, name, settings, top } = this.props;
-    setSideTexture(canvas, name, settings, {
+    setSideTexture(canvas, name, settings.sprites[0], {
       top: top,
       bottom: bottom,
       right: front,
@@ -46,7 +46,7 @@ class Block extends PureComponent {
 
   drawRight = (canvas) => {
     const { back, backRight, bottom, front, frontRight, name, settings, top } = this.props;
-    setSideTexture(canvas, name, settings, {
+    setSideTexture(canvas, name, settings.sprites[0], {
       top: top,
       bottom: bottom,
       right: front,
@@ -58,13 +58,13 @@ class Block extends PureComponent {
 
   drawTop = (canvas) => {
     const { name, settings } = this.props;
-    setTopTexture(canvas, name, settings, this.props);
+    setTopTexture(canvas, name, settings.sprites[0], this.props);
   };
 
   /* Methods */
 
   componentWillMount() {
-    loadTextureData(this.props.settings);
+    loadTextures(this.props.settings.sprites);
   }
 
   render() {

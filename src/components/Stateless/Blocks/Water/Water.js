@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-import { loadTextureData, setTopTexture } from '../../../../services/texture';
+import { loadTextures, setTopTexture } from '../../../../services/texture';
 import { getBackStyles, getBottomStyles, getFrontStyles, getLeftStyles, getRightStyles,
   getTopStyles } from '../../../../services/styles';
 
@@ -10,13 +10,13 @@ class Water extends PureComponent {
 
   drawTop = (canvas) => {
     const { name, settings } = this.props;
-    setTopTexture(canvas, name, settings, this.props);
+    setTopTexture(canvas, name, settings.sprites[0], this.props);
   };
 
   /* Methods */
 
   componentWillMount() {
-    loadTextureData(this.props.settings);
+    loadTextures(this.props.settings.sprites);
   }
 
   render() {

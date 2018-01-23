@@ -1,6 +1,12 @@
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { mapObjIndexed, values } from 'ramda';
+import addIndex from 'ramda/es/addIndex';
+import filter from 'ramda/es/filter';
+import map from 'ramda/es/map';
+import pipe from 'ramda/es/pipe';
+import prop from 'ramda/es/prop';
+import unnest from 'ramda/es/unnest';
+import values from 'ramda/es/values';
 
 import { handleSpritesLoaded } from '../../../redux/actions';
 
@@ -10,21 +16,29 @@ class SpritesLoader extends PureComponent {
 
   componentDidMount() {
     const { blocksSettings, onSpritesLoaded } = this.props;
-    const settings = mapObjIndexed(settings => ({...settings}))(blocksSettings);
-    const settingsArray = values(settings).filter(block => block.spritePath);
-    const promises = settingsArray.map(block => import(`../../../${block.spritePath}`));
+
+    const spriteSettings = pipe(
+      values,
+      map(prop('sprites')),
+      filter(sprites => sprites && (sprites instanceof Array)),
+      unnest
+    )(blocksSettings);
+    const promises = spriteSettings.map(sprite => import(`../../../${sprite.path}`));
 
     Promise.all(promises)
-      .then(sources => sources.map((src, index) => settingsArray[index].spriteSrc = src))
-      .then(() => settingsArray.map(settings => new Promise((resolve, reject) => {
-        const image = new Image();
-        image.onload = () => resolve(image);
-        image.onerror = reject;
-        image.src = settings.spriteSrc;
-      })))
+      .then(map(this.loadImage))
       .then(promises => Promise.all(promises))
-      .then(images => images.map((image, index) => settingsArray[index].spriteImage = image))
-      .then(() => onSpritesLoaded(settings));
+      .then(addIndex(map)((image, index) => spriteSettings[index].image = image))
+      .then(() => onSpritesLoaded(blocksSettings));
+  }
+
+  loadImage(src) {
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve(image);
+      image.onerror = reject;
+      image.src = src;
+    });
   }
 
   render() {
