@@ -1,5 +1,6 @@
 import rawMap from '../maps/test.json';
-import { unnest } from 'ramda';
+import mergeDeepRight from 'ramda/es/mergeDeepRight';
+import unnest from 'ramda/es/unnest';
 
 function maxLength(acc, array) {
   return Math.max(acc, array.length);
@@ -42,13 +43,12 @@ export function getBlock(cell, settings, size, x, y, z) {
   return {
     component: componentSettings && componentSettings.component,
     props: {
-      direction: (cell[1] && cell[1].direction) || 0,
       name: cell[0],
       x,
       y,
       z,
       size,
-      settings: componentSettings,
+      settings: cell[1] ? mergeDeepRight(componentSettings, cell[1]) : componentSettings,
       styles: {transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}
     }
   }

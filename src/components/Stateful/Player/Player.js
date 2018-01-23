@@ -21,8 +21,9 @@ class StatefulPlayer extends PureComponent {
   }
 
   render() {
-    const { blocksSettings, playerDirection: direction, x, y, z, size } = this.props;
-    const block = getBlock(['player', {direction}], blocksSettings, size, x, y, z);
+    const { blocksSettings, playerDirection: direction, settings, size, x, y, z } = this.props;
+    const blockSettings = { ...settings, direction };
+    const block = getBlock(['player', blockSettings], blocksSettings, size, x, y, z);
     return (<Player {...block.props}/>);
   }
 

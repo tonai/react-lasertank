@@ -12,6 +12,7 @@ class Board extends PureComponent {
 
   board = [];
   componentsCounter = 0;
+  player = null;
 
   addAdjacentProps = (table, z, board) => {
     return table.map((line, x) => {
@@ -40,6 +41,7 @@ class Board extends PureComponent {
     return table.map((line, x) =>
       line.map((cell, y) => {
         if (cell[0] === 'player') {
+          this.player = cell;
           cell[0] = 'floor';
         }
         return getBlock(cell, blocksSettings, size, x, y, z)
@@ -84,7 +86,7 @@ class Board extends PureComponent {
     return (
       <div className="Board">
         {board}
-        <Player size={size}/>
+        <Player settings={this.player[1]} size={size}/>
         <KeyControls/>
       </div>
     );

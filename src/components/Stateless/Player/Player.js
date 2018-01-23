@@ -9,7 +9,7 @@ class Player extends PureComponent {
   /* Methods */
 
   render() {
-    const { direction, size, styles } = this.props;
+    const { settings, size, styles } = this.props;
     const playerStyles = {
       ...styles,
       transition: `all ${gameSettings.transitionTimer}ms linear`
@@ -17,7 +17,7 @@ class Player extends PureComponent {
     const rotationStyles = {
       width: size,
       height: size,
-      transform: `rotateZ(${direction}deg)`,
+      transform: `rotateZ(${settings.direction}deg)`,
       transition: `all ${gameSettings.transitionTimer}ms linear`
     };
     const sideStyles = {
