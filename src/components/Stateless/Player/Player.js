@@ -6,6 +6,8 @@ import gameSettings from '../../../settings/game';
 
 class Player extends PureComponent {
 
+  /* Methods */
+
   render() {
     const { direction, size, styles } = this.props;
     const playerStyles = {

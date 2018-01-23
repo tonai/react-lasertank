@@ -5,21 +5,7 @@ import './Scene.css';
 
 class Scene extends PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      containerWidth: null,
-      containerHeight: null
-    };
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.resize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resize);
-  }
+  /* Properties */
 
   initElement = (el) => {
     this.el = el;
@@ -35,6 +21,24 @@ class Scene extends PureComponent {
       containerHeight: this.el.offsetHeight
     });
   };
+
+  /* Methods */
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      containerWidth: null,
+      containerHeight: null
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.resize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize);
+  }
 
   render() {
     const { scale, size, styles } = this.props;

@@ -10,6 +10,8 @@ const KEY_UP = 'ArrowUp';
 
 class KeyControls extends PureComponent {
 
+  /* Properties */
+
   handleKeyPress = (e) => {
     const { onKeyDown, onKeyLeft, onKeyRight, onKeyUp, playerControls } = this.props;
     if (!playerControls) {
@@ -27,6 +29,8 @@ class KeyControls extends PureComponent {
       default:
     }
   };
+
+  /* Methods */
 
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyPress);

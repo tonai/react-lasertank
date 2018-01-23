@@ -6,6 +6,8 @@ import { handleSpritesLoaded } from '../../../redux/actions';
 
 class SpritesLoader extends PureComponent {
 
+  /* Methods */
+
   componentDidMount() {
     const { blocksSettings, onSpritesLoaded } = this.props;
     const settings = mapObjIndexed(settings => ({...settings}))(blocksSettings);

@@ -7,6 +7,8 @@ import { handleXAngleChange, handleZAngleChange, handleZoomChange } from '../../
 
 class SceneControls extends PureComponent {
 
+  /* Methods */
+
   render() {
     const { onXAngleChange, onZAngleChange, onZoomChange, styles, xAngle, zAngle, zoom } = this.props;
 

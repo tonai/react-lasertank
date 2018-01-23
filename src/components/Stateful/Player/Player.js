@@ -7,6 +7,8 @@ import Player from '../../Stateless/Player/Player';
 
 class StatefulPlayer extends PureComponent {
 
+  /* Methods */
+
   componentDidUpdate(prevProps) {
     const { board, x, y, z } = this.props;
     if (prevProps.x !== x || prevProps.y !== y || prevProps.z !== z) {

@@ -6,6 +6,20 @@ import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles,
 
 class Block extends PureComponent {
 
+  /* Properties */
+
+  drawBack = (canvas) => {
+    const { backLeft, backRight, bottom, left, name, right, settings, top } = this.props;
+    setSideTexture(canvas, name, settings, {
+      top: top,
+      bottom: bottom,
+      right: right,
+      left: left,
+      frontRight: backRight,
+      frontLeft: backLeft
+    });
+  };
+
   drawFront = (canvas) => {
     const { bottom, frontLeft, frontRight, left, name, right, settings, top } = this.props;
     setSideTexture(canvas, name, settings, {
@@ -18,14 +32,14 @@ class Block extends PureComponent {
     });
   };
 
-  drawBack = (canvas) => {
-    const { backLeft, backRight, bottom, left, name, right, settings, top } = this.props;
+  drawLeft = (canvas) => {
+    const { back, backLeft, bottom, front, frontLeft, name, settings, top } = this.props;
     setSideTexture(canvas, name, settings, {
       top: top,
       bottom: bottom,
-      right: right,
-      left: left,
-      frontRight: backRight,
+      right: front,
+      left: back,
+      frontRight: frontLeft,
       frontLeft: backLeft
     });
   };
@@ -42,22 +56,12 @@ class Block extends PureComponent {
     });
   };
 
-  drawLeft = (canvas) => {
-    const { back, backLeft, bottom, front, frontLeft, name, settings, top } = this.props;
-    setSideTexture(canvas, name, settings, {
-      top: top,
-      bottom: bottom,
-      right: front,
-      left: back,
-      frontRight: frontLeft,
-      frontLeft: backLeft
-    });
-  };
-
   drawTop = (canvas) => {
     const { name, settings } = this.props;
     setTopTexture(canvas, name, settings, this.props);
   };
+
+  /* Methods */
 
   componentWillMount() {
     loadTextureData(this.props.settings);

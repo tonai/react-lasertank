@@ -5,14 +5,18 @@ import { loadTextureData, setTopTexture } from '../../../../services/texture';
 
 class Ice extends PureComponent {
 
-  componentWillMount() {
-    loadTextureData(this.props.settings);
-  }
+  /* Properties */
 
   drawTop = (canvas) => {
     const { name, settings } = this.props;
     setTopTexture(canvas, name, settings, this.props);
   };
+
+  /* Methods */
+
+  componentWillMount() {
+    loadTextureData(this.props.settings);
+  }
 
   render() {
     const { size, styles } = this.props;

@@ -6,10 +6,14 @@ import { getBackStyles, getBottomStyles, getFrontStyles, getLeftStyles, getRight
 
 class Water extends PureComponent {
 
+  /* Properties */
+
   drawTop = (canvas) => {
     const { name, settings } = this.props;
     setTopTexture(canvas, name, settings, this.props);
   };
+
+  /* Methods */
 
   componentWillMount() {
     loadTextureData(this.props.settings);

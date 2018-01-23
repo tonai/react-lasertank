@@ -8,6 +8,8 @@ import Player from '../../Stateful/Player/Player';
 
 class Board extends PureComponent {
 
+  /* Properties */
+
   board = [];
   componentsCounter = 0;
 
@@ -66,6 +68,8 @@ class Board extends PureComponent {
       this.props.onBoardLoaded(this.board);
     }
   };
+
+  /* Methods */
 
   render() {
     const { size } = this.props;
