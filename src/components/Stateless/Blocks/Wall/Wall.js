@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 
-import { loadTextureData, setSideTexture } from '../../../../services/texture';
-import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles } from '../../../../services/styles';
+import { loadTextureData, setSideTexture, setTopTexture } from '../../../../services/texture';
+import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles,
+  getTopStyles } from '../../../../services/styles';
 
 class Wall extends PureComponent {
 
@@ -55,6 +56,11 @@ class Wall extends PureComponent {
     });
   };
 
+  drawTop = (canvas) => {
+    const { name, settings } = this.props;
+    setTopTexture(canvas, name, settings, this.props);
+  };
+
   /* Methods */
 
   componentWillMount() {
@@ -65,6 +71,13 @@ class Wall extends PureComponent {
     const { back, front, left, name, right, size, styles } = this.props;
     return (
       <div className="Wall pos-abs" style={styles}>
+        <canvas
+          className="Wall__side side--top pos-abs"
+          width={size}
+          height={size}
+          ref={this.drawTop}
+          style={getTopStyles(size)}
+        />
         {front !== name && (<canvas
           className="Wall__side side--front pos-abs"
           width={size}

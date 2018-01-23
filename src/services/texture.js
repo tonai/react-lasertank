@@ -1,11 +1,18 @@
 const spritesData = {};
 
+function getCacheKey(settings) {
+  const { spritePath, spriteOffset, spriteWithFront } = settings;
+  const [ x, y ] = spriteOffset;
+  return `${spritePath}-${x}-${y}-${+spriteWithFront}`;
+}
+
 export function loadTextureData(settings) {
-  const { spritePath, spriteImage, spriteOffset } = settings;
+  const { spriteImage, spriteOffset, spriteWithFront } = settings;
   const { width, height } = spriteImage;
   const [ x, y ] = spriteOffset;
+  const cacheKey = getCacheKey(settings);
 
-  if (!spritesData[`${spritePath}-${x}-${y}`]) {
+  if (!spritesData[cacheKey]) {
     const canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
@@ -13,7 +20,7 @@ export function loadTextureData(settings) {
     const context = canvas.getContext('2d');
     context.drawImage(spriteImage, 0, 0);
 
-    spritesData[`${spritePath}-${x}-${y}`] = {
+    spritesData[cacheKey] = {
       top_0_0: context.getImageData(x, 32 + y, 16, 16),
       top_0_1: context.getImageData(16 + x, 32 + y, 16, 16),
       top_0_2: context.getImageData(32 + x, 32 + y, 16, 16),
@@ -30,40 +37,44 @@ export function loadTextureData(settings) {
       top_3_1: context.getImageData(16 + x, 80 + y, 16, 16),
       top_3_2: context.getImageData(32 + x, 80 + y, 16, 16),
       top_3_3: context.getImageData(48 + x, 80 + y, 16, 16),
-
-      front_0_0: context.getImageData(x, 96 + y, 16, 16),
-      front_0_1: context.getImageData(16 + x, 96 + y, 16, 16),
-      front_0_2: context.getImageData(32 + x, 96 + y, 16, 16),
-      front_0_3: context.getImageData(48 + x, 96 + y, 16, 16),
-      front_1_0: context.getImageData(x, 112 + y, 16, 16),
-      front_1_1: context.getImageData(16 + x, 112 + y, 16, 16),
-      front_1_2: context.getImageData(32 + x, 112 + y, 16, 16),
-      front_1_3: context.getImageData(48 + x, 112 + y, 16, 16),
-      front_2_0: context.getImageData(x, 128 + y, 16, 16),
-      front_2_1: context.getImageData(16 + x, 128 + y, 16, 16),
-      front_2_2: context.getImageData(32 + x, 128 + y, 16, 16),
-      front_2_3: context.getImageData(48 + x, 128 + y, 16, 16),
-      front_3_0: context.getImageData(x, 144 + y, 16, 16),
-      front_3_1: context.getImageData(16 + x, 144 + y, 16, 16),
-      front_3_2: context.getImageData(32 + x, 144 + y, 16, 16),
-      front_3_3: context.getImageData(48 + x, 144 + y, 16, 16),
-
       corner_0_0: context.getImageData(32 + x, y, 16, 16),
       corner_0_1: context.getImageData(32 + x, 16 + y, 16, 16),
       corner_1_0: context.getImageData(48 + x, y, 16, 16),
       corner_1_1: context.getImageData(48 + x, 16 + y, 16, 16),
     };
+
+    if (spriteWithFront) {
+      spritesData[cacheKey] = {
+        ...spritesData[cacheKey],
+        front_0_0: context.getImageData(x, 96 + y, 16, 16),
+        front_0_1: context.getImageData(16 + x, 96 + y, 16, 16),
+        front_0_2: context.getImageData(32 + x, 96 + y, 16, 16),
+        front_0_3: context.getImageData(48 + x, 96 + y, 16, 16),
+        front_1_0: context.getImageData(x, 112 + y, 16, 16),
+        front_1_1: context.getImageData(16 + x, 112 + y, 16, 16),
+        front_1_2: context.getImageData(32 + x, 112 + y, 16, 16),
+        front_1_3: context.getImageData(48 + x, 112 + y, 16, 16),
+        front_2_0: context.getImageData(x, 128 + y, 16, 16),
+        front_2_1: context.getImageData(16 + x, 128 + y, 16, 16),
+        front_2_2: context.getImageData(32 + x, 128 + y, 16, 16),
+        front_2_3: context.getImageData(48 + x, 128 + y, 16, 16),
+        front_3_0: context.getImageData(x, 144 + y, 16, 16),
+        front_3_1: context.getImageData(16 + x, 144 + y, 16, 16),
+        front_3_2: context.getImageData(32 + x, 144 + y, 16, 16),
+        front_3_3: context.getImageData(48 + x, 144 + y, 16, 16),
+      }
+    }
   }
 }
 
 export function setTopTexture(canvas, name, settings, props) {
   const { back, backLeft, backRight, front, frontLeft, frontRight, left, right, topBack, topBackLeft, topBackRight,
     topFront, topFrontLeft, topFrontRight, topLeft, topRight } = props;
-  const { spriteConnect, spritePath, spriteOffset, spriteTopConnect } = settings;
-  const [ x, y ] = spriteOffset;
+  const { spriteConnect, spriteTopConnect } = settings;
+  const cacheKey = getCacheKey(settings);
   
   const context = canvas.getContext('2d');
-  const data = spritesData[`${spritePath}-${x}-${y}`];
+  const data = spritesData[cacheKey];
 
   // Tests
   const frontTest = (spriteConnect && front === name && !(topFront === name && spriteTopConnect));
@@ -160,11 +171,11 @@ export function setTopTexture(canvas, name, settings, props) {
 
 export function setSideTexture(canvas, name, settings, props) {
   const { bottom, frontLeft, frontRight, left, right, top } = props;
-  const { spriteConnect, spritePath, spriteOffset } = settings;
-  const [ x, y ] = spriteOffset;
+  const { spriteConnect } = settings;
+  const cacheKey = getCacheKey(settings);
   
   const context = canvas.getContext('2d');
-  const data = spritesData[`${spritePath}-${x}-${y}`];
+  const data = spritesData[cacheKey];
 
   // Tests.
   const topTest = (spriteConnect && top === name);

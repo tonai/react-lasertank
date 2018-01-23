@@ -1,22 +1,23 @@
 [
   [
-    [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
+    [["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+    [["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
     [["wall"], ["block"], ["wall"], ["wall"], ["wall"]],
     [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
     [["wall"], ["water"], ["wall"], ["wall"], ["wall"]]
   ],
   [
-    [["wall"], null, ["player"], ["block"], ["block"]],
-    [["floor"], null, ["floor"], ["block"], ["block"]],
-    [["floor"], null, ["floor"], ["floor"], ["floor"]],
-    [["floor"], null, ["floor"], ["ice"], ["ice"]],
-    [["floor"], null, ["floor"], ["ice"], ["ice"]]
+    [["wall"], ["floor"], ["player"], ["block"], ["block"]],
+    [["wall"], null, ["floor"], ["block"], ["block"]],
+    [["wall"], null, ["floor"], ["floor"], ["floor"]],
+    [["wall"], null, ["floor"], ["ice"], ["ice"]],
+    [["wall"], null, ["floor"], ["ice"], ["ice"]]
   ],
   [
-    [["wall"]]
-  ],
-  [
-    [["player"]]
+    [["player"]],
+    [null],
+    [["floor"]],
+    [["floor"]],
+    [["floor"]]
   ]
 ]

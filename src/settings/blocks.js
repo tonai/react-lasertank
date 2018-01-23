@@ -14,6 +14,7 @@ export default {
     spriteOffset: [448, 320],
     spriteConnect: false,
     spriteTopConnect: false,
+    spriteWithFront: true,
     allowMovement: false
   },
   empty: {
@@ -22,10 +23,11 @@ export default {
   },
   floor: {
     component: Floor,
-    spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
-    spriteOffset: [0, 0],
+    spritePath: `${generalSettings.spritesDir}Dungeon_A2.png`,
+    spriteOffset: [64 * 7, (64 + 32) * 2],
     spriteConnect: true,
     spriteTopConnect: false,
+    spriteWithFront: false,
     allowMovement: true
   },
   ice: {
@@ -34,14 +36,16 @@ export default {
     spriteOffset: [64 * 2, (64 + 32) * 3],
     spriteConnect: true,
     spriteTopConnect: false,
+    spriteWithFront: false,
     allowMovement: true
   },
   wall: {
     component: Wall,
-    spritePath: `${generalSettings.spritesDir}Inside_A4.png`,
+    spritePath: `${generalSettings.spritesDir}Outside_A4.png`,
     spriteOffset: [0, 0],
     spriteConnect: true,
     spriteTopConnect: false,
+    spriteWithFront: true,
     allowMovement: false
   },
   water: {
@@ -50,6 +54,7 @@ export default {
     spriteOffset: [0, 0],
     spriteConnect: true,
     spriteTopConnect: false,
+    spriteWithFront: false,
     allowMovement: true
   }
 };
