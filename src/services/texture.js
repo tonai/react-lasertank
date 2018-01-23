@@ -1,13 +1,15 @@
+import values from 'ramda/es/values';
+
 const spritesData = {};
 
 function getCacheKey(sprite) {
-  const { path, offset, withFront } = sprite;
+  const { path, offset, type } = sprite;
   const [ x, y ] = offset;
-  return `${path}-${x}-${y}-${+withFront}`;
+  return `${path}-${type}-${x}-${y}`;
 }
 
-function loadTextureData(sprite) {
-  const { image, offset, withFront } = sprite;
+function loadTopTextureData(sprite) {
+  const { image, offset } = sprite;
   const { width, height } = image;
   const [ x, y ] = offset;
   const cacheKey = getCacheKey(sprite);
@@ -40,35 +42,58 @@ function loadTextureData(sprite) {
       corner_0_0: context.getImageData(32 + x, y, 16, 16),
       corner_0_1: context.getImageData(32 + x, 16 + y, 16, 16),
       corner_1_0: context.getImageData(48 + x, y, 16, 16),
-      corner_1_1: context.getImageData(48 + x, 16 + y, 16, 16),
+      corner_1_1: context.getImageData(48 + x, 16 + y, 16, 16)
     };
+  }
+}
 
-    if (withFront) {
-      spritesData[cacheKey] = {
-        ...spritesData[cacheKey],
-        front_0_0: context.getImageData(x, 96 + y, 16, 16),
-        front_0_1: context.getImageData(16 + x, 96 + y, 16, 16),
-        front_0_2: context.getImageData(32 + x, 96 + y, 16, 16),
-        front_0_3: context.getImageData(48 + x, 96 + y, 16, 16),
-        front_1_0: context.getImageData(x, 112 + y, 16, 16),
-        front_1_1: context.getImageData(16 + x, 112 + y, 16, 16),
-        front_1_2: context.getImageData(32 + x, 112 + y, 16, 16),
-        front_1_3: context.getImageData(48 + x, 112 + y, 16, 16),
-        front_2_0: context.getImageData(x, 128 + y, 16, 16),
-        front_2_1: context.getImageData(16 + x, 128 + y, 16, 16),
-        front_2_2: context.getImageData(32 + x, 128 + y, 16, 16),
-        front_2_3: context.getImageData(48 + x, 128 + y, 16, 16),
-        front_3_0: context.getImageData(x, 144 + y, 16, 16),
-        front_3_1: context.getImageData(16 + x, 144 + y, 16, 16),
-        front_3_2: context.getImageData(32 + x, 144 + y, 16, 16),
-        front_3_3: context.getImageData(48 + x, 144 + y, 16, 16),
-      }
-    }
+function loadSideTextureData(sprite) {
+  const { image, offset } = sprite;
+  const { width, height } = image;
+  const [ x, y ] = offset;
+  const cacheKey = getCacheKey(sprite);
+
+  if (!spritesData[cacheKey]) {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const context = canvas.getContext('2d');
+    context.drawImage(image, 0, 0);
+
+    spritesData[cacheKey] = {
+      front_0_0: context.getImageData(x, y, 16, 16),
+      front_0_1: context.getImageData(16 + x, y, 16, 16),
+      front_0_2: context.getImageData(32 + x, y, 16, 16),
+      front_0_3: context.getImageData(48 + x, y, 16, 16),
+      front_1_0: context.getImageData(x, 16 + y, 16, 16),
+      front_1_1: context.getImageData(16 + x, 16 + y, 16, 16),
+      front_1_2: context.getImageData(32 + x, 16 + y, 16, 16),
+      front_1_3: context.getImageData(48 + x, 16 + y, 16, 16),
+      front_2_0: context.getImageData(x, 32 + y, 16, 16),
+      front_2_1: context.getImageData(16 + x, 32 + y, 16, 16),
+      front_2_2: context.getImageData(32 + x, 32 + y, 16, 16),
+      front_2_3: context.getImageData(48 + x, 32 + y, 16, 16),
+      front_3_0: context.getImageData(x, 48 + y, 16, 16),
+      front_3_1: context.getImageData(16 + x, 48 + y, 16, 16),
+      front_3_2: context.getImageData(32 + x, 48 + y, 16, 16),
+      front_3_3: context.getImageData(48 + x, 48 + y, 16, 16)
+    };
   }
 }
 
 export function loadTextures(sprites) {
-  sprites.forEach(loadTextureData);
+  values(sprites).forEach(sprite => {
+    switch (sprite.type) {
+      case 'top':
+        return loadTopTextureData(sprite);
+
+      case 'side':
+        return loadSideTextureData(sprite);
+
+      default:
+    }
+  });
 }
 
 export function setTopTexture(canvas, name, sprite, props) {

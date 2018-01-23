@@ -11,15 +11,22 @@ export default {
   block: {
     component: Block,
     allowMovement: false,
-    sprites: [
-      {
+    sprites: {
+      top: {
         path: `${generalSettings.spritesDir}Inside_A4.png`,
-        offset: [448, 320],
+        offset: [64 * 7, (64 + 64 + 32) * 2],
         connect: false,
         topConnect: false,
-        withFront: true
+        type: 'top'
+      },
+      side: {
+        path: `${generalSettings.spritesDir}Inside_A4.png`,
+        offset: [64 * 7, (64 + 64 + 32) * 2 + 64 + 32],
+        connect: false,
+        topConnect: false,
+        type: 'side'
       }
-    ]
+    }
   },
   empty: {
     component: Empty,
@@ -28,53 +35,60 @@ export default {
   floor: {
     component: Floor,
     allowMovement: true,
-    sprites: [
-      {
+    sprites: {
+      top: {
         path: `${generalSettings.spritesDir}Dungeon_A2.png`,
         offset: [64 * 7, (64 + 32) * 2],
         connect: true,
         topConnect: false,
-        withFront: false
+        type: 'top'
       }
-    ]
+    }
   },
   ice: {
     component: Ice,
     allowMovement: true,
-    sprites: [
-      {
+    sprites: {
+      top: {
         path: `${generalSettings.spritesDir}Dungeon_A2.png`,
         offset: [64 * 2, (64 + 32) * 3],
         connect: true,
         topConnect: false,
-        withFront: false
+        type: 'top'
       }
-    ]
+    }
   },
   wall: {
     component: Wall,
     allowMovement: false,
-    sprites: [
-      {
+    sprites: {
+      top: {
         path: `${generalSettings.spritesDir}Outside_A4.png`,
         offset: [0, 0],
         connect: true,
         topConnect: false,
-        withFront: true
+        type: 'top'
+      },
+      side: {
+        path: `${generalSettings.spritesDir}Outside_A4.png`,
+        offset: [0, 64 + 32],
+        connect: true,
+        topConnect: false,
+        type: 'side'
       }
-    ]
+    }
   },
   water: {
     component: Water,
     allowMovement: true,
-    sprites: [
-      {
+    sprites: {
+      top: {
         path: `${generalSettings.spritesDir}Inside_A4.png`,
         offset: [0, 0],
         connect: true,
         topConnect: false,
-        withFront: false
+        type: 'top'
       }
-    ]
+    }
   }
 };

@@ -10,7 +10,7 @@ class Wall extends PureComponent {
 
   drawBack = (canvas) => {
     const { backLeft, backRight, bottom, left, name, right, settings, top } = this.props;
-    setSideTexture(canvas, name, settings.sprites[0], {
+    setSideTexture(canvas, name, settings.sprites.side, {
       top: top,
       bottom: bottom,
       right: right,
@@ -22,7 +22,7 @@ class Wall extends PureComponent {
 
   drawFront = (canvas) => {
     const { bottom, frontLeft, frontRight, left, name, right, settings, top } = this.props;
-    setSideTexture(canvas, name, settings.sprites[0], {
+    setSideTexture(canvas, name, settings.sprites.side, {
       top: top,
       bottom: bottom,
       right: right,
@@ -34,7 +34,7 @@ class Wall extends PureComponent {
 
   drawLeft = (canvas) => {
     const { back, backLeft, bottom, front, frontLeft, name, settings, top } = this.props;
-    setSideTexture(canvas, name, settings.sprites[0], {
+    setSideTexture(canvas, name, settings.sprites.side, {
       top: top,
       bottom: bottom,
       right: front,
@@ -46,7 +46,7 @@ class Wall extends PureComponent {
 
   drawRight = (canvas) => {
     const { back, backRight, bottom, front, frontRight, name, settings, top } = this.props;
-    setSideTexture(canvas, name, settings.sprites[0], {
+    setSideTexture(canvas, name, settings.sprites.side, {
       top: top,
       bottom: bottom,
       right: front,
@@ -58,7 +58,7 @@ class Wall extends PureComponent {
 
   drawTop = (canvas) => {
     const { name, settings } = this.props;
-    setTopTexture(canvas, name, settings.sprites[0], this.props);
+    setTopTexture(canvas, name, settings.sprites.top, this.props);
   };
 
   /* Methods */

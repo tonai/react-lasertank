@@ -20,7 +20,8 @@ class SpritesLoader extends PureComponent {
     const spriteSettings = pipe(
       values,
       map(prop('sprites')),
-      filter(sprites => sprites && (sprites instanceof Array)),
+      filter(sprites => sprites && (sprites instanceof Object)),
+      map(values),
       unnest
     )(blocksSettings);
     const promises = spriteSettings.map(sprite => import(`../../../${sprite.path}`));

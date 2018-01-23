@@ -10,7 +10,7 @@ class Water extends PureComponent {
 
   drawTop = (canvas) => {
     const { name, settings } = this.props;
-    setTopTexture(canvas, name, settings.sprites[0], this.props);
+    setTopTexture(canvas, name, settings.sprites.top, this.props);
   };
 
   /* Methods */
