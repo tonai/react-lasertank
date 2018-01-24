@@ -10,13 +10,21 @@
     [["wall"], ["floor", {"sprites": {
       "top": {
         "path": "assets/sprites/Dungeon_A2.png",
-        "offset": [0, 0],
+        "offset": [128, 0],
         "connect": true,
         "topConnect": false,
         "type": "top"
       }
     }}], ["player"], ["block"], ["block"]],
-    [["wall"], null, ["floor"], ["block"], ["block"]],
+    [["wall"], ["floor", {"sprites": {
+      "top": {
+        "path": "assets/sprites/Dungeon_A2.png",
+        "offset": [128, 0],
+        "connect": true,
+        "topConnect": false,
+        "type": "top"
+      }
+    }}], ["floor"], ["block"], ["block"]],
     [["wall"], null, ["floor"], ["floor"], ["floor"]],
     [["wall"], null, ["floor"], ["ice"], ["ice"]],
     [["wall"], null, ["floor"], ["ice"], ["ice"]]
