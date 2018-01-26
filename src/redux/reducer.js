@@ -1,5 +1,18 @@
-import { BOARD_LOADED, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP, PLAYER_UPDATED, PLAYER_UPDATE_RELATIVE_POS,
-  SPRITES_LOADED, X_ANGLE_CHANGE, Z_ANGLE_CHANGE, ZOOM_CHANGE } from './actions';
+import {
+  BOARD_BLOCKS_LOADED,
+  BOARD_GROUNDS_LOADED,
+  KEY_DOWN,
+  KEY_LEFT,
+  KEY_RIGHT,
+  KEY_UP,
+  PLAYER_LOADED,
+  PLAYER_UPDATED,
+  PLAYER_UPDATE_RELATIVE_POS,
+  SPRITES_LOADED,
+  X_ANGLE_CHANGE,
+  Z_ANGLE_CHANGE,
+  ZOOM_CHANGE
+} from './actions';
 
 import blocksSettings from '../settings/blocks';
 
@@ -8,7 +21,9 @@ import { getPlayerOnKeyDown, getPlayerOnKeyLeft, getPlayerOnKeyRight, getPlayerO
 
 const initialState = {
   blocksSettings,
-  board: null,
+  boardBlocks: null,
+  boardGrounds: null,
+  player: null,
   playerControls: true,
   spritesLoaded: false,
   xAngle : 45,
@@ -21,14 +36,27 @@ export default function reducer(state = initialState, action) {
   let player;
 
   switch(action.type) {
-    case BOARD_LOADED:
+    case BOARD_BLOCKS_LOADED:
       return {
         ...state,
-        board: action.board
+        boardBlocks: action.board
+      };
+
+    case BOARD_GROUNDS_LOADED:
+      return {
+        ...state,
+        boardGrounds: action.board
       };
 
     case KEY_DOWN:
-      player = getPlayerOnKeyDown(state.board, state.playerDirection, state.playerX, state.playerY, state.playerZ);
+      player = getPlayerOnKeyDown(
+        state.boardBlocks,
+        state.boardGrounds,
+        state.playerDirection,
+        state.playerX,
+        state.playerY,
+        state.playerZ
+      );
       if (player) {
         return {
           ...state,
@@ -39,7 +67,12 @@ export default function reducer(state = initialState, action) {
       return state;
 
     case KEY_LEFT:
-      player = getPlayerOnKeyLeft(state.board, state.playerDirection, state.playerX, state.playerY, state.playerZ);
+      player = getPlayerOnKeyLeft(
+        state.playerDirection,
+        state.playerX,
+        state.playerY,
+        state.playerZ
+      );
       if (player) {
         return {
           ...state,
@@ -49,7 +82,12 @@ export default function reducer(state = initialState, action) {
       return state;
 
     case KEY_RIGHT:
-      player = getPlayerOnKeyRight(state.board, state.playerDirection, state.playerX, state.playerY, state.playerZ);
+      player = getPlayerOnKeyRight(
+        state.playerDirection,
+        state.playerX,
+        state.playerY,
+        state.playerZ
+      );
       if (player) {
         return {
           ...state,
@@ -59,7 +97,14 @@ export default function reducer(state = initialState, action) {
       return state;
 
     case KEY_UP:
-      player = getPlayerOnKeyUp(state.board, state.playerDirection, state.playerX, state.playerY, state.playerZ);
+      player = getPlayerOnKeyUp(
+        state.boardBlocks,
+        state.boardGrounds,
+        state.playerDirection,
+        state.playerX,
+        state.playerY,
+        state.playerZ
+      );
       if (player) {
         return {
           ...state,
@@ -69,6 +114,12 @@ export default function reducer(state = initialState, action) {
       }
       return state;
 
+    case PLAYER_LOADED:
+      return {
+        ...state,
+        player: action.player
+      };
+
     case PLAYER_UPDATED:
       return {
         ...state,
@@ -76,9 +127,9 @@ export default function reducer(state = initialState, action) {
       };
 
     case PLAYER_UPDATE_RELATIVE_POS:
-      if (state.board[state.playerZ + action.z]
-        && state.board[state.playerZ + action.z][state.playerX + action.x]
-        && state.board[state.playerZ + action.z][state.playerX + action.x][state.playerY + action.y]) {
+      if (state.boardGrounds[state.playerZ + action.z]
+        && state.boardGrounds[state.playerZ + action.z][state.playerX + action.x]
+        && state.boardGrounds[state.playerZ + action.z][state.playerX + action.x][state.playerY + action.y]) {
         return {
           ...state,
           playerX: state.playerX + action.x,

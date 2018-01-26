@@ -4,23 +4,26 @@ import { addIndex, map, pipe, unnest } from 'ramda';
 import { addAdjacentProps, getBlock } from '../../../services/board';
 
 import KeyControls from '../../Stateful/KeyControls/KeyControls';
-import Player from '../../Stateful/Player/Player';
 
 class Board extends PureComponent {
 
   /* Properties */
 
-  board = [];
-  componentsCounter = 0;
+  blocks = [];
+  blocksCounter = 0;
+  grounds = [];
+  groundsCounter = 0;
   player = null;
 
-  addAdjacentProps = (table, z, board) => {
-    return table.map((line, x) => {
-      return line.map((cell, y) => {
-        if (cell) {
-          cell.props = {...cell.props, ...addAdjacentProps(board, x, y, z)};
-        }
-        return this.createComponent(cell, `${z}-${x}-${y}`);
+  addAdjacentProps = (board) => {
+    return board.map((table, z) => {
+      return table.map((line, x) => {
+        return line.map((cell, y) => {
+          if (cell) {
+            cell.props = {...cell.props, ...addAdjacentProps(board, x, y, z)};
+          }
+          return cell;
+        });
       });
     });
   };
@@ -40,53 +43,90 @@ class Board extends PureComponent {
     const { blocksSettings, size } = this.props;
     return table.map((line, x) =>
       line.map((cell, y) => {
-        if (cell[0] === 'player') {
-          this.player = cell;
-          cell[0] = 'floor';
-        }
         return getBlock(cell, blocksSettings, size, x, y, z)
       })
     );
   };
 
-  createComponent = (cell, key) => {
+  createComponent = (cell, key, counter, refCallback) => {
     if (cell) {
-      this.componentsCounter++;
+      this[counter]++;
       const Component = cell.component;
-      return (<Component key={key} {...cell.props} ref={this.initComponent}/>);
+      refCallback = cell.originalName === 'player'
+        ? this.initPayerComponent
+        : refCallback;
+      return (<Component key={key} {...cell.props} ref={refCallback}/>);
     }
   };
 
-  initComponent = (component) => {
-    this.componentsCounter--;
+  initBlocksComponent = (component) => {
+    this.blocksCounter--;
     if (component.getWrappedInstance) {
       component = component.getWrappedInstance();
     }
     const { x, y, z } = component.props;
-    this.board[z] = this.board[z] || [];
-    this.board[z][x] = this.board[z][x] || [];
-    this.board[z][x][y] = component;
-    if (this.componentsCounter === 0) {
-      this.props.onBoardLoaded(this.board);
+    this.blocks[z] = this.blocks[z] || [];
+    this.blocks[z][x] = this.blocks[z][x] || [];
+    this.blocks[z][x][y] = component;
+    if (this.blocksCounter === 0) {
+      this.props.onBlocksLoaded(this.blocks);
     }
+  };
+
+  initGroundsComponent = (component) => {
+    this.groundsCounter--;
+    if (component.getWrappedInstance) {
+      component = component.getWrappedInstance();
+    }
+    const { x, y, z } = component.props;
+    this.grounds[z] = this.grounds[z] || [];
+    this.grounds[z][x] = this.grounds[z][x] || [];
+    this.grounds[z][x][y] = component;
+    if (this.groundsCounter === 0) {
+      this.props.onGroundsLoaded(this.grounds);
+    }
+  };
+
+  initPayerComponent = (component) => {
+    this.initBlocksComponent(component);
+    if (component.getWrappedInstance) {
+      component = component.getWrappedInstance();
+    }
+    this.props.onPlayerLoaded(component);
   };
 
   /* Methods */
 
-  render() {
-    const { size } = this.props;
-    const board = pipe(
+  createComponents(refCallback, counter, board) {
+    return board.map((table, z) => {
+      return table.map((line, x) => {
+        return line.map((cell, y) => {
+          return this.createComponent(cell, `${z}-${x}-${y}`, counter, refCallback);
+        });
+      });
+    });
+  }
+
+  generateBoard(board, refCallback, counter) {
+    return pipe(
       map(this.addEmptyBlocks),
       addIndex(map)(this.boardInit),
-      board => board.map(this.addAdjacentProps),
+      this.addAdjacentProps,
+      this.createComponents.bind(this, refCallback, counter),
       unnest,
       unnest
-    )(this.props.map);
+    )(board);
+  }
+
+  render() {
+    const { blocks, grounds } = this.props;
+    const blocksBoard = this.generateBoard(blocks, this.initBlocksComponent, 'blocksCounter');
+    const groundsBoard = this.generateBoard(grounds, this.initGroundsComponent, 'groundsCounter');
 
     return (
       <div className="Board">
-        {board}
-        <Player settings={this.player[1]} size={size}/>
+        {blocksBoard}
+        {groundsBoard}
         <KeyControls/>
       </div>
     );

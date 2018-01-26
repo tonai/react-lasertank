@@ -5,7 +5,6 @@ import join from 'ramda/es/join';
 import map from 'ramda/es/map';
 import mergeDeepRight from 'ramda/es/mergeDeepRight';
 import pipe from 'ramda/es/pipe';
-import prop from 'ramda/es/prop';
 import unnest from 'ramda/es/unnest';
 import values from 'ramda/es/values';
 
@@ -30,28 +29,30 @@ function getBoardComponentName(board, z, x, y) {
 }
 
 export function initMap() {
+  const { blocks, grounds } = rawMap;
+
+  /*
   let player;
-  const map = rawMap.map((table, z) =>
-    table.map((line, x) =>
-      line.map((cell, y) => {
+  blocks.forEach((table, z) =>
+    table.forEach((line, x) =>
+      line.forEach((cell, y) => {
         if (cell && cell[0] === 'player') {
           player = {
-            playerDirection: 0,
             playerX: x,
             playerY: y,
             playerZ: z
           };
         }
-        return cell;
       })
     )
   );
+  */
 
-  const depth = map.length;
-  const width = map.reduce(maxLength, 0);
-  const height = unnest(map).reduce(maxLength, 0);
+  const depth = Math.max(blocks.length, grounds.length);
+  const width = Math.max(blocks.reduce(maxLength, 0), grounds.reduce(maxLength, 0));
+  const height = Math.max(unnest(blocks).reduce(maxLength, 0), unnest(grounds).reduce(maxLength, 0));
 
-  return { depth, height, map, width, ...player };
+  return { blocks, depth, grounds, height, width };
 }
 
 export function getBlock(cell, settings, size, x, y, z) {
@@ -63,6 +64,7 @@ export function getBlock(cell, settings, size, x, y, z) {
   return {
     component: componentSettings && componentSettings.component,
     props: {
+      originalName: cell[0],
       name: getComponentName(cell[0], mergedSettings),
       x,
       y,

@@ -10,33 +10,33 @@ class StatefulPlayer extends PureComponent {
   /* Methods */
 
   componentDidUpdate(prevProps) {
-    const { board, x, y, z } = this.props;
+    const { boardGrounds, x, y, z } = this.props;
     if (prevProps.x !== x || prevProps.y !== y || prevProps.z !== z) {
-      if (board[z] && board[z][x] && board[z][x][y] && board[z][x][y].props.onMoveIn) {
-        board[z][x][y].props.onMoveIn();
-      } else if (z > 0 && board[z - 1][x][y].props.onMoveOver) {
-        board[z - 1][x][y].props.onMoveOver();
+      if (boardGrounds[z]
+        && boardGrounds[z][x]
+        && boardGrounds[z][x][y]
+        && boardGrounds[z][x][y].props.onMoveIn) {
+        boardGrounds[z][x][y].props.onMoveIn();
+      } else if (z > 0 && boardGrounds[z - 1][x][y].props.onMoveOver) {
+        console.log('move over');
+        boardGrounds[z - 1][x][y].props.onMoveOver();
       }
     }
   }
 
   render() {
-    const { blocksSettings, playerDirection: direction, settings, size, x, y, z } = this.props;
+    /*const { blocksSettings, playerDirection: direction, settings, size, x, y, z } = this.props;
     const blockSettings = { ...settings, direction };
     const block = getBlock(['player', blockSettings], blocksSettings, size, x, y, z);
-    return (<Player {...block.props}/>);
+    return (<Player {...block.props}/>);*/
+    return (<Player {...this.props}/>);
   }
 
 }
 
 const mapStateToProps = (state) => ({
   blocksSettings: state.blocksSettings,
-  board: state.board,
-  player: state.player,
-  playerDirection: state.playerDirection,
-  x: state.playerX,
-  y: state.playerY,
-  z: state.playerZ
+  boardGrounds: state.boardGrounds
 });
 
-export default connect(mapStateToProps)(StatefulPlayer);
+export default connect(mapStateToProps, null, null, {withRef: true})(StatefulPlayer);

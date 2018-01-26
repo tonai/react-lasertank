@@ -1,39 +1,54 @@
-[
-  [
-    [["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["block"], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["water"], ["wall"], ["wall"], ["wall"]]
+{
+  "grounds": [
+    [],
+    [
+      [null, ["floor", {"sprites": {
+        "top": {
+          "path": "assets/sprites/Dungeon_A2.png",
+          "offset": [128, 0],
+          "connect": true,
+          "topConnect": false,
+          "type": "top"
+        }
+      }}]],
+      [null, ["floor", {"sprites": {
+        "top": {
+          "path": "assets/sprites/Dungeon_A2.png",
+          "offset": [128, 0],
+          "connect": true,
+          "topConnect": false,
+          "type": "top"
+        }
+      }}], ["floor"]],
+      [null, null, ["floor"], ["floor"], ["floor"]],
+      [null, null, ["floor"], ["ice"], ["ice"]],
+      [null, null, ["floor"], ["ice"], ["ice"]]
+    ],
+    [
+      [],
+      [],
+      [["floor"]],
+      [["floor"]],
+      [["floor"]]
+    ]
   ],
-  [
-    [["wall"], ["floor", {"sprites": {
-      "top": {
-        "path": "assets/sprites/Dungeon_A2.png",
-        "offset": [128, 0],
-        "connect": true,
-        "topConnect": false,
-        "type": "top"
-      }
-    }}], ["player"], ["block"], ["block"]],
-    [["wall"], ["floor", {"sprites": {
-      "top": {
-        "path": "assets/sprites/Dungeon_A2.png",
-        "offset": [128, 0],
-        "connect": true,
-        "topConnect": false,
-        "type": "top"
-      }
-    }}], ["floor"], ["block"], ["block"]],
-    [["wall"], null, ["floor"], ["floor"], ["floor"]],
-    [["wall"], null, ["floor"], ["ice"], ["ice"]],
-    [["wall"], null, ["floor"], ["ice"], ["ice"]]
-  ],
-  [
-    [["player", {"direction": 90}]],
-    [null],
-    [["floor"]],
-    [["floor"]],
-    [["floor"]]
+  "blocks": [
+    [
+      [["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+      [["wall"], ["block"], ["wall"], ["wall"], ["wall"]],
+      [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
+      [["wall"], ["water"], ["wall"], ["wall"], ["wall"]]
+    ],
+    [
+      [["wall"], null, null, ["block"], ["block"]],
+      [["wall"], null, null, ["block"], ["block"]],
+      [["wall"]],
+      [["wall"], null, null, ["ice"], ["ice"]],
+      [["wall"], null, null, ["ice"], ["ice"]]
+    ],
+    [
+      [["player", {"direction": 90}]]
+    ]
   ]
-]
+}

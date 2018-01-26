@@ -4,6 +4,7 @@ import Block from '../components/Stateful/Blocks/Block/Block';
 import Empty from '../components/Stateful/Blocks/Empty/Empty';
 import Floor from '../components/Stateful/Grounds/Floor/Floor';
 import Ice from '../components/Stateful/Grounds/Ice/Ice';
+import Player from '../components/Stateful/Player/Player';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
 import Water from '../components/Stateful/Blocks/Water/Water';
 
@@ -57,6 +58,10 @@ export default {
         type: 'top'
       }
     }
+  },
+  player: {
+    component: Player,
+    allowMovement: false
   },
   wall: {
     component: Wall,
