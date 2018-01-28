@@ -8,11 +8,13 @@ class Finish extends PureComponent {
 
   render() {
     const { size, x, y, z } = this.props;
+    const color1 = 'rgba(0,0,0,1)';
+    const color2 = 'rgba(0,0,0,0)';
     const styles = {
       ...getBottomStyles(size),
       background: `
-        linear-gradient(45deg, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,1) 75%, rgba(0,0,0,1) 0),
-        linear-gradient(45deg, rgba(0,0,0,1) 25%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,1) 75%, rgba(0,0,0,1) 0), rgb(255, 255, 255)`,
+        linear-gradient(45deg, ${color1} 25%, ${color2} 25%, ${color2} 75%, ${color1} 75%, ${color1} 0),
+        linear-gradient(45deg, ${color1} 25%, ${color2} 25%, ${color2} 75%, ${color1} 75%, ${color1} 0), rgb(255, 255, 255)`,
       backgroundPosition: `0 0, ${size / 4}px ${size / 4}px`,
       backgroundSize: `${size / 2}px ${size / 2}px`,
       height: size,

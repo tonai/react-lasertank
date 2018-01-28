@@ -28,7 +28,7 @@
       [],
       [],
       [["floor"]],
-      [["floor"]],
+      [["redirect", {"direction": 90}]],
       [["floor"]]
     ]
   ],

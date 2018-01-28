@@ -8,6 +8,7 @@ import Empty from '../components/Stateful/Grounds/Empty/Empty';
 import Finish from '../components/Stateful/Grounds/Finish/Finish';
 import Floor from '../components/Stateful/Grounds/Floor/Floor';
 import Ice from '../components/Stateful/Grounds/Ice/Ice';
+import Redirect from '../components/Stateful/Grounds/Redirect/Redirect';
 
 import Player from '../components/Stateful/Player/Player';
 
@@ -69,6 +70,10 @@ export default {
   player: {
     component: Player,
     allowMovement: false
+  },
+  redirect: {
+    component: Redirect,
+    allowMovement: true
   },
   wall: {
     component: Wall,
