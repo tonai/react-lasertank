@@ -22,7 +22,7 @@
       }}], ["floor"], ["floor"], ["floor"]],
       [null, null, ["floor"], ["floor"], ["floor"]],
       [null, null, ["floor"], ["ice"], ["ice"]],
-      [null, null, ["floor"], ["ice"], ["ice"]]
+      [null, null, ["floor"], ["ice"], ["finish"]]
     ],
     [
       [],

@@ -25,7 +25,7 @@ class Floor extends PureComponent {
     return (
       <div className="Floor pos-abs" style={{transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}}>
         <canvas
-          className="Water__side side--bottom pos-abs"
+          className="Floor__side side--bottom pos-abs"
           width={size}
           height={size}
           ref={this.drawTop}

@@ -5,6 +5,7 @@ import Wall from '../components/Stateful/Blocks/Wall/Wall';
 import Water from '../components/Stateful/Blocks/Water/Water';
 
 import Empty from '../components/Stateful/Grounds/Empty/Empty';
+import Finish from '../components/Stateful/Grounds/Finish/Finish';
 import Floor from '../components/Stateful/Grounds/Floor/Floor';
 import Ice from '../components/Stateful/Grounds/Ice/Ice';
 
@@ -33,6 +34,10 @@ export default {
   },
   empty: {
     component: Empty,
+    allowMovement: true
+  },
+  finish: {
+    component: Finish,
     allowMovement: true
   },
   floor: {
