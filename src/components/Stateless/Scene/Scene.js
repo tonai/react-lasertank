@@ -8,11 +8,13 @@ class Scene extends PureComponent {
   /* Properties */
 
   initElement = (el) => {
-    this.el = el;
-    this.setState({
-      containerWidth: this.el.offsetWidth,
-      containerHeight: this.el.offsetHeight
-    });
+    if (el) {
+      this.el = el;
+      this.setState({
+        containerWidth: this.el.offsetWidth,
+        containerHeight: this.el.offsetHeight
+      });
+    }
   };
 
   resize = () => {

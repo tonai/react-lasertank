@@ -1,100 +1,49 @@
-import filter from 'ramda/es/filter';
-import mapObjIndexed from 'ramda/es/mapObjIndexed';
 import mathMod from 'ramda/es/mathMod';
-import pipe from 'ramda/es/pipe';
-import values from 'ramda/es/values';
 
-import { addAdjacentProps } from './board';
-import blocksSettings from '../settings/blocks';
+export function getBlock(board, x, y, z) {
+  return board[`${z}-${x}-${y}`];
+}
 
-const allowMovementBlocks = pipe(
-  mapObjIndexed((settings, name) => settings.allowMovement ? name : null),
-  values,
-  filter(x => x)
-)(blocksSettings);
-
-export function getPlayerOnKeyUp(blocks, grounds, playerDirection, playerX, playerY, playerZ) {
-  const blocksProps =  addAdjacentProps(blocks, playerX, playerY, playerZ);
-  const groundsProps =  addAdjacentProps(grounds, playerX, playerY, playerZ);
-
-  switch (mathMod(playerDirection, 360)) {
-    case 0:
-      if (allowMovementBlocks.indexOf(blocksProps.front) !== -1 && allowMovementBlocks.indexOf(groundsProps.front) !== -1) {
-        return {playerDirection, playerX: playerX + 1, playerY, playerZ};
-      }
-      return null;
-
-    case 180:
-      if (allowMovementBlocks.indexOf(blocksProps.back) !== -1 && allowMovementBlocks.indexOf(groundsProps.back) !== -1) {
-        return {playerDirection, playerX: playerX - 1, playerY, playerZ};
-      }
-      return null;
-
-    case 90:
-      if (allowMovementBlocks.indexOf(blocksProps.right) !== -1 && allowMovementBlocks.indexOf(groundsProps.right) !== -1) {
-        return {playerDirection, playerX, playerY: playerY + 1, playerZ};
-      }
-      return null;
-
-    case 270:
-      if (allowMovementBlocks.indexOf(blocksProps.left) !== -1 && allowMovementBlocks.indexOf(groundsProps.left) !== -1) {
-        return {playerDirection, playerX, playerY: playerY - 1, playerZ};
-      }
-      return null;
-
-    default:
-      return null;
+export function canMove(blocks, grounds, x, y, z) {
+  const block = getBlock(blocks, x, y, z);
+  const ground = getBlock(grounds, x, y, z);
+  if (block) {
+    return block.props.allowMovement;
+  } else if (ground) {
+    return ground.props.allowMovement;
   }
+  return false;
 }
 
-export function getPlayerOnKeyDown(blocks, grounds, playerDirection, playerX, playerY, playerZ) {
-  const blocksProps =  addAdjacentProps(blocks, playerX, playerY, playerZ);
-  const groundsProps =  addAdjacentProps(grounds, playerX, playerY, playerZ);
-
-  switch (mathMod(playerDirection, 360)) {
+export function getStateOnPlayerMove(blocks, grounds, player, direction = 1) {
+  let {x, y, z} = player.props;
+  switch (mathMod(player.props.direction, 360)) {
     case 0:
-      if (allowMovementBlocks.indexOf(blocksProps.back) !== -1 && allowMovementBlocks.indexOf(groundsProps.back) !== -1) {
-        return {playerDirection, playerX: playerX - 1, playerY, playerZ};
-      }
-      return null;
-
-    case 180:
-      if (allowMovementBlocks.indexOf(blocksProps.front) !== -1 && allowMovementBlocks.indexOf(groundsProps.front) !== -1) {
-        return {playerDirection, playerX: playerX + 1, playerY, playerZ};
-      }
-      return null;
-
+      x += direction;
+      break;
     case 90:
-      if (allowMovementBlocks.indexOf(blocksProps.left) !== -1 && allowMovementBlocks.indexOf(groundsProps.left) !== -1) {
-        return {playerDirection, playerX, playerY: playerY - 1, playerZ};
-      }
-      return null;
-
+      y += direction;
+      break;
+    case 180:
+      x -= direction;
+      break;
     case 270:
-      if (allowMovementBlocks.indexOf(blocksProps.right) !== -1 && allowMovementBlocks.indexOf(groundsProps.right) !== -1) {
-        return {playerDirection, playerX, playerY: playerY + 1, playerZ};
-      }
-      return null;
-
+      y -= direction;
+      break;
     default:
-      return null;
   }
+  return getPlayerState(blocks, grounds, player, x, y, z);
 }
 
-export function getPlayerOnKeyLeft(playerDirection, playerX, playerY, playerZ) {
+export function getPlayerState(blocks, grounds, player, x, y, z) {
+  if (canMove(blocks, grounds, x, y, z)) {
+    player.props = {...player.props, x, y, z};
+    return {
+      player: {...player},
+      playerControls: false
+    };
+  }
   return {
-    playerDirection: playerDirection - 90,
-    playerX,
-    playerY,
-    playerZ
-  };
-}
-
-export function getPlayerOnKeyRight(playerDirection, playerX, playerY, playerZ) {
-  return {
-    playerDirection: playerDirection + 90,
-    playerX,
-    playerY,
-    playerZ
+    playerControls: true
   };
 }

@@ -19,7 +19,7 @@
           "topConnect": false,
           "type": "top"
         }
-      }}], ["floor"]],
+      }}], ["floor"], ["floor"], ["floor"]],
       [null, null, ["floor"], ["floor"], ["floor"]],
       [null, null, ["floor"], ["ice"], ["ice"]],
       [null, null, ["floor"], ["ice"], ["ice"]]
@@ -44,8 +44,11 @@
       [["wall"], null, null, ["block"], ["block"]],
       [["wall"], null, null, ["block"], ["block"]],
       [["wall"]],
-      [["wall"], null, null, ["ice"], ["ice"]],
-      [["wall"], null, null, ["ice"], ["ice"]]
+      [["wall"]],
+      [["wall"]]
+    ],
+    [
+      [["wall"]]
     ],
     [
       [["player", {"direction": 90}]]

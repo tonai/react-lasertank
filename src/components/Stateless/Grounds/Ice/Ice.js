@@ -8,20 +8,22 @@ class Ice extends PureComponent {
   /* Properties */
 
   drawTop = (canvas) => {
-    const { name, settings } = this.props;
-    setTopTexture(canvas, name, settings.sprites.top, this.props);
+    if (canvas) {
+      const {name, sprites} = this.props;
+      setTopTexture(canvas, name, sprites.top, this.props);
+    }
   };
 
   /* Methods */
 
   componentWillMount() {
-    loadTextures(this.props.settings.sprites);
+    loadTextures(this.props.sprites);
   }
 
   render() {
-    const { size, styles } = this.props;
+    const { size, x, y, z } = this.props;
     return (
-      <div className="Ice pos-abs" style={styles}>
+      <div className="Ice pos-abs" style={{transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}}>
         <canvas
           className="Water__side side--bottom pos-abs"
           width={size}

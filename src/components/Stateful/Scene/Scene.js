@@ -6,7 +6,6 @@ const mapStateToProps = (state) => ({
   depth: state.depth,
   height: state.height,
   scale: state.zoom,
-  settings: state.blocksSettings,
   width: state.width,
   xAngle: state.xAngle,
   zAngle: state.zAngle

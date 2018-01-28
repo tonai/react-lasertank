@@ -1,16 +1,21 @@
 import { connect } from 'react-redux';
 
-import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
-import gameSettings from '../../../../settings/game';
+import { addAdjacentProps } from '../../../../services/board';
 
 import Water from '../../../Stateless/Blocks/Water/Water';
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = (dispatch) => ({
-  onMoveOver: () => {
-    setTimeout(() => dispatch(handlePlayerUpdateRelativePos(0, 0, -1)), gameSettings.transitionTimer);
-  }
+const mapStateToProps = (state) => ({
+  blocks: state.blocks
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {withRef: true})(Water);
+const mapDispatchToProps = () => ({
+  onMoveOver: () => console.log('Plouf !')
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...dispatchProps,
+  ...addAdjacentProps(stateProps.blocks, ownProps.x, ownProps.y, ownProps.z)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps, {withRef: true})(Water);

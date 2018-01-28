@@ -9,68 +9,78 @@ class Wall extends PureComponent {
   /* Properties */
 
   drawBack = (canvas) => {
-    const { backLeft, backRight, bottom, left, name, right, settings, top } = this.props;
-    setSideTexture(canvas, name, settings.sprites.side, {
-      top: top,
-      bottom: bottom,
-      right: right,
-      left: left,
-      frontRight: backRight,
-      frontLeft: backLeft
-    });
+    if (canvas) {
+      const {backLeft, backRight, bottom, left, name, right, sprites, top} = this.props;
+      setSideTexture(canvas, name, sprites.side, {
+        top: top,
+        bottom: bottom,
+        right: right,
+        left: left,
+        frontRight: backRight,
+        frontLeft: backLeft
+      });
+    }
   };
 
   drawFront = (canvas) => {
-    const { bottom, frontLeft, frontRight, left, name, right, settings, top } = this.props;
-    setSideTexture(canvas, name, settings.sprites.side, {
-      top: top,
-      bottom: bottom,
-      right: right,
-      left: left,
-      frontRight: frontRight,
-      frontLeft: frontLeft
-    });
+    if (canvas) {
+      const {bottom, frontLeft, frontRight, left, name, right, sprites, top} = this.props;
+      setSideTexture(canvas, name, sprites.side, {
+        top: top,
+        bottom: bottom,
+        right: right,
+        left: left,
+        frontRight: frontRight,
+        frontLeft: frontLeft
+      });
+    }
   };
 
   drawLeft = (canvas) => {
-    const { back, backLeft, bottom, front, frontLeft, name, settings, top } = this.props;
-    setSideTexture(canvas, name, settings.sprites.side, {
-      top: top,
-      bottom: bottom,
-      right: front,
-      left: back,
-      frontRight: frontLeft,
-      frontLeft: backLeft
-    });
+    if (canvas) {
+      const {back, backLeft, bottom, front, frontLeft, name, sprites, top} = this.props;
+      setSideTexture(canvas, name, sprites.side, {
+        top: top,
+        bottom: bottom,
+        right: front,
+        left: back,
+        frontRight: frontLeft,
+        frontLeft: backLeft
+      });
+    }
   };
 
   drawRight = (canvas) => {
-    const { back, backRight, bottom, front, frontRight, name, settings, top } = this.props;
-    setSideTexture(canvas, name, settings.sprites.side, {
-      top: top,
-      bottom: bottom,
-      right: front,
-      left: back,
-      frontRight: frontRight,
-      frontLeft: backRight
-    });
+    if (canvas) {
+      const {back, backRight, bottom, front, frontRight, name, sprites, top} = this.props;
+      setSideTexture(canvas, name, sprites.side, {
+        top: top,
+        bottom: bottom,
+        right: front,
+        left: back,
+        frontRight: frontRight,
+        frontLeft: backRight
+      });
+    }
   };
 
   drawTop = (canvas) => {
-    const { name, settings } = this.props;
-    setTopTexture(canvas, name, settings.sprites.top, this.props);
+    if (canvas) {
+      const {name, sprites} = this.props;
+      setTopTexture(canvas, name, sprites.top, this.props);
+    }
   };
 
   /* Methods */
 
   componentWillMount() {
-    loadTextures(this.props.settings.sprites);
+    loadTextures(this.props.sprites);
   }
 
   render() {
-    const { back, front, left, name, right, size, styles } = this.props;
+    const { back, front, left, name, right, size, x, y, z } = this.props;
     return (
-      <div className="Wall pos-abs" style={styles}>
+      <div className="Wall pos-abs" style={{transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}}>
         <canvas
           className="Wall__side side--top pos-abs"
           width={size}

@@ -96,7 +96,7 @@ export function loadTextures(sprites) {
   });
 }
 
-export function setTopTexture(canvas, name, sprite, props) {
+export function setTopTexture(canvas, name, sprite, props = {}) {
   const { back, backLeft, backRight, front, frontLeft, frontRight, left, right, topBack, topBackLeft, topBackRight,
     topFront, topFrontLeft, topFrontRight, topLeft, topRight } = props;
   const { connect, topConnect } = sprite;
@@ -198,7 +198,7 @@ export function setTopTexture(canvas, name, sprite, props) {
   }
 }
 
-export function setSideTexture(canvas, name, sprite, props) {
+export function setSideTexture(canvas, name, sprite, props = {}) {
   const { bottom, frontLeft, frontRight, left, right, top } = props;
   const { connect } = sprite;
   const cacheKey = getCacheKey(sprite);

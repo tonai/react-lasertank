@@ -1,31 +1,3 @@
-grounds = [
-  [[{
-    component,
-    ref,
-    props: {
-      x,
-      y,
-      z,
-      direction,
-      key: uniqueBlockId (originalxyz) // should not change,
-      settings (merge ?)
-    }
-  }]],
-  [],
-  []
-]
-idem pour blocks
-item pour player
-
-dans Board on génère les Components (flatten + sort on props.key) on récupère les refs
-
-
-
-
-
-Be able to write ["player", {"direction": 90}]] in maps => const blockSettings = { ...settings, direction };
-Manage specials blocks like "block" separately as they can move...Etc.
-rename block prop name => id ?
-remove addAdjacentProps from Board
-empty blocks only for blocks ?
-is moveOver still used ?
+arrow block
+sprite top connection with other blocks
+Y scroll

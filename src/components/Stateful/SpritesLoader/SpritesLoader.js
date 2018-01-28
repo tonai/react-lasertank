@@ -4,46 +4,54 @@ import addIndex from 'ramda/es/addIndex';
 import filter from 'ramda/es/filter';
 import map from 'ramda/es/map';
 import pipe from 'ramda/es/pipe';
-import prop from 'ramda/es/prop';
 import unnest from 'ramda/es/unnest';
 import values from 'ramda/es/values';
 
-import { handleSpritesLoaded } from '../../../redux/actions';
-
 class SpritesLoader extends PureComponent {
 
-  /* Methods */
+  /* Properties */
 
-  componentDidMount() {
-    const { blocksSettings, onSpritesLoaded } = this.props;
+  state = {
+    isLoaded: false
+  };
 
+  loadBoardSprites = (board) => {
     const spriteSettings = pipe(
       values,
-      map(prop('sprites')),
+      map(block => block.props.sprites),
       filter(sprites => sprites && (sprites instanceof Object)),
       map(values),
       unnest
-    )(blocksSettings);
+    )(board);
     const promises = spriteSettings.map(sprite => import(`../../../${sprite.path}`));
 
-    Promise.all(promises)
+    return Promise.all(promises)
       .then(map(this.loadImage))
       .then(promises => Promise.all(promises))
       .then(addIndex(map)((image, index) => spriteSettings[index].image = image))
-      .then(() => onSpritesLoaded(blocksSettings));
-  }
+  };
 
-  loadImage(src) {
+  loadImage = (src) => {
     return new Promise((resolve, reject) => {
       const image = new Image();
       image.onload = () => resolve(image);
       image.onerror = reject;
       image.src = src;
     });
+  };
+
+  /* Methods */
+
+  componentDidMount() {
+    const { blocks, grounds } = this.props;
+    Promise.all([
+      this.loadBoardSprites(blocks),
+      this.loadBoardSprites(grounds)
+    ]).then(() => this.setState({isLoaded: true}));
   }
 
   render() {
-    if (this.props.spritesLoaded) {
+    if (this.state.isLoaded) {
       return this.props.children;
     }
     return null;
@@ -52,12 +60,8 @@ class SpritesLoader extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  blocksSettings: state.blocksSettings,
-  spritesLoaded: state.spritesLoaded
+  blocks: state.blocks,
+  grounds: state.grounds
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onSpritesLoaded: (settings) => dispatch(handleSpritesLoaded(settings))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SpritesLoader);
+export default connect(mapStateToProps)(SpritesLoader);

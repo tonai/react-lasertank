@@ -1,17 +1,22 @@
 import { connect } from 'react-redux';
 
-import { handlePlayerUpdated, handlePlayerUpdateRelativePos } from '../../../../redux/actions';
-import gameSettings from '../../../../settings/game';
+import { handlePlayerUpdated } from '../../../../redux/actions';
+import { addAdjacentProps } from '../../../../services/board';
 
 import Floor from '../../../Stateless/Grounds/Floor/Floor';
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = (dispatch) => ({
-  onMoveIn: () => dispatch(handlePlayerUpdated()),
-  onMoveOver: () => {
-    setTimeout(() => dispatch(handlePlayerUpdateRelativePos(0, 0, -1)), gameSettings.transitionTimer);
-  }
+const mapStateToProps = (state) => ({
+  grounds: state.grounds
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {withRef: true})(Floor);
+const mapDispatchToProps = (dispatch) => ({
+  onMoveOver: () => dispatch(handlePlayerUpdated())
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...dispatchProps,
+  ...addAdjacentProps(stateProps.grounds, ownProps.x, ownProps.y, ownProps.z)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps, {withRef: true})(Floor);

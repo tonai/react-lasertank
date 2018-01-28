@@ -1,13 +1,17 @@
 import { connect } from 'react-redux';
 
-import { handlePlayerUpdated } from '../../../../redux/actions';
+import { addAdjacentProps } from '../../../../services/board';
 
 import Wall from '../../../Stateless/Blocks/Wall/Wall';
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = (dispatch) => ({
-  onMoveOver: () => dispatch(handlePlayerUpdated())
+const mapStateToProps = (state) => ({
+  blocks: state.blocks
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {withRef: true})(Wall);
+const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+  ...ownProps,
+  ...dispatchProps,
+  ...addAdjacentProps(stateProps.blocks, ownProps.x, ownProps.y, ownProps.z)
+});
+
+export default connect(mapStateToProps, null, mergeProps, {withRef: true})(Wall);

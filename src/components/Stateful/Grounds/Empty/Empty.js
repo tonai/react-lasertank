@@ -12,12 +12,10 @@ class Empty extends PureComponent {
 
 }
 
-const mapStateToProps = () => ({});
-
 const mapDispatchToProps = (dispatch) => ({
   onMoveOver: () => {
     setTimeout(() => dispatch(handlePlayerUpdateRelativePos(0, 0, -1)), gameSettings.transitionTimer);
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {withRef: true})(Empty);
+export default connect(null, mapDispatchToProps, null, {withRef: true})(Empty);

@@ -1,12 +1,15 @@
-import rawMap from '../maps/test.json';
-
 import insert from 'ramda/es/insert';
+import filter from 'ramda/es/filter';
 import join from 'ramda/es/join';
 import map from 'ramda/es/map';
 import mergeDeepRight from 'ramda/es/mergeDeepRight';
 import pipe from 'ramda/es/pipe';
 import unnest from 'ramda/es/unnest';
 import values from 'ramda/es/values';
+
+import rawMap from '../maps/test.json';
+import blocksSettings from '../settings/blocks';
+import boardSettings from '../settings/board';
 
 function maxLength(acc, array) {
   return Math.max(acc, array.length);
@@ -25,34 +28,78 @@ function getComponentName(name, settings) {
 }
 
 function getBoardComponentName(board, z, x, y) {
-  return board[z] && board[z][x] && board[z][x][y] && board[z][x][y].props.name;
+  return board[`${z}-${x}-${y}`] && board[`${z}-${x}-${y}`].props.name;
 }
 
-export function initMap() {
-  const { blocks, grounds } = rawMap;
-
-  /*
-  let player;
-  blocks.forEach((table, z) =>
-    table.forEach((line, x) =>
-      line.forEach((cell, y) => {
-        if (cell && cell[0] === 'player') {
-          player = {
-            playerX: x,
-            playerY: y,
-            playerZ: z
-          };
+function addEmptyBlocks(blocks, board, depth, width, height) {
+  for (let i = 0; i < width; i++) {
+    for (let j = 0; j < height; j++) {
+      let hasBlock = false;
+      for (let k = 0; k < depth; k++) {
+        if ((blocks[k] && blocks[k][i] && blocks[k][i][j]) || (board[k] && board[k][i] && board[k][i][j])) {
+          hasBlock = true;
+        } else if (hasBlock && !(blocks[k] && blocks[k][i] && blocks[k][i][j])) {
+          board[k] = board[k] || [];
+          board[k][i] = board[k][i] || [];
+          board[k][i][j] = ['empty'];
         }
+      }
+    }
+  }
+}
+
+function getBoardArray(board) {
+  const { size } = boardSettings;
+  return board.map((table, z) =>
+    table.map((line, x) =>
+      line.map((cell, y) => {
+        return getBlock(cell, blocksSettings, size, x, y, z);
       })
     )
   );
-  */
+}
 
-  const depth = Math.max(blocks.length, grounds.length);
-  const width = Math.max(blocks.reduce(maxLength, 0), grounds.reduce(maxLength, 0));
-  const height = Math.max(unnest(blocks).reduce(maxLength, 0), unnest(grounds).reduce(maxLength, 0));
+function getBoardObject(board) {
+  return pipe(
+    filter(block => block !== 'player'),
+    getBoardArray,
+    unnest,
+    unnest,
+    filter(x => x)
+  )(board);
+}
 
-  return { blocks, depth, grounds, height, width };
+export function initMap() {
+  const rawBlocks = rawMap.blocks;
+  const rawGrounds = rawMap.grounds;
+
+  const depth = Math.max(rawBlocks.length, rawGrounds.length);
+  const width = Math.max(rawBlocks.reduce(maxLength, 0), rawGrounds.reduce(maxLength, 0));
+  const height = Math.max(unnest(rawBlocks).reduce(maxLength, 0), unnest(rawGrounds).reduce(maxLength, 0));
+
+  addEmptyBlocks(rawBlocks, rawGrounds, depth, width, height);
+
+  let blocks = getBoardObject(rawBlocks);
+  let grounds = getBoardObject(rawGrounds);
+
+  const player = blocks.find(block => block.props.originalName === 'player');
+  blocks = blocks
+    .filter(block => block.props.originalName !== 'player')
+    .reduce((acc, block) => {
+      if (block) {
+        acc[block.props.key] = block;
+      }
+      return acc;
+    }, {});
+  grounds = grounds
+    .reduce((acc, block) => {
+      if (block) {
+        acc[block.props.key] = block;
+      }
+      return acc;
+    }, {});
+
+  return { blocks, depth, grounds, height, player, width };
 }
 
 export function getBlock(cell, settings, size, x, y, z) {
@@ -62,16 +109,17 @@ export function getBlock(cell, settings, size, x, y, z) {
   const componentSettings = settings[cell[0]];
   const mergedSettings = cell[1] ? mergeDeepRight(componentSettings, cell[1]) : componentSettings;
   return {
-    component: componentSettings && componentSettings.component,
+    ref: null,
     props: {
       originalName: cell[0],
       name: getComponentName(cell[0], mergedSettings),
+      key: `${z}-${x}-${y}`,
       x,
       y,
       z,
+      direction: 0,
       size,
-      settings: mergedSettings,
-      styles: {transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}
+      ...mergedSettings
     }
   }
 }

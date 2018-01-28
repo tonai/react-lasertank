@@ -9,25 +9,27 @@ class Water extends PureComponent {
   /* Properties */
 
   drawTop = (canvas) => {
-    const { name, settings } = this.props;
-    setTopTexture(canvas, name, settings.sprites.top, this.props);
+    if (canvas) {
+      const {name, sprites} = this.props;
+      setTopTexture(canvas, name, sprites.top, this.props);
+    }
   };
 
   /* Methods */
 
   componentWillMount() {
-    loadTextures(this.props.settings.sprites);
+    loadTextures(this.props.sprites);
   }
 
   render() {
-    const { back, bottom, front, left, name, right, size, styles, top } = this.props;
+    const { back, bottom, front, left, name, right, size, top, x, z, y } = this.props;
     const sideStyles = {
       width: size,
       height: size,
       backgroundColor: 'rgba(0, 100, 255, 0.5)'
     };
     return (
-      <div className="Water pos-abs" style={styles}>
+      <div className="Water pos-abs" style={{transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}}>
         {!front && (<div
           className="Water__side side--front pos-abs"
           style={{...sideStyles, ...getFrontStyles(size)}}

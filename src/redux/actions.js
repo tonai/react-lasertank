@@ -50,34 +50,12 @@ export function handleKeyUp() {
   }
 }
 
-export const SPRITES_LOADED = 'SPRITES_LOADED';
-export function handleSpritesLoaded(settings) {
+export const BOARD_LOADED = 'BOARD_LOADED';
+export function handleBoardLoaded(blocks, grounds, player) {
   return {
-    type: SPRITES_LOADED,
-    settings
-  };
-}
-
-export const BOARD_BLOCKS_LOADED = 'BOARD_BLOCKS_LOADED';
-export function handleBlocksLoaded(board) {
-  return {
-    type: BOARD_BLOCKS_LOADED,
-    board
-  };
-}
-
-export const BOARD_GROUNDS_LOADED = 'BOARD_GROUNDS_LOADED';
-export function handleGroundsLoaded(board) {
-  return {
-    type: BOARD_GROUNDS_LOADED,
-    board
-  };
-}
-
-export const PLAYER_LOADED = 'PLAYER_LOADED';
-export function handlePlayerLoaded(player) {
-  return {
-    type: PLAYER_LOADED,
+    type: BOARD_LOADED,
+    blocks,
+    grounds,
     player
   };
 }
