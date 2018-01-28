@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import mathMod from 'ramda/es/mathMod';
 
 import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
 import gameSettings from '../../../../settings/game';
@@ -15,28 +14,20 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onMoveOver: (direction) => {
+  onMoveOver: (prevProps, nextProps) => {
     let x = 0;
     let y = 0;
 
-    switch(mathMod(direction, 360)) {
-      case 0:
-        x++;
-        break;
+    if (nextProps.x > prevProps.x) {
+      x = 1;
+    } else if (nextProps.x < prevProps.x) {
+      x = -1;
+    }
 
-      case 90:
-        y++;
-        break;
-
-      case 180:
-        x--;
-        break;
-
-      case 270:
-        y--;
-        break;
-
-      default:
+    if (nextProps.y > prevProps.y) {
+      y = 1;
+    } else if (nextProps.y < prevProps.y) {
+      y = -1;
     }
 
     setTimeout(() => dispatch(handlePlayerUpdateRelativePos(x, y, 0)), gameSettings.transitionTimer);
@@ -46,8 +37,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...dispatchProps,
-  ...addAdjacentProps(stateProps.grounds, ownProps.x, ownProps.y, ownProps.z),
-  onMoveOver: () => dispatchProps.onMoveOver(stateProps.direction)
+  ...addAdjacentProps(stateProps.grounds, ownProps.x, ownProps.y, ownProps.z)
 });
 
 export default connect(mapStateToProps,  mapDispatchToProps,  mergeProps,  {withRef: true})(Ice);

@@ -2,6 +2,7 @@
   "grounds": [
     [],
     [
+      [null, ["redirect", {"direction": 90}], ["redirect", {"direction": 0}]],
       [null, ["floor", {"sprites": {
         "top": {
           "path": "assets/sprites/Dungeon_A2.png",
@@ -10,17 +11,8 @@
           "topConnect": false,
           "type": "top"
         }
-      }}]],
-      [null, ["floor", {"sprites": {
-        "top": {
-          "path": "assets/sprites/Dungeon_A2.png",
-          "offset": [128, 0],
-          "connect": true,
-          "topConnect": false,
-          "type": "top"
-        }
-      }}], ["floor"], ["floor"], ["floor"]],
-      [null, null, ["floor"], ["floor"], ["floor"]],
+      }}], ["redirect", {"direction": -90}], ["floor"], ["floor"]],
+      [null, null, ["floor"], ["redirect", {"direction": 180}], ["redirect", {"direction": 0}]],
       [null, null, ["floor"], ["ice"], ["ice"]],
       [null, null, ["floor"], ["ice"], ["finish"]]
     ],
