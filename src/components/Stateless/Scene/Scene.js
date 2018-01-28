@@ -50,17 +50,15 @@ class Scene extends PureComponent {
     const containerWidth = this.state.containerWidth;
     const containerHeight = this.state.containerHeight;
 
-    const a = this.props.zAngle * Math.PI / 180;
-    const aMathMod = mathMod(a, Math.PI / 2);
-    const b = this.props.xAngle * Math.PI / 180;
-    const bMathMod = mathMod(b, Math.PI / 2);
+    const a = mathMod(this.props.zAngle, 90) * Math.PI / 180;
+    const b = mathMod(this.props.xAngle, 90) * Math.PI / 180;
     const max = Math.max(width, height);
 
-    const x = max / (1 + 1 / Math.sin(aMathMod) + 1 / Math.tan(aMathMod));
-    const l = x * Math.cos(aMathMod);
+    const x = max / (1 + 1 / Math.sin(a) + 1 / Math.tan(a));
+    const l = x * Math.cos(a);
     const L = l * 2 + max;
-    const H = L * Math.cos(bMathMod);
-    const D = depth * Math.sin(bMathMod);
+    const H = L * Math.cos(b);
+    const D = depth * Math.sin(b);
 
     const isWider = containerWidth && L * scale > containerWidth;
     const isHigher = containerHeight && (H / 2 + D + height / 2 - max / 2) * scale > containerHeight / 2;
