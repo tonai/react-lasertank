@@ -1,49 +1,27 @@
 {
   "grounds": [
-    [],
+    null,
     [
-      [null, ["redirect", {"direction": 90}], ["redirect", {"direction": 0}]],
-      [null, ["floor", {"sprites": {
-        "top": {
-          "path": "assets/sprites/Dungeon_A2.png",
-          "offset": [128, 0],
-          "connect": true,
-          "topConnect": false,
-          "type": "top"
-        }
-      }}], ["redirect", {"direction": -90}], ["floor"], ["floor"]],
-      [null, null, ["floor"], ["redirect", {"direction": 180}], ["redirect", {"direction": 0}]],
-      [null, null, ["floor"], ["ice"], ["ice"]],
-      [null, null, ["floor"], ["ice"], ["finish"]]
-    ],
-    [
-      [],
-      [],
-      [["floor"]],
-      [["redirect", {"direction": 90}]],
-      [["floor"]]
+      null,
+      [null, null, "ice"],
+      [null, null, "ice", "ice"],
+      null,
+      [null, null, ["floor",{"direction":90,"sprites":{"top":{"path":"assets/sprites/Inside_A2.png","offset":[0, 96],"connect":true}}}]]
     ]
   ],
   "blocks": [
     [
-      [["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
-      [["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
-      [["wall"], ["block"], ["wall"], ["wall"], ["wall"]],
-      [["wall"], ["water"], ["wall"], ["wall"], ["wall"]],
-      [["wall"], ["water"], ["wall"], ["wall"], ["wall"]]
+      ["wall", "wall", "wall", "wall", "wall"],
+      ["wall", "wall", "wall", "wall", "wall"],
+      ["wall", "wall", "wall", "wall", "wall"],
+      ["wall", "wall", "water", "wall", "wall"],
+      ["wall", "wall", "water", "wall", "wall"]
     ],
     [
-      [["wall"], null, null, ["block"], ["block"]],
-      [["wall"], null, null, ["block"], ["block"]],
-      [["wall"]],
-      [["wall"]],
-      [["wall"]]
-    ],
-    [
-      [["wall"]]
-    ],
-    [
-      [["player", {"direction": 90}]]
+      null,
+      [null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}]],
+      [["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], ["finish"]],
+      ["player", ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}]]
     ]
   ]
 }

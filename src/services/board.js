@@ -12,7 +12,7 @@ import blocksSettings from '../settings/blocks';
 import boardSettings from '../settings/board';
 
 function maxLength(acc, array) {
-  return Math.max(acc, array.length);
+  return Math.max(acc, (array || []).length);
 }
 
 function getComponentName(name, settings) {
@@ -50,9 +50,9 @@ function addEmptyBlocks(blocks, board, depth, width, height) {
 
 function getBoardArray(board) {
   const { size } = boardSettings;
-  return board.map((table, z) =>
-    table.map((line, x) =>
-      line.map((cell, y) => {
+  return (board || []).map((table, z) =>
+    (table || []).map((line, x) =>
+      (line || []).map((cell, y) => {
         return getBlock(cell, blocksSettings, size, x, y, z);
       })
     )
@@ -66,12 +66,12 @@ function getBoardObject(board) {
     unnest,
     unnest,
     filter(x => x)
-  )(board);
+  )(board || []);
 }
 
 export function initMap() {
-  const rawBlocks = rawMap.blocks;
-  const rawGrounds = rawMap.grounds;
+  const rawBlocks = rawMap.blocks || [];
+  const rawGrounds = rawMap.grounds || [];
 
   const depth = Math.max(rawBlocks.length, rawGrounds.length);
   const width = Math.max(rawBlocks.reduce(maxLength, 0), rawGrounds.reduce(maxLength, 0));
@@ -103,7 +103,10 @@ export function initMap() {
 }
 
 export function getBlock(cell, settings, size, x, y, z) {
-  if (!cell || !cell[0]) {
+  if (!(cell instanceof  Array)) {
+    cell = [cell];
+  }
+  if (!cell[0]) {
     return null;
   }
   const componentSettings = settings[cell[0]];

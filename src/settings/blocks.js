@@ -19,14 +19,14 @@ export default {
     sprites: {
       top: {
         path: `${generalSettings.spritesDir}Inside_A4.png`,
-        offset: [64 * 7, (64 + 64 + 32) * 2],
+        offset: [7 * 64, 2 * (64 + 64 + 32)],
         connect: false,
         topConnect: false,
         type: 'top'
       },
       side: {
         path: `${generalSettings.spritesDir}Inside_A4.png`,
-        offset: [64 * 7, (64 + 64 + 32) * 2 + 64 + 32],
+        offset: [7 * 64, 2 * (64 + 64 + 32) + 64 + 32],
         connect: false,
         topConnect: false,
         type: 'side'
@@ -47,7 +47,7 @@ export default {
     sprites: {
       top: {
         path: `${generalSettings.spritesDir}Dungeon_A2.png`,
-        offset: [64 * 7, (64 + 32) * 2],
+        offset: [7 * 64, 2 * (64 + 32)],
         connect: true,
         topConnect: false,
         type: 'top'
@@ -60,7 +60,7 @@ export default {
     sprites: {
       top: {
         path: `${generalSettings.spritesDir}Dungeon_A2.png`,
-        offset: [64 * 2, (64 + 32) * 3],
+        offset: [2 * 64, 3 * (64 + 32)],
         connect: true,
         topConnect: false,
         type: 'top'
@@ -81,14 +81,14 @@ export default {
     sprites: {
       top: {
         path: `${generalSettings.spritesDir}Outside_A4.png`,
-        offset: [0, 0],
+        offset: [0 * 64, 2 * (64 + 64 + 32)],
         connect: true,
         topConnect: false,
         type: 'top'
       },
       side: {
         path: `${generalSettings.spritesDir}Outside_A4.png`,
-        offset: [0, 64 + 32],
+        offset: [0 * 64, 2 * (64 + 64 + 32) + 64 + 32],
         connect: true,
         topConnect: false,
         type: 'side'
@@ -101,7 +101,7 @@ export default {
     sprites: {
       top: {
         path: `${generalSettings.spritesDir}Inside_A4.png`,
-        offset: [0, 0],
+        offset: [0 * 64, 0 * (64 + 64 + 32)],
         connect: true,
         topConnect: false,
         type: 'top'
