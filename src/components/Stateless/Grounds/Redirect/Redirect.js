@@ -1,23 +1,16 @@
 import React, { PureComponent } from 'react';
+
 import { getBottomStyles } from '../../../../services/styles';
-import gameSettings from '../../../../settings/game';
+
+import BoardBlock from '../../BoardBlock/BoardBlock';
 
 class Redirect extends PureComponent {
 
   /* Methods */
 
   render() {
-    const { direction, size, x, y, z } = this.props;
+    const { size } = this.props;
     const color = 'rgba(0,255,0,1)';
-    const containerStyles = {
-      transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`
-    };
-    const rotationStyles = {
-      width: size,
-      height: size,
-      transform: `rotateZ(${direction}deg)`,
-      transition: `all ${gameSettings.transitionTimer}ms linear`
-    };
     const bottomStyles = {
       ...getBottomStyles(size),
       background: `
@@ -31,17 +24,13 @@ class Redirect extends PureComponent {
       width: size
     };
     return (
-      <div className="Redirect pos-abs" style={containerStyles}>
-        <div className="pos-abs" style={rotationStyles}>
-          <div
-            className="Redirect__side side--bottom pos-abs"
-            style={bottomStyles}
-          />
-        </div>
-      </div>
+      <div
+        className="side--bottom pos-abs"
+        style={bottomStyles}
+      />
     );
   }
 
 }
 
-export default Redirect;
+export default BoardBlock(Redirect);

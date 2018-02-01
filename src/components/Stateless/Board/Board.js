@@ -51,6 +51,9 @@ class Board extends PureComponent {
   }
 
   initBlocksComponent(block, component) {
+    if (!component) {
+      return;
+    }
     this.blocksCounter--;
     if (component.getWrappedInstance) {
       component = component.getWrappedInstance();
@@ -65,6 +68,9 @@ class Board extends PureComponent {
   }
 
   initGroundsComponent(ground, component) {
+    if (!component) {
+      return;
+    }
     this.groundsCounter--;
     if (component.getWrappedInstance) {
       component = component.getWrappedInstance();
@@ -79,6 +85,9 @@ class Board extends PureComponent {
   }
 
   initPlayerComponent(player, component) {
+    if (!component) {
+      return;
+    }
     if (component.getWrappedInstance) {
       component = component.getWrappedInstance();
     }

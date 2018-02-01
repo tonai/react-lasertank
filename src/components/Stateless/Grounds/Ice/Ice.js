@@ -3,6 +3,8 @@ import React, { PureComponent } from 'react';
 import { getBottomStyles } from '../../../../services/styles';
 import { loadTextures, setTopTexture } from '../../../../services/texture';
 
+import BoardBlock from '../../BoardBlock/BoardBlock';
+
 class Ice extends PureComponent {
 
   /* Properties */
@@ -21,20 +23,18 @@ class Ice extends PureComponent {
   }
 
   render() {
-    const { size, x, y, z } = this.props;
+    const { size } = this.props;
     return (
-      <div className="Ice pos-abs" style={{transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}}>
-        <canvas
-          className="Water__side side--bottom pos-abs"
-          width={size}
-          height={size}
-          ref={this.drawTop}
-          style={getBottomStyles(size)}
-        />
-      </div>
+      <canvas
+        className="side--bottom pos-abs"
+        width={size}
+        height={size}
+        ref={this.drawTop}
+        style={getBottomStyles(size)}
+      />
     );
   }
 
 }
 
-export default Ice;
+export default BoardBlock(Ice);

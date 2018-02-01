@@ -4,6 +4,8 @@ import { loadTextures, setSideTexture, setTopTexture } from '../../../../service
 import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles,
   getTopStyles } from '../../../../services/styles';
 
+import BoardBlock from '../../BoardBlock/BoardBlock';
+
 class Block extends PureComponent {
 
   /* Properties */
@@ -50,39 +52,39 @@ class Block extends PureComponent {
   }
 
   render() {
-    const { size, x, y, z } = this.props;
+    const { size } = this.props;
     return (
-      <div className="Block pos-abs" style={{transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}}>
+      <div>
         <canvas
-          className="Block__side side--front pos-abs"
+          className="side--front pos-abs"
           width={size}
           height={size}
           ref={this.drawFront}
           style={getFrontStyles(size)}
         />
         <canvas
-          className="Block__side side--back pos-abs"
+          className="side--back pos-abs"
           width={size}
           height={size}
           ref={this.drawBack}
           style={getBackStyles(size)}
         />
         <canvas
-          className="Block__side side--right pos-abs"
+          className="side--right pos-abs"
           width={size}
           height={size}
           ref={this.drawRight}
           style={getRightStyles(size)}
         />
         <canvas
-          className="Block__side side--left pos-abs"
+          className="side--left pos-abs"
           width={size}
           height={size}
           ref={this.drawLeft}
           style={getLeftStyles(size)}
         />
         <canvas
-          className="Block__side side--top pos-abs"
+          className="side--top pos-abs"
           width={size}
           height={size}
           ref={this.drawTop}
@@ -94,4 +96,4 @@ class Block extends PureComponent {
 
 }
 
-export default Block;
+export default BoardBlock(Block);

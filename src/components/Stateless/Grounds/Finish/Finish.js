@@ -2,12 +2,14 @@ import React, { PureComponent } from 'react';
 
 import { getBottomStyles } from '../../../../services/styles';
 
+import BoardBlock from '../../BoardBlock/BoardBlock';
+
 class Finish extends PureComponent {
 
   /* Methods */
 
   render() {
-    const { size, x, y, z } = this.props;
+    const { size } = this.props;
     const color1 = 'rgba(0,0,0,1)';
     const color2 = 'rgba(0,0,0,0)';
     const styles = {
@@ -21,15 +23,13 @@ class Finish extends PureComponent {
       width: size
     };
     return (
-      <div className="Finish pos-abs" style={{transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}}>
-        <div
-          className="Finish__side side--bottom pos-abs"
-          style={styles}
-        />
-      </div>
+      <div
+        className="side--bottom pos-abs"
+        style={styles}
+      />
     );
   }
 
 }
 
-export default Finish;
+export default BoardBlock(Finish);

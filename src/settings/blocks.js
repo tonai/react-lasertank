@@ -100,8 +100,8 @@ export default {
     allowMovement: true,
     sprites: {
       top: {
-        path: `${generalSettings.spritesDir}Inside_A4.png`,
-        offset: [0 * 64, 0 * (64 + 64 + 32)],
+        path: `${generalSettings.spritesDir}Dungeon_A2.png`,
+        offset: [2 * 64, 0 * (64 + 32)],
         connect: true,
         topConnect: false,
         type: 'top'

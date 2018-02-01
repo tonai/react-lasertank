@@ -12,8 +12,8 @@
   "blocks": [
     [
       ["wall", "wall", "wall", "wall", "wall"],
-      ["wall", "wall", "wall", "wall", "wall"],
-      ["wall", "wall", "wall", "wall", "wall"],
+      ["wall", "wall", "water", "wall", "wall"],
+      ["wall", "wall", "water", "water", "wall"],
       ["wall", "wall", "water", "wall", "wall"],
       ["wall", "wall", "water", "wall", "wall"]
     ],

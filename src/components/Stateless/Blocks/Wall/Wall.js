@@ -4,6 +4,8 @@ import { loadTextures, setSideTexture, setTopTexture } from '../../../../service
 import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles,
   getTopStyles } from '../../../../services/styles';
 
+import BoardBlock from '../../BoardBlock/BoardBlock';
+
 class Wall extends PureComponent {
 
   /* Properties */
@@ -78,39 +80,39 @@ class Wall extends PureComponent {
   }
 
   render() {
-    const { back, front, left, name, right, size, x, y, z } = this.props;
+    const { back, front, left, name, right, size } = this.props;
     return (
-      <div className="Wall pos-abs" style={{transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}}>
+      <div>
         <canvas
-          className="Wall__side side--top pos-abs"
+          className="side--top pos-abs"
           width={size}
           height={size}
           ref={this.drawTop}
           style={getTopStyles(size)}
         />
         {front !== name && (<canvas
-          className="Wall__side side--front pos-abs"
+          className="side--front pos-abs"
           width={size}
           height={size}
           ref={this.drawFront}
           style={getFrontStyles(size)}
         />)}
         {back !== name && (<canvas
-          className="Wall__side side--back pos-abs"
+          className="side--back pos-abs"
           width={size}
           height={size}
           ref={this.drawBack}
           style={getBackStyles(size)}
         />)}
         {right !== name && (<canvas
-          className="Wall__side side--right pos-abs"
+          className="side--right pos-abs"
           width={size}
           height={size}
           ref={this.drawRight}
           style={getRightStyles(size)}
         />)}
         {left !== name && (<canvas
-          className="Wall__side side--left pos-abs"
+          className="side--left pos-abs"
           width={size}
           height={size}
           ref={this.drawLeft}
@@ -121,4 +123,4 @@ class Wall extends PureComponent {
   }
 
 }
-export default Wall;
+export default BoardBlock(Wall);

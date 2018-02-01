@@ -4,6 +4,8 @@ import { loadTextures, setTopTexture } from '../../../../services/texture';
 import { getBackStyles, getBottomStyles, getFrontStyles, getLeftStyles, getRightStyles,
   getTopStyles } from '../../../../services/styles';
 
+import BoardBlock from '../../BoardBlock/BoardBlock';
+
 class Water extends PureComponent {
 
   /* Properties */
@@ -22,36 +24,36 @@ class Water extends PureComponent {
   }
 
   render() {
-    const { back, bottom, front, left, name, right, size, top, x, z, y } = this.props;
+    const { back, bottom, front, left, name, right, size, top } = this.props;
     const sideStyles = {
       width: size,
       height: size,
       backgroundColor: 'rgba(0, 100, 255, 0.5)'
     };
     return (
-      <div className="Water pos-abs" style={{transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`}}>
+      <div>
         {!front && (<div
-          className="Water__side side--front pos-abs"
+          className="side--front pos-abs"
           style={{...sideStyles, ...getFrontStyles(size)}}
         />)}
         {!back && (<div
-          className="Water__side side--back pos-abs"
+          className="side--back pos-abs"
           style={{...sideStyles, ...getBackStyles(size)}}
         />)}
         {!right && (<div
-          className="Water__side side--right pos-abs"
+          className="side--right pos-abs"
           style={{...sideStyles, ...getRightStyles(size)}}
         />)}
         {!left && (<div
-          className="Water__side side--left pos-abs"
+          className="side--left pos-abs"
           style={{...sideStyles, ...getLeftStyles(size)}}
         />)}
         {top !== name && (<div
-          className="Water__side side--top pos-abs"
+          className="side--top pos-abs"
           style={{...sideStyles, ...getTopStyles(size)}}
         />)}
         {!bottom && (<canvas
-          className="Water__side side--bottom pos-abs"
+          className="side--bottom pos-abs"
           width={size}
           height={size}
           ref={this.drawTop}
@@ -63,4 +65,4 @@ class Water extends PureComponent {
 
 }
 
-export default Water;
+export default BoardBlock(Water);
