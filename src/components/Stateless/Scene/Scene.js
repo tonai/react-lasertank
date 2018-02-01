@@ -43,15 +43,15 @@ class Scene extends PureComponent {
   }
 
   render() {
-    const { scale, size, styles } = this.props;
+    const { scale, size, styles, xAngle, zAngle } = this.props;
     const width = this.props.width * size;
     const height = this.props.height * size;
     const depth = this.props.depth * size;
     const containerWidth = this.state.containerWidth;
     const containerHeight = this.state.containerHeight;
 
-    const a = mathMod(this.props.zAngle, 90) * Math.PI / 180;
-    const b = mathMod(this.props.xAngle, 90) * Math.PI / 180;
+    const a = mathMod(zAngle, 90) * Math.PI / 180;
+    const b = mathMod(xAngle, 90) * Math.PI / 180;
     const max = Math.max(width, height);
 
     const x = max / (1 + 1 / Math.sin(a) + 1 / Math.tan(a));
@@ -73,7 +73,7 @@ class Scene extends PureComponent {
       width: `${max}px`,
       height: `${max}px`,
       backgroundColor: `rgba(0,0,0,0.5)`,
-      transform: `rotateX(${b}rad) rotateZ(${a}rad)`
+      transform: `rotateX(${xAngle * Math.PI / 180}rad) rotateZ(${zAngle * Math.PI / 180}rad)`
     };
 
     const sceneInnerStyles = {
