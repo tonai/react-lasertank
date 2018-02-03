@@ -51,21 +51,11 @@ export function handleKeyUp() {
 }
 
 export const BLOCKS_UPDATE = 'BLOCKS_UPDATE';
-export function handleBlocksUpdate(grounds) {
+export function handleBlocksUpdate(blocks) {
   return  {
     type: BLOCKS_UPDATE ,
-    grounds
+    blocks
   }
-}
-
-export const BOARD_LOADED = 'BOARD_LOADED';
-export function handleBoardLoaded(blocks, grounds, player) {
-  return {
-    type: BOARD_LOADED,
-    blocks,
-    grounds,
-    player
-  };
 }
 
 export const GROUNDS_UPDATE = 'GROUNDS_UPDATE';
@@ -76,10 +66,18 @@ export function handleGroundsUpdate(grounds) {
   }
 }
 
-export const PLAYER_UPDATED = 'PLAYER_UPDATED';
-export function handlePlayerUpdated() {
+export const PLAYER_CONTROLS_UPDATE = 'PLAYER_CONTROLS_UPDATE';
+export function handlePlayerControlsUpdate() {
   return {
-    type: PLAYER_UPDATED
+    type: PLAYER_CONTROLS_UPDATE
+  };
+}
+
+export const PLAYER_UPDATE = 'PLAYER_UPDATE';
+export function handlePlayerUpdate(player) {
+  return {
+    type: PLAYER_UPDATE,
+    player
   };
 }
 

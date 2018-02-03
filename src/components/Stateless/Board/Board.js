@@ -42,15 +42,15 @@ class Board extends PureComponent {
   /* Methods */
 
   componentWillMount() {
-    //this.blocks = {...this.props.blocks};
-    //this.grounds = {...this.props.grounds};
-    this.player = this.props.player;
-
     Promise.all([
       new Promise(resolve => this.resolveBlocksLoaded = resolve),
       new Promise(resolve => this.resolveGroundsLoaded = resolve),
       new Promise(resolve => this.resolvePlayerLoaded = resolve)
-    ]).then(this.props.onBoardLoaded);
+    ]).then(([blocks, grounds, player]) => {
+      this.props.onUpdateBlocks(blocks);
+      this.props.onUpdateGrounds(grounds);
+      this.props.onUpdatePlayer(player);
+    });
   }
 
   getBlocks() {
@@ -104,14 +104,14 @@ class Board extends PureComponent {
     if (component.getWrappedInstance) {
       component = component.getWrappedInstance();
     }
-    this.player = {
-      ...player,
+    this.resolvePlayerLoaded({
+      ...this.props.player,
       ref: component
-    };
-    this.resolvePlayerLoaded(this.player);
+    });
   }
 
   render() {
+    console.log('render');
     const { blocks, grounds, player } = this.props;
 
     const blocksBoard = pipe(

@@ -1,19 +1,21 @@
 import { connect } from 'react-redux';
 
-import { handleGroundRemove, handlePlayerUpdated } from '../../../../redux/actions';
+import gameSettings from '../../../../settings/game';
+
+import { handleGroundRemove, handleGroundUpdateProps, handlePlayerControlsUpdate } from '../../../../redux/actions';
 import { addAdjacentProps } from '../../../../services/board';
 
 import BrokenFloor from '../../../Stateless/Grounds/BrokenFloor/BrokenFloor';
-import gameSettings from '../../../../settings/game';
 
 const mapStateToProps = (state) => ({
   grounds: state.grounds
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onMoveIn: () => dispatch(handlePlayerUpdated()),
+  onMoveIn: () => dispatch(handlePlayerControlsUpdate()),
   onMoveOut: (prevProps) => {
     const { x, y, z } = prevProps;
+    dispatch(handleGroundUpdateProps(x, y, z, {opacity: 0}));
     setTimeout(() => {
       dispatch(handleGroundRemove(x, y, z));
     }, gameSettings.transitionTimer);

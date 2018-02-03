@@ -2,7 +2,6 @@ import {
   BLOCK_REMOVE,
   BLOCK_UPDATE_PROPS,
   BLOCKS_UPDATE,
-  BOARD_LOADED,
   GROUND_REMOVE,
   GROUND_UPDATE_PROPS,
   GROUNDS_UPDATE,
@@ -10,8 +9,9 @@ import {
   KEY_LEFT,
   KEY_RIGHT,
   KEY_UP,
-  PLAYER_UPDATED,
+  PLAYER_CONTROLS_UPDATE,
   PLAYER_UPDATE_RELATIVE_POS,
+  PLAYER_UPDATE,
   X_ANGLE_CHANGE,
   Z_ANGLE_CHANGE,
   ZOOM_CHANGE
@@ -113,15 +113,6 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case BOARD_LOADED: {
-      return {
-        ...state,
-        blocks: action.blocks,
-        grounds: action.grounds,
-        player: action.player
-      };
-    }
-
     case KEY_DOWN: {
       const { blocks, grounds, player } = state;
       return {
@@ -162,10 +153,17 @@ export default function reducer(state = initialState, action) {
       };
     }
 
-    case PLAYER_UPDATED: {
+    case PLAYER_CONTROLS_UPDATE: {
       return {
         ...state,
         playerControls: true
+      };
+    }
+
+    case PLAYER_UPDATE: {
+      return {
+        ...state,
+        player: action.player
       };
     }
 

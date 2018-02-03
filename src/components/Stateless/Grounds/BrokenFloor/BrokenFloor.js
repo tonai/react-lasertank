@@ -34,7 +34,7 @@ class BrokenFloor extends PureComponent {
     const { opacity, size } = this.props;
     const style = {
       opacity,
-      transition: `all ${gameSettings.transitionTimer * 2}ms cubic-bezier(0.895, 0.03, 0.685, 0.22)`
+      transition: `all ${gameSettings.transitionTimer}ms linear`
     };
     return (
       <div style={style}>

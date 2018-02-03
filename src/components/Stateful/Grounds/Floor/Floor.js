@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { handlePlayerUpdated } from '../../../../redux/actions';
+import { handlePlayerControlsUpdate } from '../../../../redux/actions';
 import { addAdjacentProps } from '../../../../services/board';
 
 import Floor from '../../../Stateless/Grounds/Floor/Floor';
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onMoveIn: () => dispatch(handlePlayerUpdated())
+  onMoveIn: () => dispatch(handlePlayerControlsUpdate())
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
