@@ -31,20 +31,31 @@ function getBoardComponentName(board, z, x, y) {
   return board[`${z}-${x}-${y}`] && board[`${z}-${x}-${y}`].props.name;
 }
 
-function addEmptyBlocks(blocks, board, depth, width, height) {
+function addEmptyBlocks(blocks, grounds, depth, width, height) {
   for (let i = 0; i < width; i++) {
     for (let j = 0; j < height; j++) {
       let hasBlock = false;
       for (let k = 0; k < depth; k++) {
-        if ((blocks[k] && blocks[k][i] && blocks[k][i][j]) || (board[k] && board[k][i] && board[k][i][j])) {
+        if (blocks[k] && blocks[k][i] && blocks[k][i][j]) {
+          if (blocks[k][i][j] === 'player' || blocks[k][i][j][0] === 'player') {
+            addEmptyBlock(grounds, k, i, j);
+          }
           hasBlock = true;
-        } else if (hasBlock && !(blocks[k] && blocks[k][i] && blocks[k][i][j])) {
-          board[k] = board[k] || [];
-          board[k][i] = board[k][i] || [];
-          board[k][i][j] = ['empty'];
+        } else if (grounds[k] && grounds[k][i] && grounds[k][i][j]) {
+          hasBlock = true;
+        } else if (hasBlock) {
+          addEmptyBlock(grounds, k, i, j);
         }
       }
     }
+  }
+}
+
+function addEmptyBlock(grounds, z, x, y ) {
+  if (!(grounds[z] && grounds[z][x] && grounds[z][x][y])) {
+    grounds[z] = grounds[z] || [];
+    grounds[z][x] = grounds[z][x] || [];
+    grounds[z][x][y] = 'empty';
   }
 }
 
@@ -61,7 +72,6 @@ function getBoardArray(board) {
 
 function getBoardObject(board) {
   return pipe(
-    filter(block => block !== 'player'),
     getBoardArray,
     unnest,
     unnest,
