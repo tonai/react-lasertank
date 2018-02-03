@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onMoveOver: () => dispatch(handlePlayerUpdated())
+  onMoveIn: () => dispatch(handlePlayerUpdated())
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({

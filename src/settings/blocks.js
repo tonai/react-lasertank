@@ -4,6 +4,8 @@ import Block from '../components/Stateful/Blocks/Block/Block';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
 import Water from '../components/Stateful/Blocks/Water/Water';
 
+import BrokenIce from '../components/Stateful/Grounds/BrokenIce/BrokenIce';
+import BrokenFloor from '../components/Stateful/Grounds/BrokenFloor/BrokenFloor';
 import Empty from '../components/Stateful/Grounds/Empty/Empty';
 import Finish from '../components/Stateful/Grounds/Finish/Finish';
 import Floor from '../components/Stateful/Grounds/Floor/Floor';
@@ -33,6 +35,48 @@ export default {
       }
     }
   },
+  brokenIce: {
+    component: BrokenIce,
+    allowMovement: true,
+    opacity: 1,
+    sprites: {
+      bottom: {
+        path: `${generalSettings.spritesDir}Dungeon_A2.png`,
+        offset: [2 * 64, 3 * (64 + 32)],
+        connect: true,
+        topConnect: false,
+        type: 'top'
+      },
+      top: {
+        path: `${generalSettings.spritesDir}Outside_A2.png`,
+        offset: [7 * 64, 0 * (64 + 32)],
+        connect: true,
+        topConnect: false,
+        type: 'top'
+      }
+    }
+  },
+  brokenFloor: {
+    component: BrokenFloor,
+    allowMovement: true,
+    opacity: 1,
+    sprites: {
+      bottom: {
+        path: `${generalSettings.spritesDir}Dungeon_A2.png`,
+        offset: [7 * 64, 2 * (64 + 32)],
+        connect: true,
+        topConnect: false,
+        type: 'top'
+      },
+      top: {
+        path: `${generalSettings.spritesDir}Outside_A2.png`,
+        offset: [7 * 64, 0 * (64 + 32)],
+        connect: true,
+        topConnect: false,
+        type: 'top'
+      }
+    }
+  },
   empty: {
     component: Empty,
     allowMovement: true
@@ -45,7 +89,7 @@ export default {
     component: Floor,
     allowMovement: true,
     sprites: {
-      top: {
+      bottom: {
         path: `${generalSettings.spritesDir}Dungeon_A2.png`,
         offset: [7 * 64, 2 * (64 + 32)],
         connect: true,
@@ -58,7 +102,7 @@ export default {
     component: Ice,
     allowMovement: true,
     sprites: {
-      top: {
+      bottom: {
         path: `${generalSettings.spritesDir}Dungeon_A2.png`,
         offset: [2 * 64, 3 * (64 + 32)],
         connect: true,

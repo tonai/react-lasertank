@@ -9,10 +9,10 @@ class Floor extends PureComponent {
 
   /* Properties */
 
-  drawTop = (canvas) => {
+  drawBottom = (canvas) => {
     if (canvas) {
       const {name, sprites} = this.props;
-      setTopTexture(canvas, name, sprites.top, this.props);
+      setTopTexture(canvas, name, sprites.bottom, this.props);
     }
   };
 
@@ -29,7 +29,7 @@ class Floor extends PureComponent {
         className="side--bottom pos-abs"
         width={size}
         height={size}
-        ref={this.drawTop}
+        ref={this.drawBottom}
         style={getBottomStyles(size)}
       />
     );

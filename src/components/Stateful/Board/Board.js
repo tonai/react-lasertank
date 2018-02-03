@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { handleBoardLoaded } from '../../../redux/actions';
+import { handleBlocksUpdate, handleBoardLoaded, handleGroundsUpdate } from '../../../redux/actions';
 
 import Board from '../../Stateless/Board/Board';
 
@@ -11,7 +11,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onBoardLoaded: ([blocks, grounds, player]) => dispatch(handleBoardLoaded(blocks, grounds, player))
+  onBoardLoaded: ([blocks, grounds, player]) => dispatch(handleBoardLoaded(blocks, grounds, player)),
+  onUpdateBlocks: (blocks) => dispatch(handleBlocksUpdate(blocks)),
+  onUpdateGrounds: (grounds) => dispatch(handleGroundsUpdate(grounds))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);

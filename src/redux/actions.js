@@ -50,6 +50,14 @@ export function handleKeyUp() {
   }
 }
 
+export const BLOCKS_UPDATE = 'BLOCKS_UPDATE';
+export function handleBlocksUpdate(grounds) {
+  return  {
+    type: BLOCKS_UPDATE ,
+    grounds
+  }
+}
+
 export const BOARD_LOADED = 'BOARD_LOADED';
 export function handleBoardLoaded(blocks, grounds, player) {
   return {
@@ -58,6 +66,14 @@ export function handleBoardLoaded(blocks, grounds, player) {
     grounds,
     player
   };
+}
+
+export const GROUNDS_UPDATE = 'GROUNDS_UPDATE';
+export function handleGroundsUpdate(grounds) {
+  return  {
+    type: GROUNDS_UPDATE ,
+    grounds
+  }
 }
 
 export const PLAYER_UPDATED = 'PLAYER_UPDATED';
@@ -71,6 +87,48 @@ export const PLAYER_UPDATE_RELATIVE_POS = 'PLAYER_UPDATE_RELATIVE_POS';
 export function handlePlayerUpdateRelativePos(x, y, z) {
   return {
     type: PLAYER_UPDATE_RELATIVE_POS,
+    x,
+    y,
+    z
+  };
+}
+
+export const BLOCK_UPDATE_PROPS = 'BLOCK_UPDATE_PROPS';
+export function handleBlockUpdateProps(x,y,z, props) {
+  return {
+    type: BLOCK_UPDATE_PROPS,
+    x,
+    y,
+    z,
+    props
+  };
+}
+
+export const GROUND_UPDATE_PROPS = 'GROUND_UPDATE_PROPS';
+export function handleGroundUpdateProps(x,y,z, props) {
+  return {
+    type: GROUND_UPDATE_PROPS,
+    x,
+    y,
+    z,
+    props
+  };
+}
+
+export const BLOCK_REMOVE = 'BLOCK_REMOVE';
+export function handleBlockRemove(x,y,z) {
+  return {
+    type: BLOCK_REMOVE,
+    x,
+    y,
+    z
+  };
+}
+
+export const GROUND_REMOVE = 'GROUND_REMOVE';
+export function handleGroundRemove(x,y,z) {
+  return {
+    type: GROUND_REMOVE,
     x,
     y,
     z

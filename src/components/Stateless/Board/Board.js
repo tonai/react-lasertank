@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import mapObjIndexed from 'ramda/es/mapObjIndexed';
 import map from 'ramda/es/map';
 import pipe from 'ramda/es/pipe';
 import values from 'ramda/es/values';
@@ -8,22 +9,24 @@ class Board extends PureComponent {
   /* Properties */
 
   blocksCounter = 0;
+  groundsRef = {};
   groundsCounter = 0;
+  blocksRef = {};
   resolveBlocksLoaded = null;
   resolveGroundsLoaded = null;
   resolvePlayerLoaded = null;
 
   createBlockComponent = (block) => {
-    this.blocksCounter++;
     const Component = block.props.component;
+    !block.ref && this.blocksCounter++;
     return block.ref
       ? (<Component {...block.props}/>)
       : (<Component {...block.props} ref={this.initBlocksComponent.bind(this, block)}/>);
   };
 
   createGroundComponent = (ground) => {
-    this.groundsCounter++;
     const Component = ground.props.component;
+    !ground.ref && this.groundsCounter++;
     return ground.ref
       ? (<Component {...ground.props}/>)
       : (<Component {...ground.props} ref={this.initGroundsComponent.bind(this, ground)}/>);
@@ -39,8 +42,8 @@ class Board extends PureComponent {
   /* Methods */
 
   componentWillMount() {
-    this.blocks = {...this.props.blocks};
-    this.grounds = {...this.props.grounds};
+    //this.blocks = {...this.props.blocks};
+    //this.grounds = {...this.props.grounds};
     this.player = this.props.player;
 
     Promise.all([
@@ -48,6 +51,18 @@ class Board extends PureComponent {
       new Promise(resolve => this.resolveGroundsLoaded = resolve),
       new Promise(resolve => this.resolvePlayerLoaded = resolve)
     ]).then(this.props.onBoardLoaded);
+  }
+
+  getBlocks() {
+    return mapObjIndexed(
+      (block, key) => ({...block, ref: this.blocksRef[key]})
+    )({...this.props.blocks});
+  }
+
+  getGrounds() {
+    return mapObjIndexed(
+      (ground, key) => ({...ground, ref: this.groundsRef[key]})
+    )({...this.props.grounds});
   }
 
   initBlocksComponent(block, component) {
@@ -58,12 +73,11 @@ class Board extends PureComponent {
     if (component.getWrappedInstance) {
       component = component.getWrappedInstance();
     }
-    this.blocks[block.props.key] = {
-      ...this.blocks[block.props.key],
-      ref: component
-    };
-    if (this.blocksCounter === 0) {
-      this.resolveBlocksLoaded(this.blocks);
+    this.blocksRef[block.props.key] = component;
+    if (this.props.player.ref) {
+      this.props.onUpdateBlocks(this.getBlocks());
+    } else if (this.blocksCounter === 0) {
+      this.resolveBlocksLoaded(this.getBlocks());
     }
   }
 
@@ -75,12 +89,11 @@ class Board extends PureComponent {
     if (component.getWrappedInstance) {
       component = component.getWrappedInstance();
     }
-    this.grounds[ground.props.key] = {
-      ...this.grounds[ground.props.key],
-      ref: component
-    };
-    if (this.groundsCounter === 0) {
-      this.resolveGroundsLoaded(this.grounds);
+    this.groundsRef[ground.props.key] = component;
+    if (this.props.player.ref) {
+      this.props.onUpdateGrounds(this.getGrounds());
+    } else if (this.groundsCounter === 0) {
+      this.resolveGroundsLoaded(this.getGrounds());
     }
   }
 

@@ -1,5 +1,11 @@
 import {
+  BLOCK_REMOVE,
+  BLOCK_UPDATE_PROPS,
+  BLOCKS_UPDATE,
   BOARD_LOADED,
+  GROUND_REMOVE,
+  GROUND_UPDATE_PROPS,
+  GROUNDS_UPDATE,
   KEY_DOWN,
   KEY_LEFT,
   KEY_RIGHT,
@@ -11,8 +17,11 @@ import {
   ZOOM_CHANGE
 } from './actions';
 
-import { initMap } from '../services/board';
-import { getPlayerState, getStateOnPlayerMove } from '../services/player';
+import blocksSettings from '../settings/blocks';
+import boardSettings from '../settings/board';
+
+import { initBlock, initMap } from '../services/board';
+import { getBlock, getPlayerState, getStateOnPlayerMove } from '../services/player';
 
 const initialState = {
   blocks: null,
@@ -34,6 +43,76 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch(action.type) {
+    case BLOCK_REMOVE: {
+      const { x, y, z } = action;
+      const { blocks } = state;
+      return {
+        ...state,
+        blocks: {
+          ...blocks,
+          [`${z}-${x}-${y}`]: initBlock('empty', blocksSettings, boardSettings.size, x, y, z)
+        }
+      };
+    }
+
+    case BLOCK_UPDATE_PROPS: {
+      const { props, x, y, z } = action;
+      const { blocks } = state;
+      const block = getBlock(blocks, x, y, z);
+      return {
+        ...state,
+        blocks: {
+          ...blocks,
+          [`${z}-${x}-${y}`]: {
+            ...block,
+            props: {...block.props, ...props}
+          }
+        }
+      };
+    }
+
+    case BLOCKS_UPDATE: {
+      return {
+        ...state,
+        blocks: action.blocks
+      };
+    }
+
+    case GROUND_REMOVE: {
+      const { x, y, z } = action;
+      const { grounds } = state;
+      return {
+        ...state,
+        grounds: {
+          ...grounds,
+          [`${z}-${x}-${y}`]: initBlock('empty', blocksSettings, boardSettings.size, x, y, z)
+        }
+      };
+    }
+
+    case GROUND_UPDATE_PROPS: {
+      const { props, x, y, z } = action;
+      const { grounds } = state;
+      const ground = getBlock(grounds, x, y, z);
+      return {
+        ...state,
+        grounds: {
+          ...grounds,
+          [`${z}-${x}-${y}`]: {
+            ...ground,
+            props: {...ground.props, ...props}
+          }
+        }
+      };
+    }
+
+    case GROUNDS_UPDATE: {
+      return {
+        ...state,
+        grounds: action.grounds
+      };
+    }
+
     case BOARD_LOADED: {
       return {
         ...state,

@@ -4,9 +4,9 @@
     [
       null,
       [null, null, "ice"],
-      [null, null, "ice", "ice"],
+      [null, null, "brokenIce", "brokenIce"],
       null,
-      [null, null, ["floor",{"direction":90,"sprites":{"top":{"path":"assets/sprites/Inside_A2.png","offset":[0, 96],"connect":true}}}]]
+      [null, null, ["brokenFloor",{"direction":90,"sprites":{"bottom":{"path":"assets/sprites/Inside_A2.png","offset":[0, 96],"connect":true}}}]]
     ]
   ],
   "blocks": [
@@ -20,7 +20,7 @@
     [
       null,
       [null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}]],
-      [["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], ["finish"]],
+      [["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], ["floor"]],
       ["player", ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}]]
     ]
   ]

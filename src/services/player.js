@@ -37,9 +37,11 @@ export function getStateOnPlayerMove(blocks, grounds, player, direction = 1) {
 
 export function getPlayerState(blocks, grounds, player, x, y, z) {
   if (canMove(blocks, grounds, x, y, z)) {
-    player.props = {...player.props, x, y, z};
     return {
-      player: {...player},
+      player: {
+        ...player,
+        props: {...player.props, x, y, z}
+      },
       playerControls: false
     };
   }

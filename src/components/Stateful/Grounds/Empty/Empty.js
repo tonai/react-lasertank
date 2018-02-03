@@ -13,7 +13,7 @@ class Empty extends PureComponent {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onMoveOver: () => {
+  onMoveIn: () => {
     setTimeout(() => dispatch(handlePlayerUpdateRelativePos(0, 0, -1)), gameSettings.transitionTimer);
   }
 });

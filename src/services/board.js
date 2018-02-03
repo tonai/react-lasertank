@@ -53,7 +53,7 @@ function getBoardArray(board) {
   return (board || []).map((table, z) =>
     (table || []).map((line, x) =>
       (line || []).map((cell, y) => {
-        return getBlock(cell, blocksSettings, size, x, y, z);
+        return initBlock(cell, blocksSettings, size, x, y, z);
       })
     )
   );
@@ -102,7 +102,7 @@ export function initMap() {
   return { blocks, depth, grounds, height, player, width };
 }
 
-export function getBlock(cell, settings, size, x, y, z) {
+export function initBlock(cell, settings, size, x, y, z) {
   if (!(cell instanceof  Array)) {
     cell = [cell];
   }

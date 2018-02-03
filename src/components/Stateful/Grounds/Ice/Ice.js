@@ -4,7 +4,7 @@ import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
 import gameSettings from '../../../../settings/game';
 import { addAdjacentProps } from '../../../../services/board';
 
-import Ice from '../../../Stateless/Grounds/Ice/Ice';
+import Floor from '../../../Stateless/Grounds/Floor/Floor';
 
 const mapStateToProps = (state) => {
   return ({
@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onMoveOver: (prevProps, nextProps) => {
+  onMoveIn: (prevProps, nextProps) => {
     let x = 0;
     let y = 0;
 
@@ -40,4 +40,4 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...addAdjacentProps(stateProps.grounds, ownProps.x, ownProps.y, ownProps.z)
 });
 
-export default connect(mapStateToProps,  mapDispatchToProps,  mergeProps,  {withRef: true})(Ice);
+export default connect(mapStateToProps,  mapDispatchToProps,  mergeProps,  {withRef: true})(Floor);

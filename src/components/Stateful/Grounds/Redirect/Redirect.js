@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onMoveOver: (direction) => {
+  onMoveIn: (direction) => {
     let x = 0;
     let y = 0;
 
@@ -44,7 +44,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...dispatchProps,
-  onMoveOver: () => dispatchProps.onMoveOver(ownProps.direction)
+  onMoveIn: () => dispatchProps.onMoveIn(ownProps.direction)
 });
 
 export default connect(mapStateToProps,  mapDispatchToProps,  mergeProps,  {withRef: true})(Redirect);
