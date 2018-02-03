@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { batchActions } from 'redux-batched-actions';
 
 import { handleBlocksUpdate, handleGroundsUpdate, handlePlayerUpdate } from '../../../redux/actions';
 
@@ -11,9 +12,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  onUpdateBoard: ([blocks, grounds, player]) => dispatch(batchActions([
+    handleBlocksUpdate(blocks),
+    handleGroundsUpdate(grounds),
+    handlePlayerUpdate(player)
+  ])),
   onUpdateBlocks: (blocks) => dispatch(handleBlocksUpdate(blocks)),
-  onUpdateGrounds: (grounds) => dispatch(handleGroundsUpdate(grounds)),
-  onUpdatePlayer: (player) => dispatch(handlePlayerUpdate(player))
+  onUpdateGrounds: (grounds) => dispatch(handleGroundsUpdate(grounds))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);

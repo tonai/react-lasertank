@@ -46,11 +46,7 @@ class Board extends PureComponent {
       new Promise(resolve => this.resolveBlocksLoaded = resolve),
       new Promise(resolve => this.resolveGroundsLoaded = resolve),
       new Promise(resolve => this.resolvePlayerLoaded = resolve)
-    ]).then(([blocks, grounds, player]) => {
-      this.props.onUpdateBlocks(blocks);
-      this.props.onUpdateGrounds(grounds);
-      this.props.onUpdatePlayer(player);
-    });
+    ]).then(this.props.onUpdateBoard);
   }
 
   getBlocks() {
@@ -111,7 +107,6 @@ class Board extends PureComponent {
   }
 
   render() {
-    console.log('render');
     const { blocks, grounds, player } = this.props;
 
     const blocksBoard = pipe(
