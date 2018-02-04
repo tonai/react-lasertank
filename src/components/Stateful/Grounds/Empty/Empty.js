@@ -1,8 +1,10 @@
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
 import gameSettings from '../../../../settings/game';
+
+import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
+import { setTimeout } from '../../../../services/utils';
 
 class Empty extends PureComponent {
 
@@ -14,7 +16,8 @@ class Empty extends PureComponent {
 
 const mapDispatchToProps = (dispatch) => ({
   onMoveIn: () => {
-    setTimeout(() => dispatch(handlePlayerUpdateRelativePos(0, 0, -1)), gameSettings.transitionTimer);
+    setTimeout(gameSettings.transitionTimer)
+      .then(() => dispatch(handlePlayerUpdateRelativePos(0, 0, -1)));
   }
 });
 

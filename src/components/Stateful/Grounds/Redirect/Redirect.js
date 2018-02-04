@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 import mathMod from 'ramda/es/mathMod';
 
-import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
 import gameSettings from '../../../../settings/game';
+
+import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
+import { setTimeout } from '../../../../services/utils';
 
 import Redirect from '../../../Stateless/Grounds/Redirect/Redirect';
 
@@ -37,7 +39,8 @@ const mapDispatchToProps = (dispatch) => ({
       default:
     }
 
-    setTimeout(() => dispatch(handlePlayerUpdateRelativePos(x, y, 0)), gameSettings.transitionTimer);
+    setTimeout(gameSettings.transitionTimer)
+      .then(() => dispatch(handlePlayerUpdateRelativePos(x, y, 0)));
   }
 });
 

@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
 
-import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
 import gameSettings from '../../../../settings/game';
+
+import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
 import { addAdjacentProps } from '../../../../services/board';
+import { setTimeout } from '../../../../services/utils';
 
 import Floor from '../../../Stateless/Grounds/Floor/Floor';
 
@@ -30,7 +32,8 @@ const mapDispatchToProps = (dispatch) => ({
       y = -1;
     }
 
-    setTimeout(() => dispatch(handlePlayerUpdateRelativePos(x, y, 0)), gameSettings.transitionTimer);
+    setTimeout(gameSettings.transitionTimer)
+      .then(() => dispatch(handlePlayerUpdateRelativePos(x, y, 0)));
   }
 });
 

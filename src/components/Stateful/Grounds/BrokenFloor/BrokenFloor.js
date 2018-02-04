@@ -4,6 +4,7 @@ import gameSettings from '../../../../settings/game';
 
 import { handleGroundRemove, handleGroundUpdateProps, handlePlayerControlsUpdate } from '../../../../redux/actions';
 import { addAdjacentProps } from '../../../../services/board';
+import { setTimeout } from '../../../../services/utils';
 
 import BrokenFloor from '../../../Stateless/Grounds/BrokenFloor/BrokenFloor';
 
@@ -16,9 +17,8 @@ const mapDispatchToProps = (dispatch) => ({
   onMoveOut: (prevProps) => {
     const { x, y, z } = prevProps;
     dispatch(handleGroundUpdateProps(x, y, z, {opacity: 0}));
-    setTimeout(() => {
-      dispatch(handleGroundRemove(x, y, z));
-    }, gameSettings.transitionTimer);
+    setTimeout(gameSettings.transitionTimer)
+      .then(() => dispatch(handleGroundRemove(x, y, z)));
   }
 });
 
