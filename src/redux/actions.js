@@ -81,6 +81,14 @@ export function handlePlayerUpdate(player) {
   };
 }
 
+export const PLAYER_UPDATE_PROPS = 'PLAYER_UPDATE_PROPS';
+export function handlePlayerUpdateProps(props) {
+  return {
+    type: PLAYER_UPDATE_PROPS,
+    props
+  };
+}
+
 export const PLAYER_UPDATE_RELATIVE_POS = 'PLAYER_UPDATE_RELATIVE_POS';
 export function handlePlayerUpdateRelativePos(x, y, z) {
   return {

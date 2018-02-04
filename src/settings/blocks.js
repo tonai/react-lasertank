@@ -11,6 +11,7 @@ import Finish from '../components/Stateful/Grounds/Finish/Finish';
 import Floor from '../components/Stateful/Grounds/Floor/Floor';
 import Ice from '../components/Stateful/Grounds/Ice/Ice';
 import Redirect from '../components/Stateful/Grounds/Redirect/Redirect';
+import Teleporter from '../components/Stateful/Grounds/Teleporter/Teleporter';
 
 import Player from '../components/Stateful/Player/Player';
 
@@ -119,6 +120,19 @@ export default {
     component: Redirect,
     allowMovement: true
   },
+  teleporter: {
+    component: Teleporter,
+    allowMovement: true,
+    sprites: {
+      bottom: {
+        path: `${generalSettings.spritesDir}evilcastle_C.png`,
+        offset: [4 * 32, 8 * 32],
+        connect: false,
+        topConnect: false,
+        type: 'top'
+      }
+    }
+  },
   wall: {
     component: Wall,
     allowMovement: false,
@@ -151,5 +165,5 @@ export default {
         type: 'top'
       }
     }
-  }
+  },
 };

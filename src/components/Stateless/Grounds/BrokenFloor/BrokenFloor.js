@@ -4,7 +4,6 @@ import { getBottomStyles } from '../../../../services/styles';
 import { loadTextures, setTopTexture } from '../../../../services/texture';
 
 import BoardBlock from '../../BoardBlock/BoardBlock';
-import gameSettings from '../../../../settings/game';
 
 class BrokenFloor extends PureComponent {
 
@@ -31,13 +30,9 @@ class BrokenFloor extends PureComponent {
   }
 
   render() {
-    const { opacity, size } = this.props;
-    const style = {
-      opacity,
-      transition: `all ${gameSettings.transitionTimer}ms linear`
-    };
+    const { size } = this.props;
     return (
-      <div style={style}>
+      <div>
         <canvas
           className="side--bottom pos-abs"
           width={size}

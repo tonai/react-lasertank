@@ -6,8 +6,9 @@ export default function BoardBlock(Component) {
   return class BlockBoard extends PureComponent {
 
     render() {
-      const {direction, size, x, y, z} = this.props;
+      const { direction, opacity = 1, size, x, y, z } = this.props;
       const translationStyles = {
+        opacity,
         transform: `translateX(${x * size}px) translateY(${y * size}px) translateZ(${z * size}px)`,
         transition: `all ${gameSettings.transitionTimer}ms linear`
       };

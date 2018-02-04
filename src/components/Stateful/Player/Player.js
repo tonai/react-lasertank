@@ -12,8 +12,8 @@ class StatefulPlayer extends PureComponent {
 
   componentDidUpdate(prevProps) {
     const { x: x1, y: y1, z: z1 } = prevProps;
-    const { blocks, grounds, x: x2, y: y2, z: z2 } = this.props;
-    if (x1 !== x2 || y1 !== y2 || z1 !== z2) {
+    const { active = 1, blocks, grounds, x: x2, y: y2, z: z2 } = this.props;
+    if (active && !(x1 === x2 && y1 === y2 && z1 === z2)) {
       const block1 = getBlock(blocks, x1, y1, z1);
       const ground1 = getBlock(grounds, x1, y1, z1);
       if (block1 && block1.ref.props.onMoveOut) {

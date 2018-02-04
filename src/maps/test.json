@@ -3,10 +3,10 @@
     null,
     [
       null,
-      [null, null, "ice"],
+      ["teleporter", null, "ice"],
       [null, null, "brokenIce", "brokenIce"],
       null,
-      [null, null, ["brokenFloor",{"direction":90,"sprites":{"bottom":{"path":"assets/sprites/Inside_A2.png","offset":[0, 96],"connect":true}}}]]
+      [null, null, ["brokenFloor",{"direction":90,"sprites":{"bottom":{"path":"assets/sprites/Inside_A2.png","offset":[0, 96],"connect":true}}}], null, "teleporter"]
     ]
   ],
   "blocks": [

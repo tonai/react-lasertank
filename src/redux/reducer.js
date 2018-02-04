@@ -12,6 +12,7 @@ import {
   PLAYER_CONTROLS_UPDATE,
   PLAYER_UPDATE_RELATIVE_POS,
   PLAYER_UPDATE,
+  PLAYER_UPDATE_PROPS,
   X_ANGLE_CHANGE,
   Z_ANGLE_CHANGE,
   ZOOM_CHANGE
@@ -164,6 +165,16 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         player: action.player
+      };
+    }
+
+    case PLAYER_UPDATE_PROPS: {
+      return {
+        ...state,
+        player: {
+          ...state.player,
+          props: {...state.player.props, ...action.props}
+        }
       };
     }
 
