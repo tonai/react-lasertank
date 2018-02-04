@@ -46,13 +46,17 @@ export default function reducer(state = initialState, action) {
   switch(action.type) {
     case BLOCK_REMOVE: {
       const { x, y, z } = action;
-      const { blocks } = state;
+      const key = `${z}-${x}-${y}`;
+      const grounds = {...state.grounds};
+      const blocks = {...state.blocks};
+      delete blocks[key];
+      if (!grounds[key]) {
+        grounds[key] = initBlock('empty', blocksSettings, boardSettings.size, x, y, z);
+      }
       return {
         ...state,
-        blocks: {
-          ...blocks,
-          [`${z}-${x}-${y}`]: initBlock('empty', blocksSettings, boardSettings.size, x, y, z)
-        }
+        blocks,
+        grounds
       };
     }
 

@@ -100,7 +100,7 @@ export function handlePlayerUpdateRelativePos(x, y, z) {
 }
 
 export const BLOCK_UPDATE_PROPS = 'BLOCK_UPDATE_PROPS';
-export function handleBlockUpdateProps(x,y,z, props) {
+export function handleBlockUpdateProps(x, y, z, props) {
   return {
     type: BLOCK_UPDATE_PROPS,
     x,

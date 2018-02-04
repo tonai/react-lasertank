@@ -1,6 +1,7 @@
 import generalSettings from './general';
 
 import Block from '../components/Stateful/Blocks/Block/Block';
+import Door from '../components/Stateful/Blocks/Door/Door';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
 import Water from '../components/Stateful/Blocks/Water/Water';
 
@@ -11,6 +12,7 @@ import Finish from '../components/Stateful/Grounds/Finish/Finish';
 import Floor from '../components/Stateful/Grounds/Floor/Floor';
 import Ice from '../components/Stateful/Grounds/Ice/Ice';
 import Redirect from '../components/Stateful/Grounds/Redirect/Redirect';
+import Switch from '../components/Stateful/Grounds/Switch/Switch';
 import Teleporter from '../components/Stateful/Grounds/Teleporter/Teleporter';
 
 import Player from '../components/Stateful/Player/Player';
@@ -78,6 +80,26 @@ export default {
       }
     }
   },
+  door: {
+    component: Door,
+    allowMovement: false,
+    sprites: {
+      side1: {
+        path: `${generalSettings.spritesDir}Door3.png`,
+        offset: [2 * 32, 0 * 64],
+        connect: false,
+        topConnect: false,
+        type: 'side'
+      },
+      side2: {
+        path: `${generalSettings.spritesDir}Door3.png`,
+        offset: [3 * 32, 0 * 64],
+        connect: false,
+        topConnect: false,
+        type: 'side'
+      }
+    }
+  },
   empty: {
     component: Empty,
     allowMovement: true
@@ -119,6 +141,19 @@ export default {
   redirect: {
     component: Redirect,
     allowMovement: true
+  },
+  switch: {
+    component: Switch,
+    allowMovement: true,
+    sprites: {
+      bottom: {
+        path: `${generalSettings.spritesDir}Switch1.png`,
+        offset: [0 * 32, 4 * 32],
+        connect: false,
+        topConnect: false,
+        type: 'top'
+      }
+    }
   },
   teleporter: {
     component: Teleporter,
