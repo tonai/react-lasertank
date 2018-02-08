@@ -1,31 +1,42 @@
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import gameSettings from '../../../../settings/game';
 
 import { handleGroundRemove, handleGroundUpdateProps, handlePlayerControlsUpdate } from '../../../../redux/actions';
-import { addAdjacentProps } from '../../../../services/board';
 import { setTimeout } from '../../../../services/utils';
 
 import BrokenFloor from '../../../Stateless/Grounds/BrokenFloor/BrokenFloor';
 
+class StatefulBrokenFloor extends PureComponent {
+
+  onMoveIn() {
+    const { handlePlayerControlsUpdate } = this.props;
+    handlePlayerControlsUpdate();
+  }
+
+  onMoveOut(prevProps) {
+    const { handleGroundRemove, handleGroundUpdateProps } = this.props;
+    const { x, y, z } = prevProps;
+    handleGroundUpdateProps(x, y, z, {opacity: 0});
+    setTimeout(gameSettings.transitionTimer)
+      .then(() => handleGroundRemove(x, y, z));
+  }
+
+  render() {
+    return (<BrokenFloor {...this.props}/>);
+  }
+
+}
+
 const mapStateToProps = (state) => ({
-  grounds: state.grounds
+  grounds: state.grounds,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onMoveIn: () => dispatch(handlePlayerControlsUpdate()),
-  onMoveOut: (prevProps) => {
-    const { x, y, z } = prevProps;
-    dispatch(handleGroundUpdateProps(x, y, z, {opacity: 0}));
-    setTimeout(gameSettings.transitionTimer)
-      .then(() => dispatch(handleGroundRemove(x, y, z)));
-  }
+  handleGroundRemove: (...params) => dispatch(handleGroundRemove(...params)),
+  handleGroundUpdateProps: (...params) => dispatch(handleGroundUpdateProps(...params)),
+  handlePlayerControlsUpdate: (...params) => dispatch(handlePlayerControlsUpdate(...params)),
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...ownProps,
-  ...dispatchProps,
-  ...addAdjacentProps(stateProps.grounds, ownProps.x, ownProps.y, ownProps.z)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps, {withRef: true})(BrokenFloor);
+export default connect(mapStateToProps, mapDispatchToProps, null, {withRef: true})(StatefulBrokenFloor);

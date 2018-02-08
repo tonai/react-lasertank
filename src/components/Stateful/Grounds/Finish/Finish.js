@@ -1,9 +1,18 @@
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import Finish from '../../../Stateless/Grounds/Finish/Finish';
 
-const mapDispatchToProps = () => ({
-  onMoveIn: () => console.log('Finish !')
-});
+class StatefulFinish extends PureComponent {
 
-export default connect(null, mapDispatchToProps, null, {withRef: true})(Finish);
+  onMoveIn() {
+    console.log('Finish !');
+  }
+
+  render() {
+    return (<Finish {...this.props}/>);
+  }
+
+}
+
+export default connect(null, null, null, {withRef: true})(StatefulFinish);

@@ -13,7 +13,7 @@ class Block extends PureComponent {
   drawBack = (canvas) => {
     if (canvas) {
       const {name, sprites} = this.props;
-      setSideTexture(canvas, name, sprites.side,);
+      setSideTexture(canvas, name, sprites.side);
     }
   };
 

@@ -1,21 +1,31 @@
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { addAdjacentProps } from '../../../../services/board';
 
 import Water from '../../../Stateless/Blocks/Water/Water';
 
-const mapStateToProps = (state) => ({
-  blocks: state.blocks
-});
+class StatefulWater extends PureComponent {
 
-const mapDispatchToProps = () => ({
-  onMoveOver: () => console.log('Plouf !')
+  onMoveIn() {
+    console.log('Plouf !');
+  }
+
+  render() {
+    return (<Water {...this.props}/>);
+  }
+
+}
+
+const mapStateToProps = (state) => ({
+  blocks: state.blocks,
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
+  ...stateProps,
   ...dispatchProps,
   ...addAdjacentProps(stateProps.blocks, ownProps.x, ownProps.y, ownProps.z)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps, {withRef: true})(Water);
+export default connect(mapStateToProps, null, mergeProps, {withRef: true})(StatefulWater);

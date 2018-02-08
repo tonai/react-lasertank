@@ -1,22 +1,17 @@
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import gameSettings from '../../../../settings/game';
 
 import { handleGroundRemove, handleGroundUpdateProps, handlePlayerUpdateRelativePos } from '../../../../redux/actions';
-import { addAdjacentProps } from '../../../../services/board';
 import { setTimeout } from '../../../../services/utils';
 
 import BrokenFloor from '../../../Stateless/Grounds/BrokenFloor/BrokenFloor';
 
-const mapStateToProps = (state) => {
-  return ({
-    direction: state.player ? state.player.props.direction : 0,
-    grounds: state.grounds
-  });
-};
+class StatefulBrokenIce extends PureComponent {
 
-const mapDispatchToProps = (dispatch) => ({
-  onMoveIn: (prevProps, nextProps) => {
+  onMoveIn(prevProps, nextProps) {
+    const { handlePlayerUpdateRelativePos } = this.props;
     const { x, y } = nextProps;
     let xRel = 0;
     let yRel = 0;
@@ -34,20 +29,33 @@ const mapDispatchToProps = (dispatch) => ({
     }
 
     setTimeout(gameSettings.transitionTimer)
-      .then(() => dispatch(handlePlayerUpdateRelativePos(xRel, yRel, 0)));
-  },
-  onMoveOut: (prevProps) => {
-    const { x, y, z } = prevProps;
-    dispatch(handleGroundUpdateProps(x, y, z, {opacity: 0}));
-    setTimeout(gameSettings.transitionTimer)
-      .then(() => dispatch(handleGroundRemove(x, y, z)));
+      .then(() => handlePlayerUpdateRelativePos(xRel, yRel, 0));
   }
+
+  onMoveOut(prevProps) {
+    const { handleGroundRemove, handleGroundUpdateProps } = this.props;
+    const { x, y, z } = prevProps;
+    handleGroundUpdateProps(x, y, z, {opacity: 0});
+    setTimeout(gameSettings.transitionTimer)
+      .then(() => handleGroundRemove(x, y, z));
+  }
+
+  render() {
+    return (<BrokenFloor {...this.props}/>);
+  }
+
+}
+
+const mapStateToProps = (state) => {
+  return ({
+    grounds: state.grounds,
+  });
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  handleGroundRemove: (...params) => dispatch(handleGroundRemove(...params)),
+  handleGroundUpdateProps: (...params) => dispatch(handleGroundUpdateProps(...params)),
+  handlePlayerUpdateRelativePos: (...params) => dispatch(handlePlayerUpdateRelativePos(...params)),
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...ownProps,
-  ...dispatchProps,
-  ...addAdjacentProps(stateProps.grounds, ownProps.x, ownProps.y, ownProps.z)
-});
-
-export default connect(mapStateToProps,  mapDispatchToProps,  mergeProps,  {withRef: true})(BrokenFloor);
+export default connect(mapStateToProps,  mapDispatchToProps,  null,  {withRef: true})(StatefulBrokenIce);

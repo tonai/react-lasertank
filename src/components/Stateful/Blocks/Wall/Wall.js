@@ -10,6 +10,7 @@ const mapStateToProps = (state) => ({
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
+  ...stateProps,
   ...dispatchProps,
   ...addAdjacentProps(stateProps.blocks, ownProps.x, ownProps.y, ownProps.z)
 });

@@ -1,2 +1,7 @@
 sprite top connection with other blocks
 map loader
+check that blocks does active switches
+
+/* bonus */
+Create redirect which direction depends on player direction + self direction
+Create block which position depends on player position (or reversed)

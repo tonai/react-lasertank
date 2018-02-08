@@ -8,6 +8,12 @@ import { setTimeout } from '../../../../services/utils';
 
 class Empty extends PureComponent {
 
+  onMoveIn() {
+    const { handlePlayerUpdateRelativePos } = this.props;
+    setTimeout(gameSettings.transitionTimer)
+      .then(() => handlePlayerUpdateRelativePos(0, 0, -1));
+  }
+
   render() {
     return null
   }
@@ -15,10 +21,7 @@ class Empty extends PureComponent {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onMoveIn: () => {
-    setTimeout(gameSettings.transitionTimer)
-      .then(() => dispatch(handlePlayerUpdateRelativePos(0, 0, -1)));
-  }
+  handlePlayerUpdateRelativePos: (...params) => dispatch(handlePlayerUpdateRelativePos(...params)),
 });
 
 export default connect(null, mapDispatchToProps, null, {withRef: true})(Empty);

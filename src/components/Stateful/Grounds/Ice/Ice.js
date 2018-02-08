@@ -1,3 +1,4 @@
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import gameSettings from '../../../../settings/game';
@@ -8,15 +9,10 @@ import { setTimeout } from '../../../../services/utils';
 
 import Floor from '../../../Stateless/Grounds/Floor/Floor';
 
-const mapStateToProps = (state) => {
-  return ({
-    direction: state.player ? state.player.props.direction : 0,
-    grounds: state.grounds
-  });
-};
+class StatefulIce extends PureComponent {
 
-const mapDispatchToProps = (dispatch) => ({
-  onMoveIn: (prevProps, nextProps) => {
+  onMoveIn(prevProps, nextProps) {
+    const { handlePlayerUpdateRelativePos } = this.props;
     let x = 0;
     let y = 0;
 
@@ -33,14 +29,30 @@ const mapDispatchToProps = (dispatch) => ({
     }
 
     setTimeout(gameSettings.transitionTimer)
-      .then(() => dispatch(handlePlayerUpdateRelativePos(x, y, 0)));
+      .then(() => handlePlayerUpdateRelativePos(x, y, 0));
   }
+
+  render() {
+    return (<Floor {...this.props}/>);
+  }
+
+}
+
+const mapStateToProps = (state) => {
+  return ({
+    grounds: state.grounds,
+  });
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  handlePlayerUpdateRelativePos: (...params) => dispatch(handlePlayerUpdateRelativePos(...params)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
+  ...stateProps,
   ...dispatchProps,
   ...addAdjacentProps(stateProps.grounds, ownProps.x, ownProps.y, ownProps.z)
 });
 
-export default connect(mapStateToProps,  mapDispatchToProps,  mergeProps,  {withRef: true})(Floor);
+export default connect(mapStateToProps,  mapDispatchToProps,  mergeProps,  {withRef: true})(StatefulIce);

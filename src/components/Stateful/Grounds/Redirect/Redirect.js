@@ -1,3 +1,4 @@
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import mathMod from 'ramda/es/mathMod';
 
@@ -8,14 +9,10 @@ import { setTimeout } from '../../../../services/utils';
 
 import Redirect from '../../../Stateless/Grounds/Redirect/Redirect';
 
-const mapStateToProps = (state) => {
-  return ({
-    direction: state.player ? state.player.props.direction : 0
-  });
-};
+class StatefulRedirect extends PureComponent {
 
-const mapDispatchToProps = (dispatch) => ({
-  onMoveIn: (direction) => {
+  onMoveIn() {
+    const { direction, handlePlayerUpdateRelativePos } = this.props;
     let x = 0;
     let y = 0;
 
@@ -40,14 +37,17 @@ const mapDispatchToProps = (dispatch) => ({
     }
 
     setTimeout(gameSettings.transitionTimer)
-      .then(() => dispatch(handlePlayerUpdateRelativePos(x, y, 0)));
+      .then(() => handlePlayerUpdateRelativePos(x, y, 0));
   }
+
+  render() {
+    return (<Redirect {...this.props}/>);
+  }
+
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  handlePlayerUpdateRelativePos: (...params) => dispatch(handlePlayerUpdateRelativePos(...params)),
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...ownProps,
-  ...dispatchProps,
-  onMoveIn: () => dispatchProps.onMoveIn(ownProps.direction)
-});
-
-export default connect(mapStateToProps,  mapDispatchToProps,  mergeProps,  {withRef: true})(Redirect);
+export default connect(null,  mapDispatchToProps,  null,  {withRef: true})(StatefulRedirect);
