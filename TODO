@@ -1,6 +1,7 @@
 sprite top connection with other blocks
 map loader
 check that blocks does active switches
+use <React.Fragment> in place of useless divs
 
 /* bonus */
 Create redirect which direction depends on player direction + self direction
