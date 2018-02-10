@@ -73,7 +73,6 @@ class Scene extends PureComponent {
     const scene3dStyles = {
       width: `${max}px`,
       height: `${max}px`,
-      backgroundColor: `rgba(0,0,0,0.5)`,
       transform: `rotateX(${xAngle * Math.PI / 180}rad) rotateZ(${zAngle * Math.PI / 180}rad)`
     };
 
