@@ -5,6 +5,10 @@ import gameSettings from '../../../settings/game';
 export default function BoardBlock(Component) {
   return class BlockBoard extends PureComponent {
 
+    initRef = (ref) => {
+      this.ref = ref;
+    };
+
     render() {
       const { direction, opacity = 1, size, x, y, z } = this.props;
       const translationStyles = {
@@ -21,7 +25,7 @@ export default function BoardBlock(Component) {
       return (
         <div className="pos-abs" style={translationStyles}>
           <div className="pos-abs" style={rotationStyles}>
-            <Component {...this.props}/>
+            <Component {...this.props} ref={this.initRef}/>
           </div>
         </div>
       );

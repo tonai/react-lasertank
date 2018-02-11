@@ -2,6 +2,9 @@ sprite top connection with other blocks
 map loader
 check that blocks does active switches
 use <React.Fragment> in place of useless divs
+smooth controls
+Remove timeout for switch when doors are open
+Manage multiples teleporter with same 'id'
 
 /* bonus */
 Create redirect which direction depends on player direction + self direction

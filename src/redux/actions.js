@@ -140,3 +140,35 @@ export function handleGroundRemove(x,y,z) {
     z
   };
 }
+
+export const SHOOT = 'SHOOT';
+export function handleShoot(shootPoints) {
+  return {
+    type: SHOOT,
+    shootPoints
+  };
+}
+
+export const SHOOT_UPDATE = 'SHOOT_UPDATE';
+export function handleShootUpdate(surface, index) {
+  return {
+    type: SHOOT_UPDATE,
+    surface,
+    index
+  };
+}
+
+export const SHOOT_INDEX_UPDATE = 'SHOOT_INDEX_UPDATE';
+export function handleShootIndexUpdate(index) {
+  return {
+    type: SHOOT_INDEX_UPDATE,
+    index
+  };
+}
+
+export const SHOOT_CLEAR = 'SHOOT_CLEAR';
+export function handleShootClear() {
+  return {
+    type: SHOOT_CLEAR
+  };
+}

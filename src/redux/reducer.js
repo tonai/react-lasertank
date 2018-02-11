@@ -13,6 +13,10 @@ import {
   PLAYER_UPDATE_RELATIVE_POS,
   PLAYER_UPDATE,
   PLAYER_UPDATE_PROPS,
+  SHOOT,
+  SHOOT_CLEAR,
+  SHOOT_UPDATE,
+  SHOOT_INDEX_UPDATE,
   X_ANGLE_CHANGE,
   Z_ANGLE_CHANGE,
   ZOOM_CHANGE
@@ -38,6 +42,10 @@ const initialState = {
   xAngle : 45,
   zAngle: 45,
   zoom: 1,
+
+  shootIndex: 0,
+  shootPoints: [],
+  shootSurfaces: [],
 
   ...initMap()
 };
@@ -189,6 +197,40 @@ export default function reducer(state = initialState, action) {
         ...state,
         ...getPlayerState(blocks, grounds, player, x + action.x, y + action.y, z + action.z)
       };
+    }
+
+    case SHOOT: {
+      return {
+        ...state,
+        playerControls: false,
+        shootPoints: action.shootPoints
+      };
+    }
+
+    case SHOOT_CLEAR: {
+      return {
+        ...state,
+        playerControls: true,
+        shootIndex: 0,
+        shootPoints: [],
+        shootSurfaces: []
+      }
+    }
+
+    case SHOOT_UPDATE: {
+      const shootSurfaces = [...state.shootSurfaces];
+      shootSurfaces[action.index] = action.surface;
+      return {
+        ...state,
+        shootSurfaces
+      }
+    }
+
+    case SHOOT_INDEX_UPDATE: {
+      return {
+        ...state,
+        shootIndex: action.index
+      }
     }
 
     case X_ANGLE_CHANGE: {

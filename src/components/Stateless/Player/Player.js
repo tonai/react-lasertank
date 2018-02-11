@@ -1,8 +1,13 @@
 import React, { PureComponent } from 'react';
+import mathMod from 'ramda/es/mathMod';
 
 import BoardBlock from '../BoardBlock/BoardBlock';
 
 class Player extends PureComponent {
+
+  /* Properties */
+
+  shootPoint = null;
 
   /* Methods */
 
@@ -11,6 +16,22 @@ class Player extends PureComponent {
       const lum = Math.min(100, Math.max(0, (Math.abs(angle) - 90) / 180 * 100 * range + luminosity));
       return `hsla(${hue}, ${saturation}%, ${lum}%, ${opacity})`;
     };
+  }
+
+  getShootPoint(gunX, gunY, gunZ) {
+    const { direction, size, x, y, z } = this.props;
+    switch (mathMod(direction, 360)) {
+      case 0:
+        return { x: x * size + gunX, y: y * size + gunY, z: z * size + gunZ };
+      case 90:
+        return { x: x * size + gunY, y: y * size + gunX, z: z * size + gunZ };
+      case 180:
+        return { x: (x + 1) * size - gunX, y: y * size + gunY, z: z * size + gunZ };
+      case 270:
+        return { x: x * size + gunY, y: (y + 1) * size - gunX, z: z * size + gunZ };
+      default:
+        return null;
+    }
   }
   
   round(val) {
@@ -91,12 +112,14 @@ class Player extends PureComponent {
     const gunXMax = gunXMin + gunXSize;
     const gunYMin = offsetMin + l / 2 - gunYSize / 2;
     const gunYMax = gunYMin + gunYSize;
-    const gunYMid = (gunYMin + gunYMax) / 2 - gunYSize2 / 2;
+    const gunYMin2 = (gunYMin + gunYMax) / 2 - gunYSize2 / 2;
     const gunZMin = turretZMin + turretZSize / 2 - gunZSize / 2;
     const gunZMax = gunZMin + gunZSize;
     const gunYDelta = (gunYSize - gunYSize2) / 2;
     const gunSideSize = this.round(Math.sqrt(gunZSize * gunZSize + (gunYSize - gunYSize2) / 2 * (gunYSize - gunYSize2) / 2));
     const gunSideAngle = Math.atan((gunYSize - gunYSize2) / (2 * gunZSize)) * 180 / Math.PI;
+
+    this.shootPoint = this.getShootPoint(gunXMax, gunYMin + gunYSize / 2, gunZMin);
 
     return (
       <div>
@@ -138,7 +161,7 @@ class Player extends PureComponent {
         <div className="player__turret--top pos-abs" style={{width: turretXSize, height: turretYSize, backgroundColor: turretColor(180), transformOrigin: '0 0 0', transform: `translateX(${turretXMin}px) translateY(${turretYMin}px) translateZ(${turretZMax}px)`}}/>
 
         <div className="player__gun--bottom pos-abs" style={{width: gunXSize, height: gunYSize, backgroundColor: gunColor(0), transformOrigin: '0 0 0', transform: `translateX(${gunXMin}px) translateY(${gunYMin}px) translateZ(${gunZMin}px)`}}/>
-        <div className="player__gun--top pos-abs" style={{width: gunXSize, height: gunYSize2, backgroundColor: gunColor(180), transformOrigin: '0 0 0', transform: `translateX(${gunXMin}px) translateY(${gunYMid}px) translateZ(${gunZMax}px)`}}/>
+        <div className="player__gun--top pos-abs" style={{width: gunXSize, height: gunYSize2, backgroundColor: gunColor(180), transformOrigin: '0 0 0', transform: `translateX(${gunXMin}px) translateY(${gunYMin2}px) translateZ(${gunZMax}px)`}}/>
         <div className="player__gun--left pos-abs" style={{width: gunXSize, height: gunSideSize, backgroundColor: gunColor(90 + gunSideAngle), transformOrigin: '0 0 0', transform: `translateX(${gunXMin}px) translateY(${gunYMin}px) translateZ(${gunZMin}px) rotateX(${90 - gunSideAngle}deg)`}}/>
         <div className="player__gun--right pos-abs" style={{width: gunXSize, height: gunSideSize, backgroundColor: gunColor(90 + gunSideAngle), transformOrigin: '0 0 0', transform: `translateX(${gunXMin}px) translateY(${gunYMax}px) translateZ(${gunZMin}px) rotateX(${90 + gunSideAngle}deg)`}}/>
         <div className="player__gun--front pos-abs" style={{width: 0, height: gunYSize2, borderWidth: `${gunYDelta}px 0 ${gunYDelta}px ${gunZSize}px`,borderColor: `transparent ${gunColor(0)}`, borderStyle: 'solid', transformOrigin: '0 0 0', transform: `translateX(${gunXMax}px) translateY(${gunYMin}px) translateZ(${gunZMin}px) rotateY(-90deg)`}}/>

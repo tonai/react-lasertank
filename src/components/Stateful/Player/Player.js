@@ -8,6 +8,12 @@ import Player from '../../Stateless/Player/Player';
 
 class StatefulPlayer extends PureComponent {
 
+  /* Properties */
+
+  initPlayer = (ref) => {
+    this.ref = ref;
+  };
+
   /* Methods */
 
   componentDidUpdate(prevProps) {
@@ -31,10 +37,15 @@ class StatefulPlayer extends PureComponent {
     }
   }
 
+  getShootPoint() {
+    return this.ref.ref.shootPoint;
+  }
+
   render() {
+    const { size } = this.props;
     return (<div>
-      <Player {...this.props} key="player"/>
-      <KeyControls />
+      <Player {...this.props} key="player" ref={this.initPlayer}/>
+      <KeyControls size={size} />
     </div>);
   }
 
