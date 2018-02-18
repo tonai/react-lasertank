@@ -111,7 +111,7 @@ export function handleBlockUpdateProps(x, y, z, props) {
 }
 
 export const GROUND_UPDATE_PROPS = 'GROUND_UPDATE_PROPS';
-export function handleGroundUpdateProps(x,y,z, props) {
+export function handleGroundUpdateProps(x, y, z, props) {
   return {
     type: GROUND_UPDATE_PROPS,
     x,
@@ -122,7 +122,7 @@ export function handleGroundUpdateProps(x,y,z, props) {
 }
 
 export const BLOCK_REMOVE = 'BLOCK_REMOVE';
-export function handleBlockRemove(x,y,z) {
+export function handleBlockRemove(x, y, z) {
   return {
     type: BLOCK_REMOVE,
     x,
@@ -131,8 +131,21 @@ export function handleBlockRemove(x,y,z) {
   };
 }
 
+export const BLOCK_MOVE = 'BLOCK_MOVE';
+export function handleBlockMove(x1, y1, z1, x2, y2, z2) {
+  return {
+    type: BLOCK_MOVE,
+    x1,
+    y1,
+    z1,
+    x2,
+    y2,
+    z2
+  };
+}
+
 export const GROUND_REMOVE = 'GROUND_REMOVE';
-export function handleGroundRemove(x,y,z) {
+export function handleGroundRemove(x, y, z) {
   return {
     type: GROUND_REMOVE,
     x,

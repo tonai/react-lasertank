@@ -6,7 +6,7 @@
       ["teleporter", null, "ice"],
       [null, null, "brokenIce", "brokenIce"],
       null,
-      [null, ["redirect", {"direction": 90}], ["brokenFloor",{"direction":90,"sprites":{"bottom":{"path":"assets/sprites/Inside_A2.png","offset":[0, 96],"connect":true}}}], null, "teleporter"]
+      [null, null, ["brokenFloor",{"direction":90,"sprites":{"bottom":{"path":"assets/sprites/Inside_A2.png","offset":[0, 96],"connect":true}}}], null, "teleporter"]
     ]
   ],
   "blocks": [
@@ -21,7 +21,8 @@
       null,
       [null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}]],
       [["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, null, ["door", {"direction": 90, "id": 1}]],
-      ["player", ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}]]
+      ["player", ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}]],
+      [null, "block"]
     ]
   ]
 }

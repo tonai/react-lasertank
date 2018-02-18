@@ -16,21 +16,21 @@ class StatefulShootArea extends PureComponent {
   componentWillUpdate(nextProps) {
     if (nextProps.shootPoints !== this.props.shootPoints && nextProps.shootPoints.length > 1) {
       this.drawSurface(nextProps.shootPoints, nextProps.shootIndex);
-    } else if (nextProps.shootIndex !== this.props.shootIndex) {
+    } else if (nextProps.shootIndex > this.props.shootIndex) {
       this.drawSurface(nextProps.shootPoints, nextProps.shootIndex);
     }
   }
 
-  drawSurface(points, index) {
+  drawSurface(shootPoints, index) {
     const { clearShoot, size, speed, updateShoot, updateShootIndex } = this.props;
 
-    const x1 = points[index].x;
-    const y1 = points[index].y;
-    const z1 = points[index].z;
+    const x1 = shootPoints[index].point.x;
+    const y1 = shootPoints[index].point.y;
+    const z1 = shootPoints[index].point.z;
 
-    const x2 = points[index + 1].x;
-    const y2 = points[index + 1].y;
-    const z2 = points[index + 1].z;
+    const x2 = shootPoints[index + 1].point.x;
+    const y2 = shootPoints[index + 1].point.y;
+    const z2 = shootPoints[index + 1].point.z;
 
     const c = x2 === x1
       ? Math.sign(y2 - y1) * 90
@@ -42,12 +42,13 @@ class StatefulShootArea extends PureComponent {
     const time = length / speed;
 
     new Promise(resolve => resolve())
+      .then(() => shootPoints[index].action && shootPoints[index].action())
       .then(() => updateShoot({c, length: 0, size: this.props.size, time, x: x1, y: y1, z: z1}, index))
       .then(() => setTimeout(0))
       .then(() => updateShoot({ c, length, size: this.props.size, time, x: x1, y: y1, z: z1}, index))
       .then(() => setTimeout(time))
       .then(() => {
-        if (points[index + 2]) {
+        if (shootPoints[index + 2]) {
           updateShootIndex(index + 1);
         } else {
           setTimeout(size / speed).then(clearShoot);

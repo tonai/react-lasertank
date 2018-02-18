@@ -80,17 +80,15 @@ class KeyControls extends PureComponent {
     const { blocks, grounds } = this.props;
     const block = blocks[`${z}-${x}-${y}`];
     const ground = grounds[`${z}-${x}-${y}`];
-    if (block) {
-      const endPoint = this.getEndPoint(x, y, z, direction, shootPoints[shootPoints.length - 1]);
-      shootPoints.push(endPoint);
-      return shootPoints;
+    if (block && block.ref.onShoot) {
+      const points = block.ref.onShoot(direction, shootPoints[shootPoints.length - 1].point);
+      return shootPoints.concat(points);
     } else if (ground) {
       const coords = this.getNextCoords(x, y, z, direction);
       return this.getShootPoints(coords.x, coords.y, coords.z, direction, shootPoints);
     } else {
-      const endPoint = this.getEndPoint(x, y, z, direction, shootPoints[shootPoints.length - 1]);
-      shootPoints.push(endPoint);
-      return shootPoints;
+      const endPoint = this.getEndPoint(x, y, z, direction, shootPoints[shootPoints.length - 1].point);
+      return shootPoints.concat({point: endPoint});
     }
   }
 
@@ -100,7 +98,7 @@ class KeyControls extends PureComponent {
 
   shoot() {
     const { onShoot, player } = this.props;
-    const startPoint = player.ref.getShootPoint();
+    const startPoint = {point: player.ref.getShootPoint()};
     const shootPoints = this.getShootPoints(
       player.props.x,
       player.props.y,

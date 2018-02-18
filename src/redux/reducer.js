@@ -1,4 +1,5 @@
 import {
+  BLOCK_MOVE,
   BLOCK_REMOVE,
   BLOCK_UPDATE_PROPS,
   BLOCKS_UPDATE,
@@ -26,7 +27,7 @@ import blocksSettings from '../settings/blocks';
 import boardSettings from '../settings/board';
 
 import { initBlock, initMap } from '../services/board';
-import { getBlock, getPlayerState, getStateOnPlayerMove } from '../services/player';
+import { getBlock, getBlockMoveState, getPlayerState, getStateOnPlayerMove } from '../services/player';
 
 const initialState = {
   blocks: null,
@@ -52,6 +53,16 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch(action.type) {
+    case BLOCK_MOVE: {
+      console.log('BLOCK_MOVE');
+      const { blocks, grounds } = state;
+      const { x1, y1, z1, x2, y2, z2 } = action;
+      return {
+        ...state,
+        ...getBlockMoveState(blocks, grounds,  x1, y1, z1, x2, y2, z2)
+      };
+    }
+
     case BLOCK_REMOVE: {
       const { x, y, z } = action;
       const key = `${z}-${x}-${y}`;
@@ -69,7 +80,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case BLOCK_UPDATE_PROPS: {
-      const { props, x, y, z } = action;
+      const { props = {}, x, y, z } = action;
       const { blocks } = state;
       const block = getBlock(blocks, x, y, z);
       return {
@@ -104,7 +115,7 @@ export default function reducer(state = initialState, action) {
     }
 
     case GROUND_UPDATE_PROPS: {
-      const { props, x, y, z } = action;
+      const { props = {}, x, y, z } = action;
       const { grounds } = state;
       const ground = getBlock(grounds, x, y, z);
       return {

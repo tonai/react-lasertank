@@ -1,5 +1,10 @@
 import mathMod from 'ramda/es/mathMod';
 
+import blocksSettings from '../settings/blocks';
+import boardSettings from '../settings/board';
+
+import { initBlock } from './board';
+
 export function getBlock(board, x, y, z) {
   return board[`${z}-${x}-${y}`];
 }
@@ -48,4 +53,27 @@ export function getPlayerState(blocks, grounds, player, x, y, z) {
   return {
     playerControls: true
   };
+}
+
+export function getBlockMoveState(blocks, grounds, x1, y1, z1, x2, y2, z2) {
+  if (canMove(blocks, grounds, x2, y2, z2)) {
+    const key1 = `${z1}-${x1}-${y1}`;
+    const key2 = `${z2}-${x2}-${y2}`;
+
+    const block = blocks[key1];
+    grounds = {...grounds};
+    blocks = {...blocks};
+
+    delete blocks[key1];
+    blocks[key2] = {
+      ...block,
+      props: {...block.props, x: x2, y: y2, z: z2}
+    };
+
+    if (!grounds[key1]) {
+      grounds[key1] = initBlock('empty', blocksSettings, boardSettings.size, x1, y1, z1);
+    }
+
+    return { blocks, grounds };
+  }
 }
