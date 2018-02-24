@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { getBlock } from '../../../../services/player';
+import { getBlock } from '../../../../services/blocks';
 
 import KeyControls from '../../KeyControls/KeyControls';
 import Player from '../../../Stateless/Blocks/Player/Player';

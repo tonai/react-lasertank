@@ -1,6 +1,6 @@
-Rename services/player
 Manage tank on water (floor ?)
 Refactor behaviour (using high order component)
+Add settings to manage block interactions with other blocks (like canTeleport...etc.)
 
 sprite top connection with other blocks
 map loader

@@ -5,7 +5,7 @@ import mathMod from 'ramda/es/mathMod';
 import { handleBlockMove } from '../../../../redux/actions';
 
 import Block from '../../../Stateless/Blocks/Block/Block';
-import { getBlock } from '../../../../services/player';
+import { getBlock } from '../../../../services/blocks';
 
 class StatefulBlock extends PureComponent {
 

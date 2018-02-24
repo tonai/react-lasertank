@@ -25,7 +25,7 @@ import blocksSettings from '../settings/blocks';
 import boardSettings from '../settings/board';
 
 import { initBlock, initMap } from '../services/board';
-import { getBlock, getBlockMoveState, getMovePos } from '../services/player';
+import { getBlock, getBlockMoveState, getMovePos } from '../services/blocks';
 
 const initialState = {
   blocks: null,
