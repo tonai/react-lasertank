@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import { loadTextures, setTopTexture } from '../../../../services/texture';
-import { getBackStyles, getBottomStyles, getFrontStyles, getLeftStyles, getRightStyles,
-  getTopStyles } from '../../../../services/styles';
+import { getBottomStyles, getTopStyles } from '../../../../services/styles';
 
 import BoardBlock from '../../BoardBlock/BoardBlock';
 
@@ -34,19 +33,19 @@ class Water extends PureComponent {
       <div>
         {!front && (<div
           className="side--front pos-abs"
-          style={{...sideStyles, ...getFrontStyles(size)}}
+          style={{...sideStyles, transform: `rotateX(-90deg) rotateY(90deg) translateY(-${size / 2}px) translateZ(${size / 2 - 1}px)`}}
         />)}
         {!back && (<div
           className="side--back pos-abs"
-          style={{...sideStyles, ...getBackStyles(size)}}
+          style={{...sideStyles, transform: `rotateY(90deg) rotateZ(-90deg) translateY(-${size / 2}px) translateZ(-${size / 2 - 1}px)`}}
         />)}
         {!right && (<div
           className="side--right pos-abs"
-          style={{...sideStyles, ...getRightStyles(size)}}
+          style={{...sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(-${size / 2 - 1}px)`}}
         />)}
         {!left && (<div
           className="side--left pos-abs"
-          style={{...sideStyles, ...getLeftStyles(size)}}
+          style={{...sideStyles, transform: `rotateX(-90deg) rotateY(180deg) translateY(-${size / 2}px) translateZ(${size / 2 - 1}px)`}}
         />)}
         {top !== name && (<div
           className="side--top pos-abs"

@@ -1,4 +1,3 @@
-Manage tank on water (floor ?)
 Refactor behaviour (using high order component)
 Add settings to manage block interactions with other blocks (like canTeleport...etc.)
 

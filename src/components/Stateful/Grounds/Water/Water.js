@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { addAdjacentProps } from '../../../../services/board';
 
-import Water from '../../../Stateless/Blocks/Water/Water';
+import Water from '../../../Stateless/Grounds/Water/Water';
 
 class StatefulWater extends PureComponent {
 
@@ -18,14 +18,14 @@ class StatefulWater extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  blocks: state.blocks,
+  grounds: state.grounds,
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
   ...dispatchProps,
-  ...addAdjacentProps(stateProps.blocks, ownProps.x, ownProps.y, ownProps.z)
+  ...addAdjacentProps(stateProps.grounds, ownProps.x, ownProps.y, ownProps.z)
 });
 
 export default connect(mapStateToProps, null, mergeProps, {withRef: true})(StatefulWater);

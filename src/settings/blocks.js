@@ -3,7 +3,6 @@ import generalSettings from './general';
 import Block from '../components/Stateful/Blocks/Block/Block';
 import Door from '../components/Stateful/Blocks/Door/Door';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
-import Water from '../components/Stateful/Blocks/Water/Water';
 
 import BrokenIce from '../components/Stateful/Grounds/BrokenIce/BrokenIce';
 import BrokenFloor from '../components/Stateful/Grounds/BrokenFloor/BrokenFloor';
@@ -14,6 +13,7 @@ import Ice from '../components/Stateful/Grounds/Ice/Ice';
 import Redirect from '../components/Stateful/Grounds/Redirect/Redirect';
 import Switch from '../components/Stateful/Grounds/Switch/Switch';
 import Teleporter from '../components/Stateful/Grounds/Teleporter/Teleporter';
+import Water from '../components/Stateful/Grounds/Water/Water';
 
 import Player from '../components/Stateful/Blocks/Player/Player';
 
