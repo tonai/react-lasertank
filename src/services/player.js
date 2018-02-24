@@ -20,47 +20,28 @@ export function canMove(blocks, grounds, x, y, z) {
   return false;
 }
 
-export function getStateOnPlayerMove(blocks, grounds, player, direction = 1) {
-  let {x, y, z} = player.props;
-  switch (mathMod(player.props.direction, 360)) {
+export function getMovePos(blocks, grounds, x, y, z, direction = 1) {
+  const block = getBlock(blocks, x, y, z);
+  switch (mathMod(block.props.direction, 360)) {
     case 0:
-      x += direction;
-      break;
+      return {x: x + direction, y, z};
     case 90:
-      y += direction;
-      break;
+      return {x, y: y + direction, z};
     case 180:
-      x -= direction;
-      break;
+      return {x: x - direction, y, z};
     case 270:
-      y -= direction;
-      break;
+      return {x, y: y - direction, z};
     default:
+      return {x, y, z};
   }
-  return getPlayerState(blocks, grounds, player, x, y, z);
-}
-
-export function getPlayerState(blocks, grounds, player, x, y, z) {
-  if (canMove(blocks, grounds, x, y, z)) {
-    return {
-      player: {
-        ...player,
-        props: {...player.props, x, y, z}
-      },
-      playerControls: false
-    };
-  }
-  return {
-    playerControls: true
-  };
 }
 
 export function getBlockMoveState(blocks, grounds, x1, y1, z1, x2, y2, z2) {
-  if (canMove(blocks, grounds, x2, y2, z2)) {
-    const key1 = `${z1}-${x1}-${y1}`;
-    const key2 = `${z2}-${x2}-${y2}`;
+  const key1 = `${z1}-${x1}-${y1}`;
+  const key2 = `${z2}-${x2}-${y2}`;
+  const block = blocks[key1];
 
-    const block = blocks[key1];
+  if (canMove(blocks, grounds, x2, y2, z2)) {
     grounds = {...grounds};
     blocks = {...blocks};
 
@@ -74,6 +55,20 @@ export function getBlockMoveState(blocks, grounds, x1, y1, z1, x2, y2, z2) {
       grounds[key1] = initBlock('empty', blocksSettings, boardSettings.size, x1, y1, z1);
     }
 
-    return { blocks, grounds };
+    if (block.props.name === 'player') {
+      return {
+        blocks,
+        grounds,
+        playerKey: `${z2}-${x2}-${y2}`,
+        playerControls: false,
+      };
+    } else {
+      return {
+        blocks,
+        grounds,
+      };
+    }
+  } else if (block.props.name === 'player') {
+    return { playerControls: true };
   }
 }

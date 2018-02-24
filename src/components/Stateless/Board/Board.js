@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import mapObjIndexed from 'ramda/es/mapObjIndexed';
 import map from 'ramda/es/map';
 import pipe from 'ramda/es/pipe';
+import sort from 'ramda/es/sort';
 import values from 'ramda/es/values';
 
 class Board extends PureComponent {
@@ -9,12 +10,12 @@ class Board extends PureComponent {
   /* Properties */
 
   blocksCounter = 0;
-  groundsRef = {};
-  groundsCounter = 0;
   blocksRef = {};
+  groundsCounter = 0;
+  groundsRef = {};
+  initialized = false;
   resolveBlocksLoaded = null;
   resolveGroundsLoaded = null;
-  resolvePlayerLoaded = null;
 
   createBlockComponent = (block) => {
     const Component = block.props.component;
@@ -32,21 +33,17 @@ class Board extends PureComponent {
       : (<Component {...ground.props} ref={this.initGroundsComponent.bind(this, ground)}/>);
   };
 
-  createPlayerComponent = (player) => {
-    const Component = player.props.component;
-    return player.ref
-      ? (<Component {...player.props}/>)
-      : (<Component {...player.props} ref={this.initPlayerComponent.bind(this, player)}/>);
-  };
-
   /* Methods */
 
   componentWillMount() {
     Promise.all([
       new Promise(resolve => this.resolveBlocksLoaded = resolve),
       new Promise(resolve => this.resolveGroundsLoaded = resolve),
-      new Promise(resolve => this.resolvePlayerLoaded = resolve)
     ]).then(this.props.onUpdateBoard);
+  }
+
+  componentDidMount() {
+    this.initialized = true;
   }
 
   getBlocks() {
@@ -70,7 +67,7 @@ class Board extends PureComponent {
       component = component.getWrappedInstance();
     }
     this.blocksRef[block.props.key] = component;
-    if (this.props.player.ref) {
+    if (this.initialized) {
       this.props.onUpdateBlocks(this.getBlocks());
     } else if (this.blocksCounter === 0) {
       this.resolveBlocksLoaded(this.getBlocks());
@@ -86,31 +83,19 @@ class Board extends PureComponent {
       component = component.getWrappedInstance();
     }
     this.groundsRef[ground.props.key] = component;
-    if (this.props.player.ref) {
+    if (this.initialized) {
       this.props.onUpdateGrounds(this.getGrounds());
     } else if (this.groundsCounter === 0) {
       this.resolveGroundsLoaded(this.getGrounds());
     }
   }
 
-  initPlayerComponent(player, component) {
-    if (!component) {
-      return;
-    }
-    if (component.getWrappedInstance) {
-      component = component.getWrappedInstance();
-    }
-    this.resolvePlayerLoaded({
-      ...this.props.player,
-      ref: component
-    });
-  }
-
   render() {
-    const { blocks, grounds, player } = this.props;
+    const { blocks, grounds } = this.props;
 
     const blocksBoard = pipe(
       values,
+      sort((a, b) => a.props.key === b.props.key ? 0 : Number(a.props.key > b.props.key)),
       map(this.createBlockComponent)
     )(blocks);
 
@@ -119,13 +104,10 @@ class Board extends PureComponent {
       map(this.createGroundComponent)
     )(grounds);
 
-    const playerBoard = this.createPlayerComponent(player);
-
     return (
       <div className="Board">
         {blocksBoard}
         {groundsBoard}
-        {playerBoard}
       </div>
     );
   }

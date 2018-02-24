@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import mathMod from 'ramda/es/mathMod';
 
-import BoardBlock from '../BoardBlock/BoardBlock';
+import BoardBlock from '../../BoardBlock/BoardBlock';
 
 class Player extends PureComponent {
 

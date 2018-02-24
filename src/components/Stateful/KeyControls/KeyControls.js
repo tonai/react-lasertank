@@ -114,7 +114,7 @@ class KeyControls extends PureComponent {
 const mapStatToProps = (state) => ({
   blocks: state.blocks,
   grounds: state.grounds,
-  player: state.player,
+  player: state.blocks[state.playerKey],
   playerControls: state.playerControls
 });
 

@@ -4,26 +4,27 @@ import values from 'ramda/es/values';
 
 import gameSettings from '../../../../settings/game';
 
-import { handlePlayerControlsUpdate, handlePlayerUpdateProps } from '../../../../redux/actions';
+import { handleBlockMove, handleBlockUpdateProps, handlePlayerControlsUpdate } from '../../../../redux/actions';
 import { setTimeout } from '../../../../services/utils';
 
 import Teleporter from '../../../Stateless/Grounds/Teleporter/Teleporter';
 
 class StatefulTeleporter extends PureComponent {
 
-  onMoveIn() {
-    const { grounds, handlePlayerControlsUpdate, handlePlayerUpdateProps, name, x, y, z } = this.props;
+  onMoveIn(prevProps, nextProps) {
+    const { grounds, handleBlockMove, handleBlockUpdateProps, handlePlayerControlsUpdate, name, x, y, z } = this.props;
     const teleporter = values(grounds).find(ground =>
       ground.props.name === name && !(ground.props.x === x && ground.props.y === y && ground.props.z === z)
     );
     if (teleporter) {
-      const { x, y, z } = teleporter.props;
+      const { x: x1, y: y1, z: z1 } = nextProps;
+      const { x: x2, y: y2, z: z2 } = teleporter.props;
       setTimeout(gameSettings.transitionTimer)
-        .then(() => handlePlayerUpdateProps({active: false, opacity: 0}))
+        .then(() => handleBlockUpdateProps(x1, y1, z1, {active: false, opacity: 0}))
         .then(() => setTimeout(gameSettings.transitionTimer))
-        .then(() => handlePlayerUpdateProps({x, y, z}))
+        .then(() => handleBlockMove(x1, y1, z1, x2, y2, z2))
         .then(() => setTimeout(gameSettings.transitionTimer))
-        .then(() => handlePlayerUpdateProps({active: true, opacity: 1}))
+        .then(() => handleBlockUpdateProps(x2, y2, z2, {active: true, opacity: 1}))
         .then(() => setTimeout(gameSettings.transitionTimer))
         .then(() => handlePlayerControlsUpdate());
     } else {
@@ -42,8 +43,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  handleBlockMove: (...params) => dispatch(handleBlockMove(...params)),
+  handleBlockUpdateProps: (...params) => dispatch(handleBlockUpdateProps(...params)),
   handlePlayerControlsUpdate: (...params) => dispatch(handlePlayerControlsUpdate(...params)),
-  handlePlayerUpdateProps: (...params) => dispatch(handlePlayerUpdateProps(...params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps, null, {withRef: true})(StatefulTeleporter);

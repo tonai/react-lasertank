@@ -73,32 +73,6 @@ export function handlePlayerControlsUpdate() {
   };
 }
 
-export const PLAYER_UPDATE = 'PLAYER_UPDATE';
-export function handlePlayerUpdate(player) {
-  return {
-    type: PLAYER_UPDATE,
-    player
-  };
-}
-
-export const PLAYER_UPDATE_PROPS = 'PLAYER_UPDATE_PROPS';
-export function handlePlayerUpdateProps(props) {
-  return {
-    type: PLAYER_UPDATE_PROPS,
-    props
-  };
-}
-
-export const PLAYER_UPDATE_RELATIVE_POS = 'PLAYER_UPDATE_RELATIVE_POS';
-export function handlePlayerUpdateRelativePos(x, y, z) {
-  return {
-    type: PLAYER_UPDATE_RELATIVE_POS,
-    x,
-    y,
-    z
-  };
-}
-
 export const BLOCK_UPDATE_PROPS = 'BLOCK_UPDATE_PROPS';
 export function handleBlockUpdateProps(x, y, z, props) {
   return {
@@ -141,6 +115,19 @@ export function handleBlockMove(x1, y1, z1, x2, y2, z2) {
     x2,
     y2,
     z2
+  };
+}
+
+export const BLOCK_MOVE_RELATIVE = 'BLOCK_MOVE_RELATIVE';
+export function handleBlockMoveRelative(x, y, z, deltaX, deltaY, deltaZ) {
+  return {
+    type: BLOCK_MOVE_RELATIVE,
+    x,
+    y,
+    z,
+    deltaX,
+    deltaY,
+    deltaZ
   };
 }
 

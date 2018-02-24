@@ -15,7 +15,7 @@ import Redirect from '../components/Stateful/Grounds/Redirect/Redirect';
 import Switch from '../components/Stateful/Grounds/Switch/Switch';
 import Teleporter from '../components/Stateful/Grounds/Teleporter/Teleporter';
 
-import Player from '../components/Stateful/Player/Player';
+import Player from '../components/Stateful/Blocks/Player/Player';
 
 export default {
   block: {

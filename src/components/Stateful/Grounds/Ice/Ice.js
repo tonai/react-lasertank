@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import gameSettings from '../../../../settings/game';
 
-import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
+import { handleBlockMoveRelative } from '../../../../redux/actions';
 import { addAdjacentProps } from '../../../../services/board';
 import { setTimeout } from '../../../../services/utils';
 
@@ -12,24 +12,24 @@ import Floor from '../../../Stateless/Grounds/Floor/Floor';
 class StatefulIce extends PureComponent {
 
   onMoveIn(prevProps, nextProps) {
-    const { handlePlayerUpdateRelativePos } = this.props;
-    let x = 0;
-    let y = 0;
+    const { handleBlockMoveRelative, x, y, z } = this.props;
+    let deltaX = 0;
+    let deltaY = 0;
 
     if (nextProps.x > prevProps.x) {
-      x = 1;
+      deltaX = 1;
     } else if (nextProps.x < prevProps.x) {
-      x = -1;
+      deltaX = -1;
     }
 
     if (nextProps.y > prevProps.y) {
-      y = 1;
+      deltaY = 1;
     } else if (nextProps.y < prevProps.y) {
-      y = -1;
+      deltaY = -1;
     }
 
     setTimeout(gameSettings.transitionTimer)
-      .then(() => handlePlayerUpdateRelativePos(x, y, 0));
+      .then(() => handleBlockMoveRelative(x, y, z, deltaX, deltaY, 0));
   }
 
   render() {
@@ -45,7 +45,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  handlePlayerUpdateRelativePos: (...params) => dispatch(handlePlayerUpdateRelativePos(...params)),
+  handleBlockMoveRelative: (...params) => dispatch(handleBlockMoveRelative(...params)),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({

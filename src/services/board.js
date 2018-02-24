@@ -37,9 +37,6 @@ function addEmptyBlocks(blocks, grounds, depth, width, height) {
       let hasBlock = false;
       for (let k = 0; k < depth; k++) {
         if (blocks[k] && blocks[k][i] && blocks[k][i][j]) {
-          if (blocks[k][i][j] === 'player' || blocks[k][i][j][0] === 'player') {
-            addEmptyBlock(grounds, k, i, j);
-          }
           hasBlock = true;
         } else if (grounds[k] && grounds[k][i] && grounds[k][i][j]) {
           hasBlock = true;
@@ -92,9 +89,8 @@ export function initMap() {
   let blocks = getBoardObject(rawBlocks);
   let grounds = getBoardObject(rawGrounds);
 
-  const player = blocks.find(block => block.props.originalName === 'player');
+  const playerKey = blocks.find(block => block.props.originalName === 'player').props.key;
   blocks = blocks
-    .filter(block => block.props.originalName !== 'player')
     .reduce((acc, block) => {
       if (block) {
         acc[block.props.key] = block;
@@ -109,7 +105,7 @@ export function initMap() {
       return acc;
     }, {});
 
-  return { blocks, depth, grounds, height, player, width };
+  return { blocks, depth, grounds, height, playerKey, width };
 }
 
 export function initBlock(cell, settings, size, x, y, z) {

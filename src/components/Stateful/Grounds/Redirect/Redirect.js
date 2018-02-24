@@ -4,7 +4,7 @@ import mathMod from 'ramda/es/mathMod';
 
 import gameSettings from '../../../../settings/game';
 
-import { handlePlayerUpdateRelativePos } from '../../../../redux/actions';
+import { handleBlockMoveRelative } from '../../../../redux/actions';
 import { setTimeout } from '../../../../services/utils';
 
 import Redirect from '../../../Stateless/Grounds/Redirect/Redirect';
@@ -12,32 +12,32 @@ import Redirect from '../../../Stateless/Grounds/Redirect/Redirect';
 class StatefulRedirect extends PureComponent {
 
   onMoveIn() {
-    const { direction, handlePlayerUpdateRelativePos } = this.props;
-    let x = 0;
-    let y = 0;
+    const { direction, handleBlockMoveRelative, x, y, z } = this.props;
+    let deltaX = 0;
+    let deltaY = 0;
 
     switch(mathMod(direction, 360)) {
       case 0:
-        x++;
+        deltaX++;
         break;
 
       case 90:
-        y++;
+        deltaY++;
         break;
 
       case 180:
-        x--;
+        deltaX--;
         break;
 
       case 270:
-        y--;
+        deltaY--;
         break;
 
       default:
     }
 
     setTimeout(gameSettings.transitionTimer)
-      .then(() => handlePlayerUpdateRelativePos(x, y, 0));
+      .then(() => handleBlockMoveRelative(x, y, z, deltaX, deltaY, 0));
   }
 
   render() {
@@ -47,7 +47,7 @@ class StatefulRedirect extends PureComponent {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  handlePlayerUpdateRelativePos: (...params) => dispatch(handlePlayerUpdateRelativePos(...params)),
+  handleBlockMoveRelative: (...params) => dispatch(handleBlockMoveRelative(...params)),
 });
 
 export default connect(null,  mapDispatchToProps,  null,  {withRef: true})(StatefulRedirect);

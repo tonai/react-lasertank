@@ -1,3 +1,7 @@
+Rename services/player
+Manage tank on water (floor ?)
+Refactor behaviour (using high order component)
+
 sprite top connection with other blocks
 map loader
 check that blocks does active switches

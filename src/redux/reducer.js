@@ -1,5 +1,6 @@
 import {
   BLOCK_MOVE,
+  BLOCK_MOVE_RELATIVE,
   BLOCK_REMOVE,
   BLOCK_UPDATE_PROPS,
   BLOCKS_UPDATE,
@@ -11,9 +12,6 @@ import {
   KEY_RIGHT,
   KEY_UP,
   PLAYER_CONTROLS_UPDATE,
-  PLAYER_UPDATE_RELATIVE_POS,
-  PLAYER_UPDATE,
-  PLAYER_UPDATE_PROPS,
   SHOOT,
   SHOOT_CLEAR,
   SHOOT_UPDATE,
@@ -27,17 +25,17 @@ import blocksSettings from '../settings/blocks';
 import boardSettings from '../settings/board';
 
 import { initBlock, initMap } from '../services/board';
-import { getBlock, getBlockMoveState, getPlayerState, getStateOnPlayerMove } from '../services/player';
+import { getBlock, getBlockMoveState, getMovePos } from '../services/player';
 
 const initialState = {
   blocks: null,
   grounds: null,
-  player: null,
 
   depth: 0,
   height: 0,
   width: 0,
 
+  playerKey: null,
   playerControls: true,
 
   xAngle : 45,
@@ -54,12 +52,19 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch(action.type) {
     case BLOCK_MOVE: {
-      console.log('BLOCK_MOVE');
       const { blocks, grounds } = state;
       const { x1, y1, z1, x2, y2, z2 } = action;
       return {
         ...state,
-        ...getBlockMoveState(blocks, grounds,  x1, y1, z1, x2, y2, z2)
+        ...getBlockMoveState(blocks, grounds, x1, y1, z1, x2, y2, z2)
+      };
+    }
+    case BLOCK_MOVE_RELATIVE: {
+      const { blocks, grounds } = state;
+      const { deltaX, deltaY, deltaZ, x, y, z } = action;
+      return {
+        ...state,
+        ...getBlockMoveState(blocks, grounds, x, y, z, x + deltaX, y + deltaY, z + deltaZ)
       };
     }
 
@@ -138,42 +143,58 @@ export default function reducer(state = initialState, action) {
     }
 
     case KEY_DOWN: {
-      const { blocks, grounds, player } = state;
+      const { blocks, grounds, playerKey } = state;
+      const {x: x1, y: y1, z: z1} = blocks[playerKey].props;
+      const {x: x2, y: y2, z: z2} = getMovePos(blocks, grounds, x1, y1, z1, -1);
       return {
         ...state,
-        ...getStateOnPlayerMove(blocks, grounds, player, - 1)
+        ...getBlockMoveState(blocks, grounds, x1, y1, z1, x2, y2, z2),
       };
     }
 
     case KEY_LEFT: {
-      const { player } = state;
+      const { blocks, playerKey } = state;
+      const player = blocks[playerKey];
       if (player) {
-        player.props = {...player.props, direction: player.props.direction - 90};
         return {
           ...state,
-          player: {...player}
+          blocks: {
+            ...blocks,
+            [playerKey]: {
+              ...player,
+              props: {...player.props, direction: player.props.direction - 90}
+            }
+          }
         };
       }
       return state;
     }
 
     case KEY_RIGHT: {
-      const { player } = state;
+      const { blocks, playerKey } = state;
+      const player = blocks[playerKey];
       if (player) {
-        player.props = {...player.props, direction: player.props.direction + 90};
         return {
           ...state,
-          player: {...player}
+          blocks: {
+            ...blocks,
+            [playerKey]: {
+              ...player,
+              props: {...player.props, direction: player.props.direction + 90}
+            }
+          }
         };
       }
       return state;
     }
 
     case KEY_UP: {
-      const { blocks, grounds, player } = state;
+      const { blocks, grounds, playerKey } = state;
+      const {x: x1, y: y1, z: z1} = blocks[playerKey].props;
+      const {x: x2, y: y2, z: z2} = getMovePos(blocks, grounds, x1, y1, z1);
       return {
         ...state,
-        ...getStateOnPlayerMove(blocks, grounds, player)
+        ...getBlockMoveState(blocks, grounds, x1, y1, z1, x2, y2, z2),
       };
     }
 
@@ -181,32 +202,6 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         playerControls: true
-      };
-    }
-
-    case PLAYER_UPDATE: {
-      return {
-        ...state,
-        player: action.player
-      };
-    }
-
-    case PLAYER_UPDATE_PROPS: {
-      return {
-        ...state,
-        player: {
-          ...state.player,
-          props: {...state.player.props, ...action.props}
-        }
-      };
-    }
-
-    case PLAYER_UPDATE_RELATIVE_POS: {
-      const { blocks, grounds, player } = state;
-      const { x, y, z } = player.props;
-      return {
-        ...state,
-        ...getPlayerState(blocks, grounds, player, x + action.x, y + action.y, z + action.z)
       };
     }
 
