@@ -1,27 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import pipe from 'ramda/es/pipe';
 
-import gameSettings from '../../../../settings/game';
-
-import { handleGroundRemove, handleGroundUpdateProps, handlePlayerControlsUpdate } from '../../../../redux/actions';
-import { setTimeout } from '../../../../services/utils';
-
+import { breakable, breakableMapDispatchToProps, breakableMapStateToProps } from '../../Behaviours/Breakable/Breakable';
+import { solid, solidMapDispatchToProps, solidMapStateToProps } from '../../Behaviours/Solid/Solid';
 import BrokenFloor from '../../../Stateless/Grounds/BrokenFloor/BrokenFloor';
 
 class StatefulBrokenFloor extends PureComponent {
-
-  onMoveIn() {
-    const { handlePlayerControlsUpdate } = this.props;
-    handlePlayerControlsUpdate();
-  }
-
-  onMoveOut(prevProps) {
-    const { handleGroundRemove, handleGroundUpdateProps } = this.props;
-    const { x, y, z } = prevProps;
-    handleGroundUpdateProps(x, y, z, {opacity: 0});
-    setTimeout(gameSettings.transitionTimer)
-      .then(() => handleGroundRemove(x, y, z));
-  }
 
   render() {
     return (<BrokenFloor {...this.props}/>);
@@ -31,12 +16,17 @@ class StatefulBrokenFloor extends PureComponent {
 
 const mapStateToProps = (state) => ({
   grounds: state.grounds,
+  ...breakableMapStateToProps(state),
+  ...solidMapStateToProps(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handleGroundRemove: (...params) => dispatch(handleGroundRemove(...params)),
-  handleGroundUpdateProps: (...params) => dispatch(handleGroundUpdateProps(...params)),
-  handlePlayerControlsUpdate: (...params) => dispatch(handlePlayerControlsUpdate(...params)),
+  ...breakableMapDispatchToProps(dispatch),
+  ...solidMapDispatchToProps(dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {withRef: true})(StatefulBrokenFloor);
+export default pipe(
+  breakable,
+  solid,
+  connect(mapStateToProps, mapDispatchToProps, null, {withRef: true})
+)(StatefulBrokenFloor);

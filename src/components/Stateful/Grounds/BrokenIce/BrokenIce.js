@@ -1,43 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import pipe from 'ramda/es/pipe';
 
-import gameSettings from '../../../../settings/game';
-
-import { handleGroundRemove, handleGroundUpdateProps, handleBlockMoveRelative } from '../../../../redux/actions';
-import { setTimeout } from '../../../../services/utils';
-
+import { breakable, breakableMapDispatchToProps, breakableMapStateToProps } from '../../Behaviours/Breakable/Breakable';
+import { slippy, slippyMapDispatchToProps, slippyMapStateToProps } from '../../Behaviours/Slippy/Slippy';
 import BrokenFloor from '../../../Stateless/Grounds/BrokenFloor/BrokenFloor';
 
 class StatefulBrokenIce extends PureComponent {
-
-  onMoveIn(prevProps, nextProps) {
-    const { handleBlockMoveRelative, x, y, z } = this.props;
-    let deltaX = 0;
-    let deltaY = 0;
-
-    if (nextProps.x > prevProps.x) {
-      deltaX = 1;
-    } else if (nextProps.x < prevProps.x) {
-      deltaX = -1;
-    }
-
-    if (nextProps.y > prevProps.y) {
-      deltaY = 1;
-    } else if (nextProps.y < prevProps.y) {
-      deltaY = -1;
-    }
-
-    setTimeout(gameSettings.transitionTimer)
-      .then(() => handleBlockMoveRelative(x, y, z, deltaX, deltaY, 0));
-  }
-
-  onMoveOut(prevProps) {
-    const { handleGroundRemove, handleGroundUpdateProps } = this.props;
-    const { x, y, z } = prevProps;
-    handleGroundUpdateProps(x, y, z, {opacity: 0});
-    setTimeout(gameSettings.transitionTimer)
-      .then(() => handleGroundRemove(x, y, z));
-  }
 
   render() {
     return (<BrokenFloor {...this.props}/>);
@@ -45,16 +14,19 @@ class StatefulBrokenIce extends PureComponent {
 
 }
 
-const mapStateToProps = (state) => {
-  return ({
-    grounds: state.grounds,
-  });
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  handleGroundRemove: (...params) => dispatch(handleGroundRemove(...params)),
-  handleGroundUpdateProps: (...params) => dispatch(handleGroundUpdateProps(...params)),
-  handleBlockMoveRelative: (...params) => dispatch(handleBlockMoveRelative(...params)),
+const mapStateToProps = (state) => ({
+  grounds: state.grounds,
+  ...breakableMapStateToProps(state),
+  ...slippyMapStateToProps(state),
 });
 
-export default connect(mapStateToProps,  mapDispatchToProps,  null,  {withRef: true})(StatefulBrokenIce);
+const mapDispatchToProps = (dispatch) => ({
+  ...breakableMapDispatchToProps(dispatch),
+  ...slippyMapDispatchToProps(dispatch),
+});
+
+export default pipe(
+  breakable,
+  slippy,
+  connect(mapStateToProps,  mapDispatchToProps,  null,  {withRef: true})
+)(StatefulBrokenIce);

@@ -1,17 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
+import pipe from 'ramda/es/pipe';
 
-import { handlePlayerControlsUpdate } from '../../../../redux/actions';
 import { addAdjacentProps } from '../../../../services/board';
 
+import { solid, solidMapDispatchToProps, solidMapStateToProps } from '../../Behaviours/Solid/Solid';
 import Floor from '../../../Stateless/Grounds/Floor/Floor';
 
 class StatefulFloor extends PureComponent {
-
-  onMoveIn() {
-    const { handlePlayerControlsUpdate } = this.props;
-    handlePlayerControlsUpdate();
-  }
 
   render() {
     return (<Floor {...this.props}/>);
@@ -21,10 +17,11 @@ class StatefulFloor extends PureComponent {
 
 const mapStateToProps = (state) => ({
   grounds: state.grounds,
+  ...solidMapStateToProps(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  handlePlayerControlsUpdate: (...params) => dispatch(handlePlayerControlsUpdate(...params)),
+  ...solidMapDispatchToProps(dispatch),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
@@ -34,4 +31,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...addAdjacentProps(stateProps.grounds, ownProps.x, ownProps.y, ownProps.z)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps, {withRef: true})(StatefulFloor);
+export default pipe(
+  solid,
+  connect(mapStateToProps, mapDispatchToProps, mergeProps, {withRef: true})
+)(StatefulFloor);
