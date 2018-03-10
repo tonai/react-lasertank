@@ -2,6 +2,9 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import pipe from 'ramda/es/pipe';
 
+import { getMiddlePoint } from '../../../../services/shoot';
+import { handlePlayerLose } from '../../../../redux/actions';
+
 import { movable, movableMapDispatchToProps, movableMapStateToProps } from '../../Behaviours/Movable/Movable';
 import KeyControls from '../../KeyControls/KeyControls';
 import Player from '../../../Stateless/Blocks/Player/Player';
@@ -20,6 +23,16 @@ class StatefulPlayer extends PureComponent {
     return this.ref.ref.shootPoint;
   }
 
+  onShoot(direction, point) {
+    const { handlePlayerLose } = this.props;
+    return {
+      points: [ {
+        ...getMiddlePoint(direction, point, this.props),
+        action: handlePlayerLose
+      } ]
+    };
+  }
+
   render() {
     const { size } = this.props;
     return (<div>
@@ -35,6 +48,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  handlePlayerLose: () => dispatch(handlePlayerLose()),
   ...movableMapDispatchToProps(dispatch),
 });
 

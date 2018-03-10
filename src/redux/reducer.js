@@ -12,6 +12,8 @@ import {
   KEY_RIGHT,
   KEY_UP,
   PLAYER_CONTROLS_UPDATE,
+  PLAYER_LOSE,
+  PLAYER_WIN,
   SHOOT,
   SHOOT_CLEAR,
   SHOOT_UPDATE,
@@ -23,6 +25,7 @@ import {
 
 import blocksSettings from '../settings/blocks';
 import boardSettings from '../settings/board';
+import { GAME_STATUS_LOSE, GAME_STATUS_RUN, GAME_STATUS_WIN } from '../settings/game';
 
 import { initBlock, initMap } from '../services/board';
 import { getBlock, getBlockMoveState, getMovePos } from '../services/blocks';
@@ -35,8 +38,10 @@ const initialState = {
   height: 0,
   width: 0,
 
-  playerKey: null,
   playerControls: true,
+  playerKey: null,
+
+  gameStatus: GAME_STATUS_RUN,
 
   xAngle : 45,
   zAngle: 45,
@@ -202,6 +207,20 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         playerControls: true
+      };
+    }
+
+    case PLAYER_LOSE: {
+      return {
+        ...state,
+        gameStatus: GAME_STATUS_LOSE
+      };
+    }
+
+    case PLAYER_WIN: {
+      return {
+        ...state,
+        gameStatus: GAME_STATUS_WIN
       };
     }
 

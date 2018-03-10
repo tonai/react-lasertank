@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { addAdjacentProps } from '../../../../services/board';
+import { handlePlayerLose } from '../../../../redux/actions';
 
 import Water from '../../../Stateless/Grounds/Water/Water';
 
 class StatefulWater extends PureComponent {
 
   onMoveIn() {
-    console.log('Plouf !');
+    this.props.handlePlayerLose();
   }
 
   render() {
@@ -21,6 +22,10 @@ const mapStateToProps = (state) => ({
   grounds: state.grounds,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  handlePlayerLose: () => dispatch(handlePlayerLose()),
+});
+
 const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...ownProps,
   ...stateProps,
@@ -28,4 +33,4 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...addAdjacentProps(stateProps.grounds, ownProps.x, ownProps.y, ownProps.z)
 });
 
-export default connect(mapStateToProps, null, mergeProps, {withRef: true})(StatefulWater);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps, {withRef: true})(StatefulWater);

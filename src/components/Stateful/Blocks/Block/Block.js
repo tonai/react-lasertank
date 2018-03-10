@@ -4,61 +4,49 @@ import mathMod from 'ramda/es/mathMod';
 import pipe from 'ramda/es/pipe';
 
 import { handleBlockMove } from '../../../../redux/actions';
+import { getSidePoint } from '../../../../services/shoot';
 
 import { movable, movableMapDispatchToProps, movableMapStateToProps } from '../../Behaviours/Movable/Movable';
 import Block from '../../../Stateless/Blocks/Block/Block';
 
 class StatefulBlock extends PureComponent {
 
-  getStartPoint(direction, point) {
-    const { handleBlockMove, size, x, y, z } = this.props;
+  getStartPoint(direction, shootPoint) {
+    const { handleBlockMove, x, y, z } = this.props;
+    const { point } = getSidePoint(direction + 180, shootPoint, this.props);
     switch (mathMod(direction, 360)) {
       case 0:
         return {
           action: handleBlockMove.bind(this, x, y, z, x + 1, y, z),
-          point: { x: x * size, y: point.y, z: point.z }
+          point
         };
       case 90:
         return {
           action: handleBlockMove.bind(this, x, y, z, x, y + 1, z),
-          point: { x: point.x, y: y * size, z: point.z }
+          point
         };
       case 180:
         return {
           action: handleBlockMove.bind(this, x, y, z, x - 1, y, z),
-          point: { x: (x + 1) * size, y: point.y, z: point.z }
+          point
         };
       case 270:
         return {
           action: handleBlockMove.bind(this, x, y, z, x, y - 1, z),
-          point: { x: point.x, y: (y + 1) * size, z: point.z }
+          point
         };
-      default:
-        return null;
-    }
-  }
-
-  getEndPoint(direction, point) {
-    const { size, x, y } = this.props;
-    switch (mathMod(direction, 360)) {
-      case 0:
-        return {point: {x: (x + 1) * size, y: point.y, z: point.z}};
-      case 90:
-        return {point: {x: point.x, y: (y + 1) * size, z: point.z}};
-      case 180:
-        return {point: {x: x * size, y: point.y, z: point.z}};
-      case 270:
-        return {point: {x: point.x, y: y * size, z: point.z}};
       default:
         return null;
     }
   }
 
   onShoot(direction, point) {
-    return [
-      this.getStartPoint(direction, point),
-      this.getEndPoint(direction, point)
-    ];
+    return {
+      points: [
+        this.getStartPoint(direction, point),
+        getSidePoint(direction, point, this.props)
+      ]
+    };
   }
 
   render() {

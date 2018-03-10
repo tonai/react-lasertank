@@ -172,3 +172,19 @@ export function handleShootClear() {
     type: SHOOT_CLEAR
   };
 }
+
+export const PLAYER_LOSE = 'PLAYER_LOSE';
+export function handlePlayerLose() {
+  console.log('Lose');
+  return {
+    type: PLAYER_LOSE
+  };
+}
+
+export const PLAYER_WIN = 'PLAYER_WIN';
+export function handlePlayerWin() {
+  console.log('Win');
+  return {
+    type: PLAYER_WIN
+  };
+}

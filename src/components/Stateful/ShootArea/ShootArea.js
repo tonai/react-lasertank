@@ -51,6 +51,7 @@ class StatefulShootArea extends PureComponent {
         if (shootPoints[index + 2]) {
           updateShootIndex(index + 1);
         } else {
+          shootPoints[index + 1].action && shootPoints[index + 1].action();
           setTimeout(size / speed).then(clearShoot);
         }
       });

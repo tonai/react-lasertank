@@ -2,6 +2,7 @@ import generalSettings from './general';
 
 import Block from '../components/Stateful/Blocks/Block/Block';
 import Door from '../components/Stateful/Blocks/Door/Door';
+import Mirror from '../components/Stateful/Blocks/Mirror/Mirror';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
 
 import BrokenIce from '../components/Stateful/Grounds/BrokenIce/BrokenIce';
@@ -131,6 +132,26 @@ export default {
         connect: true,
         topConnect: false,
         type: 'top'
+      }
+    }
+  },
+  mirror: {
+    component: Mirror,
+    allowMovement: false,
+    sprites: {
+      top: {
+        path: `${generalSettings.spritesDir}Outside_A4.png`,
+        offset: [0 * 64, 2 * (64 + 64 + 32)],
+        connect: true,
+        topConnect: false,
+        type: 'top'
+      },
+      side: {
+        path: `${generalSettings.spritesDir}Outside_A4.png`,
+        offset: [0 * 64, 2 * (64 + 64 + 32) + 64 + 32],
+        connect: true,
+        topConnect: false,
+        type: 'side'
       }
     }
   },

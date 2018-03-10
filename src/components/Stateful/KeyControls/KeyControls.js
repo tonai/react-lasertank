@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import mathMod from 'ramda/es/mathMod';
 
 import { handleKeyDown, handleKeyLeft, handleKeyRight, handleKeyUp, handleShoot } from '../../../redux/actions';
+import { GAME_STATUS_RUN } from '../../../settings/game';
 
 const KEY_DOWN = 'ArrowDown';
 const KEY_LEFT = 'ArrowLeft';
@@ -16,8 +17,8 @@ class KeyControls extends PureComponent {
   /* Properties */
 
   handleKeyPress = (e) => {
-    const { onKeyDown, onKeyLeft, onKeyRight, onKeyUp, playerControls } = this.props;
-    if (!playerControls) {
+    const { gameStatus, onKeyDown, onKeyLeft, onKeyRight, onKeyUp, playerControls } = this.props;
+    if (!playerControls || gameStatus !== GAME_STATUS_RUN) {
       return;
     }
     switch(e.code) {
@@ -81,8 +82,13 @@ class KeyControls extends PureComponent {
     const block = blocks[`${z}-${x}-${y}`];
     const ground = grounds[`${z}-${x}-${y}`];
     if (block && block.ref.onShoot) {
-      const points = block.ref.onShoot(direction, shootPoints[shootPoints.length - 1].point);
-      return shootPoints.concat(points);
+      const data = block.ref.onShoot(direction, shootPoints[shootPoints.length - 1].point);
+      shootPoints = shootPoints.concat(data.points);
+      if (data.direction !== undefined) {
+        const coords = this.getNextCoords(x, y, z, data.direction);
+        return this.getShootPoints(coords.x, coords.y, coords.z, data.direction, shootPoints);
+      }
+      return shootPoints;
     } else if (ground) {
       const coords = this.getNextCoords(x, y, z, direction);
       return this.getShootPoints(coords.x, coords.y, coords.z, direction, shootPoints);
@@ -99,13 +105,9 @@ class KeyControls extends PureComponent {
   shoot() {
     const { onShoot, player } = this.props;
     const startPoint = {point: player.ref.getShootPoint()};
-    const shootPoints = this.getShootPoints(
-      player.props.x,
-      player.props.y,
-      player.props.z,
-      player.props.direction,
-      [startPoint]
-    );
+    const { x, y, z, direction } = player.props;
+    const coords = this.getNextCoords(x, y, z, direction);
+    const shootPoints = this.getShootPoints(coords.x, coords.y, coords.z, direction, [startPoint]);
     return onShoot(shootPoints);
   }
 
@@ -113,6 +115,7 @@ class KeyControls extends PureComponent {
 
 const mapStatToProps = (state) => ({
   blocks: state.blocks,
+  gameStatus: state.gameStatus,
   grounds: state.grounds,
   player: state.blocks[state.playerKey],
   playerControls: state.playerControls

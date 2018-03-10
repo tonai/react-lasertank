@@ -1,10 +1,16 @@
 {
   "grounds": [
-    null,
+    [
+      null,
+      [null, null, "water"],
+      [null, null, "water"],
+      [null, null, "water"],
+      [null, null, "water"]
+    ],
     [
       [null, null, null, null, ["switch", {"id": 1}]],
       ["teleporter", null, "ice"],
-      [null, null, "brokenIce", "brokenIce"],
+      [null, null, "brokenIce"],
       null,
       [null, null, ["brokenFloor",{"direction":90,"sprites":{"bottom":{"path":"assets/sprites/Inside_A2.png","offset":[0, 96],"connect":true}}}], null, "teleporter"]
     ]
@@ -12,17 +18,16 @@
   "blocks": [
     [
       ["wall", "wall", "wall", "wall", "wall"],
-      ["wall", "wall", "water", "wall", "wall"],
-      ["wall", "wall", "water", "water", "wall"],
-      ["wall", "wall", "water", "wall", "wall"],
-      ["wall", "wall", "water", "wall", "wall"]
+      ["wall", "wall", null, "wall", "wall"],
+      ["wall", "wall", null, "wall", "wall"],
+      ["wall", "wall", null, "wall", "wall"],
+      ["wall", "wall", null, "wall", "wall"]
     ],
     [
       null,
-      [null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}]],
-      [["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, null, ["door", {"direction": 90, "id": 1}]],
-      ["player", ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, ["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}]],
-      [null, null]
+      [null, ["mirror",{"direction":0}], null, ["mirror",{"direction":270}]],
+      [["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, null, ["door", {"direction": 90, "id": 1}], "block"],
+      ["player", ["mirror",{"direction":90}], null, ["mirror",{"direction":180}]]
     ]
   ]
 }
