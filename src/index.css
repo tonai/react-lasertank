@@ -7,4 +7,5 @@ body {
 .pos-abs {
   position: absolute;
   transform-style: preserve-3d;
+  transition: all 200ms linear;
 }

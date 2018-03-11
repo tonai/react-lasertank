@@ -2,6 +2,7 @@ import generalSettings from './general';
 
 import Block from '../components/Stateful/Blocks/Block/Block';
 import Door from '../components/Stateful/Blocks/Door/Door';
+import MirrorBlock from '../components/Stateful/Blocks/MirrorBlock/MirrorBlock';
 import MirrorWall from '../components/Stateful/Blocks/MirrorWall/MirrorWall';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
 
@@ -132,6 +133,26 @@ export default {
         connect: true,
         topConnect: false,
         type: 'top'
+      }
+    }
+  },
+  mirrorBlock: {
+    component: MirrorBlock,
+    allowMovement: false,
+    sprites: {
+      top: {
+        path: `${generalSettings.spritesDir}Inside_A4.png`,
+        offset: [7 * 64, 2 * (64 + 64 + 32)],
+        connect: false,
+        topConnect: false,
+        type: 'top'
+      },
+      side: {
+        path: `${generalSettings.spritesDir}Inside_A4.png`,
+        offset: [7 * 64, 2 * (64 + 64 + 32) + 64 + 32],
+        connect: false,
+        topConnect: false,
+        type: 'side'
       }
     }
   },

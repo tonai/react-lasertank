@@ -1,15 +1,27 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
+import gameSettings from '../../../../settings/game';
+
 import { addAdjacentProps } from '../../../../services/board';
-import { handlePlayerLose } from '../../../../redux/actions';
+import { handleBlockRemove, handleBlockUpdateProps, handlePlayerLose } from '../../../../redux/actions';
+import { setTimeout } from '../../../../services/utils';
 
 import Water from '../../../Stateless/Grounds/Water/Water';
 
 class StatefulWater extends PureComponent {
 
-  onMoveIn() {
-    this.props.handlePlayerLose();
+  onMoveIn(prevProps, nextProps) {
+    const { handleBlockRemove, handleBlockUpdateProps, handlePlayerLose } = this.props;
+    if (prevProps.originalName === 'player') {
+      handlePlayerLose();
+    } else if (prevProps.originalName !== 'block') {
+      const { x, y, z } = nextProps;
+      setTimeout(gameSettings.transitionTimer)
+        .then(() => handleBlockUpdateProps(x, y, z, {opacity: 0}))
+        .then(() => setTimeout(gameSettings.transitionTimer))
+        .then(() => handleBlockRemove(x, y, z));
+    }
   }
 
   render() {
@@ -23,6 +35,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  handleBlockRemove: (x, y, z) => dispatch(handleBlockRemove(x, y, z)),
+  handleBlockUpdateProps: (...params) => dispatch(handleBlockUpdateProps(...params)),
   handlePlayerLose: () => dispatch(handlePlayerLose()),
 });
 

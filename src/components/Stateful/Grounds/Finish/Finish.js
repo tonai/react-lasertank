@@ -7,8 +7,10 @@ import Finish from '../../../Stateless/Grounds/Finish/Finish';
 
 class StatefulFinish extends PureComponent {
 
-  onMoveIn() {
-    this.props.handlePlayerWin();
+  onMoveIn(prevProps) {
+    if (prevProps.originalName === 'player') {
+      this.props.handlePlayerWin();
+    }
   }
 
   render() {

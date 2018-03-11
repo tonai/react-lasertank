@@ -1,4 +1,3 @@
-Add movable mirrors
 Add rotating mirrors
 Add settings to manage block interactions with other blocks (like canTeleport...etc.)
 sprite connection with other blocks
@@ -11,7 +10,6 @@ Manage multiples teleporter with same 'id'
 
 /* corrections */
 Shoot at start position
-When updating opacity < 1 on container, 3D is broken (problem with teleporter animation)
 
 /* bonus */
 Create redirect which direction depends on player direction + self direction
