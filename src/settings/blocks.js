@@ -162,14 +162,14 @@ export default {
     sprites: {
       top: {
         path: `${generalSettings.spritesDir}Outside_A4.png`,
-        offset: [0 * 64, 2 * (64 + 64 + 32)],
+        offset: [0 * 64, 0 * (64 + 64 + 32)],
         connect: true,
         topConnect: false,
         type: 'top'
       },
       side: {
         path: `${generalSettings.spritesDir}Outside_A4.png`,
-        offset: [0 * 64, 2 * (64 + 64 + 32) + 64 + 32],
+        offset: [0 * 64, 0 * (64 + 64 + 32) + 64 + 32],
         connect: true,
         topConnect: false,
         type: 'side'
@@ -216,14 +216,14 @@ export default {
     sprites: {
       top: {
         path: `${generalSettings.spritesDir}Outside_A4.png`,
-        offset: [0 * 64, 2 * (64 + 64 + 32)],
+        offset: [0 * 64, 0 * (64 + 64 + 32)],
         connect: true,
         topConnect: false,
         type: 'top'
       },
       side: {
         path: `${generalSettings.spritesDir}Outside_A4.png`,
-        offset: [0 * 64, 2 * (64 + 64 + 32) + 64 + 32],
+        offset: [0 * 64, 0 * (64 + 64 + 32) + 64 + 32],
         connect: true,
         topConnect: false,
         type: 'side'
