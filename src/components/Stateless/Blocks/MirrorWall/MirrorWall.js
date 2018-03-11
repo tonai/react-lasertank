@@ -5,7 +5,7 @@ import { getBackStyles, getLeftStyles, getTopStyles } from '../../../../services
 
 import BoardBlock from '../../BoardBlock/BoardBlock';
 
-class Mirror extends PureComponent {
+class MirrorWall extends PureComponent {
 
   /* Properties */
 
@@ -95,4 +95,4 @@ class Mirror extends PureComponent {
   }
 
 }
-export default BoardBlock(Mirror);
+export default BoardBlock(MirrorWall);

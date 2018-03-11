@@ -5,9 +5,9 @@ import mathMod from 'ramda/es/mathMod';
 import { addAdjacentProps } from '../../../../services/board';
 import { getMiddlePoint, getSidePoint } from '../../../../services/shoot';
 
-import Mirror from '../../../Stateless/Blocks/Mirror/Mirror';
+import MirrorWall from '../../../Stateless/Blocks/MirrorWall/MirrorWall';
 
-class StatefulMirror extends PureComponent {
+class StatefulMirrorWall extends PureComponent {
 
   onShoot(direction, point) {
     switch (mathMod(direction - this.props.direction, 360)) {
@@ -37,7 +37,7 @@ class StatefulMirror extends PureComponent {
   }
 
   render() {
-    return (<Mirror {...this.props}/>);
+    return (<MirrorWall {...this.props}/>);
   }
 
 }
@@ -53,4 +53,4 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => ({
   ...addAdjacentProps(stateProps.blocks, ownProps.x, ownProps.y, ownProps.z)
 });
 
-export default connect(mapStateToProps, null, mergeProps, {withRef: true})(StatefulMirror);
+export default connect(mapStateToProps, null, mergeProps, {withRef: true})(StatefulMirrorWall);

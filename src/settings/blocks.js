@@ -2,7 +2,7 @@ import generalSettings from './general';
 
 import Block from '../components/Stateful/Blocks/Block/Block';
 import Door from '../components/Stateful/Blocks/Door/Door';
-import Mirror from '../components/Stateful/Blocks/Mirror/Mirror';
+import MirrorWall from '../components/Stateful/Blocks/MirrorWall/MirrorWall';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
 
 import BrokenIce from '../components/Stateful/Grounds/BrokenIce/BrokenIce';
@@ -135,8 +135,8 @@ export default {
       }
     }
   },
-  mirror: {
-    component: Mirror,
+  mirrorWall: {
+    component: MirrorWall,
     allowMovement: false,
     sprites: {
       top: {

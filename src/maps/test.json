@@ -25,9 +25,9 @@
     ],
     [
       null,
-      [null, ["mirror",{"direction":0}], null, ["mirror",{"direction":270}]],
+      [null, ["mirrorWall",{"direction":0}], null, ["mirrorWall",{"direction":270}]],
       [["wall",{"sprites":{"top":{"path":"assets/sprites/Outside_A4.png","offset":[384, 0],"connect":true},"side":{"path":"assets/sprites/Outside_A4.png","offset":[384, 96],"connect":true}}}], null, null, ["door", {"direction": 90, "id": 1}], "block"],
-      ["player", ["mirror",{"direction":90}], null, ["mirror",{"direction":180}]]
+      ["player", ["mirrorWall",{"direction":90}], null, ["mirrorWall",{"direction":180}]]
     ]
   ]
 }
