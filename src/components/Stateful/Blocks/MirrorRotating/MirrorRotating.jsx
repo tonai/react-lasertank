@@ -2,15 +2,15 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import mathMod from 'ramda/es/mathMod';
 
-import { addAdjacentProps } from '../../../../services/board';
+import { handleBlockUpdateProps } from '../../../../redux/actions';
 import { getMiddlePoint, getSidePoint } from '../../../../services/shoot';
 
-import MirrorWall from '../../../Stateless/Blocks/MirrorWall/MirrorWall';
+import MirrorRotating from '../../../Stateless/Blocks/MirrorRotating/MirrorRotating';
 
-class StatefulMirrorWall extends PureComponent {
+class StatefulMirrorRotating extends PureComponent {
 
   onShoot(shootDirection, point) {
-    const { direction } = this.props;
+    const { direction, handleBlockUpdateProps, x, y, z } = this.props;
     switch (mathMod(shootDirection - direction, 360)) {
       case 180:
         return {
@@ -33,25 +33,23 @@ class StatefulMirrorWall extends PureComponent {
         };
 
       default:
-        return { points: [ getSidePoint(shootDirection + 180, point, this.props) ] };
+        return { points: [
+          {
+            ...getSidePoint(shootDirection + 180, point, this.props),
+            action: handleBlockUpdateProps.bind(null, x, y, z, {direction: direction + 90}),
+          }
+        ]};
     }
   }
 
   render() {
-    return (<MirrorWall {...this.props}/>);
+    return (<MirrorRotating {...this.props}/>);
   }
 
 }
 
-const mapStateToProps = (state) => ({
-  blocks: state.blocks
+const mapDispatchToProps = (dispatch) => ({
+  handleBlockUpdateProps: (x, y, z, props) => dispatch(handleBlockUpdateProps(x, y, z, props)),
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
-  ...ownProps,
-  ...stateProps,
-  ...dispatchProps,
-  ...addAdjacentProps(stateProps.blocks, ownProps.x, ownProps.y, ownProps.z)
-});
-
-export default connect(mapStateToProps, null, mergeProps, {withRef: true})(StatefulMirrorWall);
+export default connect(null, mapDispatchToProps, null, {withRef: true})(StatefulMirrorRotating);

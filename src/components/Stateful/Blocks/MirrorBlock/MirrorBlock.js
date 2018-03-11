@@ -40,32 +40,33 @@ class StatefulMirrorBlock extends PureComponent {
     }
   }
 
-  onShoot(direction, point) {
-    switch (mathMod(direction - this.props.direction, 360)) {
+  onShoot(shootDirection, point) {
+    const { direction } = this.props;
+    switch (mathMod(shootDirection - direction, 360)) {
       case 180:
         return {
-          direction: this.props.direction + 90,
+          direction: direction + 90,
           points: [
-            getSidePoint(direction + 180, point, this.props),
-            getMiddlePoint(direction, point, this.props),
-            getSidePoint(this.props.direction + 90, point, this.props),
+            getSidePoint(shootDirection + 180, point, this.props),
+            getMiddlePoint(shootDirection, point, this.props),
+            getSidePoint(direction + 90, point, this.props),
           ]
         };
 
       case 270:
         return {
-          direction: this.props.direction,
+          direction,
           points: [
-            getSidePoint(direction + 180, point, this.props),
-            getMiddlePoint(direction, point, this.props),
-            getSidePoint(this.props.direction, point, this.props),
+            getSidePoint(shootDirection + 180, point, this.props),
+            getMiddlePoint(shootDirection, point, this.props),
+            getSidePoint(direction, point, this.props),
           ]
         };
 
       default:
         return { points: [
-          this.getStartPoint(direction, point),
-          getSidePoint(direction + 180, point, this.props)
+          this.getStartPoint(shootDirection, point),
+          getSidePoint(shootDirection + 180, point, this.props)
         ] };
     }
   }

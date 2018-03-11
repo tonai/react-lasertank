@@ -3,6 +3,7 @@ import generalSettings from './general';
 import Block from '../components/Stateful/Blocks/Block/Block';
 import Door from '../components/Stateful/Blocks/Door/Door';
 import MirrorBlock from '../components/Stateful/Blocks/MirrorBlock/MirrorBlock';
+import MirrorRotating from '../components/Stateful/Blocks/MirrorRotating/MirrorRotating';
 import MirrorWall from '../components/Stateful/Blocks/MirrorWall/MirrorWall';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
 
@@ -155,6 +156,10 @@ export default {
         type: 'side'
       }
     }
+  },
+  mirrorRotating: {
+    component: MirrorRotating,
+    allowMovement: false,
   },
   mirrorWall: {
     component: MirrorWall,

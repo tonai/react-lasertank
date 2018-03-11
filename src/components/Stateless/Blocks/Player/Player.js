@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import mathMod from 'ramda/es/mathMod';
 
+import { getColor } from '../../../../services/color';
+
 import BoardBlock from '../../BoardBlock/BoardBlock';
 
 class Player extends PureComponent {
@@ -10,13 +12,6 @@ class Player extends PureComponent {
   shootPoint = null;
 
   /* Methods */
-
-  getColor(hue, saturation, luminosity = 50, range = 1, opacity = 1) {
-    return angle => {
-      const lum = Math.min(100, Math.max(0, (Math.abs(angle) - 90) / 180 * 100 * range + luminosity));
-      return `hsla(${hue}, ${saturation}%, ${lum}%, ${opacity})`;
-    };
-  }
 
   getShootPoint(gunX, gunY, gunZ) {
     const { direction, size, x, y, z } = this.props;
@@ -50,7 +45,7 @@ class Player extends PureComponent {
     const l110 = l / 10;
     const offsetMin = (L - l) / 2;
 
-    const trackColor = this.getColor(0, 0, 10, 0.5);
+    const trackColor = getColor(0, 0, 10, 0.5);
     const trackXSize = this.round(l - 3 * l110);
     const trackXSize2 = this.round(l - 1 * l110);
     const trackXDelta = this.round((trackXSize2 - trackXSize) / 2);
@@ -71,7 +66,7 @@ class Player extends PureComponent {
     const trackFrontSize = this.round(Math.sqrt(trackXDelta * trackXDelta + trackZSize2 * trackZSize2));
     const trackFrontAngle = Math.atan(2 * trackXDelta / trackZSize) * 180 / Math.PI;
 
-    const hullColor = this.getColor(0, 0, 30, 0.5);
+    const hullColor = getColor(0, 0, 30, 0.5);
     const hullXSize = this.round(l);
     const hullXSize2 = this.round(l23);
     const hullYSize = this.round(l);
@@ -92,7 +87,7 @@ class Player extends PureComponent {
     const hullSideSize = this.round(Math.sqrt(hullZSize / 2 * hullZSize / 2 + hullYDelta * hullYDelta));
     const hullSideAngle = Math.atan(2 * hullYDelta / hullZSize) * 180 / Math.PI;
 
-    const turretColor = this.getColor(0, 0, 30, 0.5);
+    const turretColor = getColor(0, 0, 30, 0.5);
     const turretXSize = this.round(l13);
     const turretYSize = this.round(l / 2);
     const turretZSize = this.round(L16);
@@ -103,7 +98,7 @@ class Player extends PureComponent {
     const turretZMin = hullZMax;
     const turretZMax = turretZMin + turretZSize;
 
-    const gunColor = this.getColor(0, 0, 50, 0.5);
+    const gunColor = getColor(0, 0, 50, 0.5);
     const gunXSize = this.round(l - turretXSize + l110);
     const gunYSize = this.round(l13);
     const gunYSize2 = this.round(l13 / 2);
