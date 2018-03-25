@@ -10,28 +10,7 @@ class Block extends PureComponent {
 
   /* Properties */
 
-  drawBack = (canvas) => {
-    if (canvas) {
-      const {name, sprites} = this.props;
-      setSideTexture(canvas, name, sprites.side);
-    }
-  };
-
-  drawFront = (canvas) => {
-    if (canvas) {
-      const {name, sprites} = this.props;
-      setSideTexture(canvas, name, sprites.side);
-    }
-  };
-
-  drawLeft = (canvas) => {
-    if (canvas) {
-      const {name, sprites} = this.props;
-      setSideTexture(canvas, name, sprites.side);
-    }
-  };
-
-  drawRight = (canvas) => {
+  drawSide = (canvas) => {
     if (canvas) {
       const {name, sprites} = this.props;
       setSideTexture(canvas, name, sprites.side);
@@ -59,28 +38,28 @@ class Block extends PureComponent {
           className="side--front pos-abs"
           width={size}
           height={size}
-          ref={this.drawFront}
+          ref={this.drawSide}
           style={getFrontStyles(size)}
         />
         <canvas
           className="side--back pos-abs"
           width={size}
           height={size}
-          ref={this.drawBack}
+          ref={this.drawSide}
           style={getBackStyles(size)}
         />
         <canvas
           className="side--right pos-abs"
           width={size}
           height={size}
-          ref={this.drawRight}
+          ref={this.drawSide}
           style={getRightStyles(size)}
         />
         <canvas
           className="side--left pos-abs"
           width={size}
           height={size}
-          ref={this.drawLeft}
+          ref={this.drawSide}
           style={getLeftStyles(size)}
         />
         <canvas
