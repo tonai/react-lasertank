@@ -1,9 +1,7 @@
 import React, { PureComponent } from 'react';
 
-import {
-  loadTextures, setSideTextureLeft, setSideTextureRight,
-  setTopTextureCornerBackLeft, setTopTextureCornerBackRight, setTopTextureCornerFrontLeft, setTopTextureCornerFrontRight
-} from '../../../../services/texture';
+import { loadTextures, setSideTextureLeft, setSideTextureRight,
+  setTopTextureCornerFrontRight } from '../../../../services/texture';
 import { getBackStyles, getFrontStyles, getLeftStyles, getRightStyles,
   getTopStyles } from '../../../../services/styles';
 

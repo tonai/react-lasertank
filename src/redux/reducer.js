@@ -43,7 +43,7 @@ const initialState = {
 
   gameStatus: GAME_STATUS_RUN,
 
-  xAngle : 45,
+  xAngle : 30,
   zAngle: 45,
   zoom: 1,
 

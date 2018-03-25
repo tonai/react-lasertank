@@ -17,10 +17,13 @@ class KeyControls extends PureComponent {
   /* Properties */
 
   handleKeyPress = (e) => {
+    e.preventDefault();
+
     const { gameStatus, onKeyDown, onKeyLeft, onKeyRight, onKeyUp, playerControls } = this.props;
     if (!playerControls || gameStatus !== GAME_STATUS_RUN) {
       return;
     }
+
     switch(e.code) {
       case KEY_DOWN:
         return onKeyDown();
