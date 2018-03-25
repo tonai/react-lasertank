@@ -8,8 +8,8 @@ import MirrorWall from '../components/Stateful/Blocks/MirrorWall/MirrorWall';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
 import WallBroken from '../components/Stateful/Blocks/WallBroken/WallBroken';
 
-import BrokenIce from '../components/Stateful/Grounds/BrokenIce/BrokenIce';
-import BrokenFloor from '../components/Stateful/Grounds/BrokenFloor/BrokenFloor';
+import IceBroken from '../components/Stateful/Grounds/IceBroken/IceBroken';
+import FloorBroken from '../components/Stateful/Grounds/FloorBroken/FloorBroken';
 import Empty from '../components/Stateful/Grounds/Empty/Empty';
 import Finish from '../components/Stateful/Grounds/Finish/Finish';
 import Floor from '../components/Stateful/Grounds/Floor/Floor';
@@ -42,8 +42,8 @@ export default {
       }
     }
   },
-  brokenIce: {
-    component: BrokenIce,
+  iceBroken: {
+    component: IceBroken,
     allowMovement: true,
     opacity: 1,
     sprites: {
@@ -63,8 +63,8 @@ export default {
       }
     }
   },
-  brokenFloor: {
-    component: BrokenFloor,
+  floorBroken: {
+    component: FloorBroken,
     allowMovement: true,
     opacity: 1,
     sprites: {

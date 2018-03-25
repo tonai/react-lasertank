@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import pipe from 'ramda/es/pipe';
 
 import { breakable, breakableMapDispatchToProps, breakableMapStateToProps } from '../../Behaviours/Breakable/Breakable';
-import { solid, solidMapDispatchToProps, solidMapStateToProps } from '../../Behaviours/Solid/Solid';
-import BrokenFloor from '../../../Stateless/Grounds/BrokenFloor/BrokenFloor';
+import { slippy, slippyMapDispatchToProps, slippyMapStateToProps } from '../../Behaviours/Slippy/Slippy';
+import FloorBroken from '../../../Stateless/Grounds/FloorBroken/FloorBroken';
 
-class StatefulBrokenFloor extends PureComponent {
+class StatefulIceBroken extends PureComponent {
 
   render() {
-    return (<BrokenFloor {...this.props}/>);
+    return (<FloorBroken {...this.props}/>);
   }
 
 }
@@ -17,16 +17,16 @@ class StatefulBrokenFloor extends PureComponent {
 const mapStateToProps = (state) => ({
   grounds: state.grounds,
   ...breakableMapStateToProps(state),
-  ...solidMapStateToProps(state),
+  ...slippyMapStateToProps(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   ...breakableMapDispatchToProps(dispatch),
-  ...solidMapDispatchToProps(dispatch),
+  ...slippyMapDispatchToProps(dispatch),
 });
 
 export default pipe(
   breakable,
-  solid,
-  connect(mapStateToProps, mapDispatchToProps, null, {withRef: true})
-)(StatefulBrokenFloor);
+  slippy,
+  connect(mapStateToProps,  mapDispatchToProps,  null,  {withRef: true})
+)(StatefulIceBroken);

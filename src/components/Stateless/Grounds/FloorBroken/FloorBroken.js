@@ -5,7 +5,7 @@ import { loadTextures, setTopTexture } from '../../../../services/texture';
 
 import BoardBlock from '../../BoardBlock/BoardBlock';
 
-class BrokenFloor extends PureComponent {
+class FloorBroken extends PureComponent {
 
   /* Properties */
 
@@ -53,4 +53,4 @@ class BrokenFloor extends PureComponent {
 
 }
 
-export default BoardBlock(BrokenFloor);
+export default BoardBlock(FloorBroken);
