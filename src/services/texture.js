@@ -97,23 +97,23 @@ export function loadTextures(sprites) {
 }
 
 export function setTopTexture(canvas, name, sprite, props = {}) {
-  const { back, backLeft, backRight, front, frontLeft, frontRight, left, right, topBack, topBackLeft, topBackRight,
-    topFront, topFrontLeft, topFrontRight, topLeft, topRight } = props;
+  const { back, front, left, right, topBack, topFront, topLeft, topRight } = props;
   const { connect, topConnect } = sprite;
   const cacheKey = getCacheKey(sprite);
   
   const context = canvas.getContext('2d');
   const data = spritesData[cacheKey];
 
+  setTopTextureCornerBackLeft(canvas, name, sprite, props);
+  setTopTextureCornerBackRight(canvas, name, sprite, props);
+  setTopTextureCornerFrontLeft(canvas, name, sprite, props);
+  setTopTextureCornerFrontRight(canvas, name, sprite, props);
+
   // Tests
   const frontTest = (connect && front === name && !(topFront === name && topConnect));
   const backTest = (connect && back === name && !(topBack === name && topConnect));
   const rightTest = (connect && right === name && !(topRight === name && topConnect));
   const leftTest = (connect && left === name && !(topLeft === name && topConnect));
-  const frontRightTest = (connect && frontRight === name && !(topFrontRight === name && topConnect));
-  const frontLeftTest = (connect && frontLeft === name && !(topFrontLeft === name && topConnect));
-  const backRightTest = (connect && backRight === name && !(topBackRight === name && topConnect));
-  const backLeftTest = (connect && backLeft === name && !(topBackLeft === name && topConnect));
 
   // Center
   context.putImageData(data.top_1_1, 16, 16);
@@ -125,58 +125,18 @@ export function setTopTexture(canvas, name, sprite, props = {}) {
   if (frontTest) {
     context.putImageData(data.top_1_1, 16, 48);
     context.putImageData(data.top_1_2, 32, 48);
-    if (rightTest) {
-      frontRightTest ? context.putImageData(data.top_1_2, 0, 48) : context.putImageData(data.corner_0_1, 0, 48);
-    } else {
-      context.putImageData(data.top_1_0, 0, 48)
-    }
-    if (leftTest) {
-      frontLeftTest ? context.putImageData(data.top_1_1, 48, 48) : context.putImageData(data.corner_1_1, 48, 48);
-    } else {
-      context.putImageData(data.top_1_3, 48, 48)
-    }
   } else {
     context.putImageData(data.top_3_1, 16, 48);
     context.putImageData(data.top_3_2, 32, 48);
-    if (rightTest) {
-      context.putImageData(data.top_3_2, 0, 48)
-    } else {
-      context.putImageData(data.top_3_0, 0, 48)
-    }
-    if (leftTest) {
-      context.putImageData(data.top_3_1, 48, 48)
-    } else {
-      context.putImageData(data.top_3_3, 48, 48)
-    }
   }
 
   // Back
   if (backTest) {
     context.putImageData(data.top_2_1, 16, 0);
     context.putImageData(data.top_2_2, 32, 0);
-    if (rightTest) {
-      backRightTest ? context.putImageData(data.top_2_2, 0, 0) : context.putImageData(data.corner_0_0, 0, 0);
-    } else {
-      context.putImageData(data.top_2_0, 0, 0);
-    }
-    if (leftTest) {
-      backLeftTest ? context.putImageData(data.top_2_1, 48, 0) : context.putImageData(data.corner_1_0, 48, 0);
-    } else {
-      context.putImageData(data.top_2_3, 48, 0);
-    }
   } else {
     context.putImageData(data.top_0_1, 16, 0);
     context.putImageData(data.top_0_2, 32, 0);
-    if (rightTest) {
-      context.putImageData(data.top_0_2, 0, 0);
-    } else {
-      context.putImageData(data.top_0_0, 0, 0);
-    }
-    if (leftTest) {
-      context.putImageData(data.top_0_1, 48, 0);
-    } else {
-      context.putImageData(data.top_0_3, 48, 0);
-    }
   }
 
   // Right
@@ -198,11 +158,212 @@ export function setTopTexture(canvas, name, sprite, props = {}) {
   }
 }
 
+export function setTopTextureCornerBackLeft(canvas, name, sprite, props = {}, posX = 48, posY = 0) {
+  const { back, backLeft, left, topBack, topBackLeft, topLeft } = props;
+  const { connect, topConnect } = sprite;
+  const cacheKey = getCacheKey(sprite);
+
+  const context = canvas.getContext('2d');
+  const data = spritesData[cacheKey];
+
+  // Tests
+  const backTest = (connect && back === name && !(topBack === name && topConnect));
+  const leftTest = (connect && left === name && !(topLeft === name && topConnect));
+  const backLeftTest = (connect && backLeft === name && !(topBackLeft === name && topConnect));
+
+  if (backTest) {
+    if (leftTest) {
+      backLeftTest ? context.putImageData(data.top_2_1, posX, posY) : context.putImageData(data.corner_1_0, posX, posY);
+    } else {
+      context.putImageData(data.top_2_3, posX, posY);
+    }
+  } else {
+    if (leftTest) {
+      context.putImageData(data.top_0_1, posX, posY);
+    } else {
+      context.putImageData(data.top_0_3, posX, posY);
+    }
+  }
+}
+
+export function setTopTextureCornerBackRight(canvas, name, sprite, props = {}, posX = 0, posY = 0) {
+  const { back, backRight, right, topBack, topBackRight, topRight } = props;
+  const { connect, topConnect } = sprite;
+  const cacheKey = getCacheKey(sprite);
+
+  const context = canvas.getContext('2d');
+  const data = spritesData[cacheKey];
+
+  // Tests
+  const backTest = (connect && back === name && !(topBack === name && topConnect));
+  const rightTest = (connect && right === name && !(topRight === name && topConnect));
+  const backRightTest = (connect && backRight === name && !(topBackRight === name && topConnect));
+
+  if (backTest) {
+    if (rightTest) {
+      backRightTest ? context.putImageData(data.top_2_2, posX, posY) : context.putImageData(data.corner_0_0, posX, posY);
+    } else {
+      context.putImageData(data.top_2_0, posX, posY);
+    }
+  } else {
+    if (rightTest) {
+      context.putImageData(data.top_0_2, posX, posY);
+    } else {
+      context.putImageData(data.top_0_0, posX, posY);
+    }
+  }
+}
+
+export function setTopTextureCornerFrontLeft(canvas, name, sprite, props = {}, posX = 48, posY = 48) {
+  const { front, frontLeft, left, topFront, topFrontLeft, topLeft } = props;
+  const { connect, topConnect } = sprite;
+  const cacheKey = getCacheKey(sprite);
+
+  const context = canvas.getContext('2d');
+  const data = spritesData[cacheKey];
+
+  // Tests
+  const frontTest = (connect && front === name && !(topFront === name && topConnect));
+  const leftTest = (connect && left === name && !(topLeft === name && topConnect));
+  const frontLeftTest = (connect && frontLeft === name && !(topFrontLeft === name && topConnect));
+
+  if (frontTest) {
+    if (leftTest) {
+      frontLeftTest ? context.putImageData(data.top_1_1, posX, posY) : context.putImageData(data.corner_1_1, posX, posY);
+    } else {
+      context.putImageData(data.top_1_3, posX, posY)
+    }
+  } else {
+    if (leftTest) {
+      context.putImageData(data.top_3_1, posX, posY)
+    } else {
+      context.putImageData(data.top_3_3, posX, posY)
+    }
+  }
+}
+
+export function setTopTextureCornerFrontRight(canvas, name, sprite, props = {}, posX = 0, posY = 48) {
+  const { front, frontRight, right, topFront, topFrontRight, topRight } = props;
+  const { connect, topConnect } = sprite;
+  const cacheKey = getCacheKey(sprite);
+
+  const context = canvas.getContext('2d');
+  const data = spritesData[cacheKey];
+
+  // Tests
+  const frontTest = (connect && front === name && !(topFront === name && topConnect));
+  const rightTest = (connect && right === name && !(topRight === name && topConnect));
+  const frontRightTest = (connect && frontRight === name && !(topFrontRight === name && topConnect));
+
+  if (frontTest) {
+    if (rightTest) {
+      frontRightTest ? context.putImageData(data.top_1_2, posX, posY) : context.putImageData(data.corner_0_1, posX, posY);
+    } else {
+      context.putImageData(data.top_1_0, posX, posY)
+    }
+  } else {
+    if (rightTest) {
+      context.putImageData(data.top_3_2, posX, posY)
+    } else {
+      context.putImageData(data.top_3_0, posX, posY)
+    }
+  }
+}
+
 export function setSideTexture(canvas, name, sprite, props = {}) {
-  const { bottom, frontLeft, frontRight, left, right, top } = props;
+  setSideTextureCenterLeft(canvas, name, sprite, props);
+  setSideTextureCenterRight(canvas, name, sprite, props);
+  setSideTextureLeft(canvas, name, sprite, props);
+  setSideTextureRight(canvas, name, sprite, props);
+}
+
+export function setSideTextureCenterLeft(canvas, name, sprite, props = {}, pos = 32) {
+  const { bottom, top } = props;
   const { connect } = sprite;
   const cacheKey = getCacheKey(sprite);
-  
+
+  const context = canvas.getContext('2d');
+  const data = spritesData[cacheKey];
+
+  // Tests.
+  const topTest = (connect && top === name);
+  const bottomTest = (connect && bottom === name);
+
+  context.putImageData(data.front_1_2, pos, 16);
+  context.putImageData(data.front_2_2, pos, 32);
+
+  if (topTest) {
+    context.putImageData(data.front_2_2, pos, 0);
+  } else {
+    context.putImageData(data.front_0_2, pos, 0);
+  }
+
+  if (bottomTest) {
+    context.putImageData(data.front_1_2, pos, 48);
+  } else {
+    context.putImageData(data.front_3_2, pos, 48);
+  }
+}
+
+export function setSideTextureCenterRight(canvas, name, sprite, props = {}, pos = 16) {
+  const { bottom, top } = props;
+  const { connect } = sprite;
+  const cacheKey = getCacheKey(sprite);
+
+  const context = canvas.getContext('2d');
+  const data = spritesData[cacheKey];
+
+  // Tests.
+  const topTest = (connect && top === name);
+  const bottomTest = (connect && bottom === name);
+
+  context.putImageData(data.front_1_1, pos, 16);
+  context.putImageData(data.front_2_1, pos, 32);
+
+  if (topTest) {
+    context.putImageData(data.front_2_1, pos, 0);
+  } else {
+    context.putImageData(data.front_0_1, pos, 0);
+  }
+
+  if (bottomTest) {
+    context.putImageData(data.front_1_1, pos, 48);
+  } else {
+    context.putImageData(data.front_3_1, pos, 48);
+  }
+}
+
+export function setSideTextureLeft(canvas, name, sprite, props = {}, pos = 48) {
+  const { bottom, frontLeft, left, top } = props;
+  const { connect } = sprite;
+  const cacheKey = getCacheKey(sprite);
+
+  const context = canvas.getContext('2d');
+  const data = spritesData[cacheKey];
+
+  // Tests.
+  const topTest = (connect && top === name);
+  const bottomTest = (connect && bottom === name);
+  const leftTest = (connect && (left === name || frontLeft === name));
+
+  if (leftTest) {
+    topTest ? context.putImageData(data.front_2_1, 48, 0) : context.putImageData(data.front_0_1, pos, 0);
+    bottomTest ? context.putImageData(data.front_1_1, 48, 48) : context.putImageData(data.front_3_1, pos, 48);
+    context.putImageData(data.front_1_1, pos, 16);
+    context.putImageData(data.front_2_1, pos, 32);
+  } else {
+    topTest ? context.putImageData(data.front_2_3, 48, 0) : context.putImageData(data.front_0_3, pos, 0);
+    bottomTest ? context.putImageData(data.front_1_3, 48, 48) : context.putImageData(data.front_3_3, pos, 48);
+    context.putImageData(data.front_1_3, pos, 16);
+    context.putImageData(data.front_2_3, pos, 32);
+  }
+}
+
+export function setSideTextureRight(canvas, name, sprite, props = {}, pos = 0) {
+  const { bottom, frontRight, right, top } = props;
+  const { connect } = sprite;
+  const cacheKey = getCacheKey(sprite);
+
   const context = canvas.getContext('2d');
   const data = spritesData[cacheKey];
 
@@ -210,73 +371,16 @@ export function setSideTexture(canvas, name, sprite, props = {}) {
   const topTest = (connect && top === name);
   const bottomTest = (connect && bottom === name);
   const rightTest = (connect && (right === name || frontRight === name));
-  const leftTest = (connect && (left === name || frontLeft === name));
 
-  // Center
-  context.putImageData(data.front_1_1, 16, 16);
-  context.putImageData(data.front_1_2, 32, 16);
-  context.putImageData(data.front_2_1, 16, 32);
-  context.putImageData(data.front_2_2, 32, 32);
-
-  // Top
-  if (topTest) {
-    context.putImageData(data.front_2_1, 16, 0);
-    context.putImageData(data.front_2_2, 32, 0);
-  } else {
-    context.putImageData(data.front_0_1, 16, 0);
-    context.putImageData(data.front_0_2, 32, 0);
-  }
   if (rightTest) {
-    topTest ? context.putImageData(data.front_2_2, 0, 0) : context.putImageData(data.front_0_2, 0, 0);
+    topTest ? context.putImageData(data.front_2_2, 0, 0) : context.putImageData(data.front_0_2, pos, 0);
+    bottomTest ? context.putImageData(data.front_1_2, 0, 48) : context.putImageData(data.front_3_2, pos, 48);
+    context.putImageData(data.front_1_2, pos, 16);
+    context.putImageData(data.front_2_2, pos, 32);
   } else {
-    topTest ? context.putImageData(data.front_2_0, 0, 0) : context.putImageData(data.front_0_0, 0, 0);
-  }
-  if (leftTest) {
-    topTest ? context.putImageData(data.front_2_1, 48, 0) : context.putImageData(data.front_0_1, 48, 0);
-  } else {
-    topTest ? context.putImageData(data.front_2_3, 48, 0) : context.putImageData(data.front_0_3, 48, 0);
-  }
-
-  // Bottom
-  if (bottomTest) {
-    context.putImageData(data.front_1_1, 16, 48);
-    context.putImageData(data.front_1_2, 32, 48);
-  } else {
-    context.putImageData(data.front_3_1, 16, 48);
-    context.putImageData(data.front_3_2, 32, 48);
-  }
-  if (rightTest) {
-    bottomTest ? context.putImageData(data.front_1_2, 0, 48) : context.putImageData(data.front_3_2, 0, 48);
-  } else {
-    bottomTest ? context.putImageData(data.front_1_0, 0, 48) : context.putImageData(data.front_3_0, 0, 48);
-  }
-  if (leftTest) {
-    bottomTest ? context.putImageData(data.front_1_1, 48, 48) : context.putImageData(data.front_3_1, 48, 48);
-  } else {
-    bottomTest ? context.putImageData(data.front_1_3, 48, 48) : context.putImageData(data.front_3_3, 48, 48);
-  }
-
-  // Right
-  if (rightTest) {
-    context.putImageData(data.front_1_2, 0, 16);
-  } else {
-    context.putImageData(data.front_1_0, 0, 16);
-  }
-  if (leftTest) {
-    context.putImageData(data.front_1_1, 48, 16);
-  } else {
-    context.putImageData(data.front_1_3, 48, 16);
-  }
-
-  // Left
-  if (rightTest) {
-    context.putImageData(data.front_2_2, 0, 32);
-  } else {
-    context.putImageData(data.front_2_0, 0, 32);
-  }
-  if (leftTest) {
-    context.putImageData(data.front_2_1, 48, 32);
-  } else {
-    context.putImageData(data.front_2_3, 48, 32);
+    topTest ? context.putImageData(data.front_2_0, 0, 0) : context.putImageData(data.front_0_0, pos, 0);
+    bottomTest ? context.putImageData(data.front_1_0, 0, 48) : context.putImageData(data.front_3_0, pos, 48);
+    context.putImageData(data.front_1_0, pos, 16);
+    context.putImageData(data.front_2_0, pos, 32);
   }
 }

@@ -7,6 +7,7 @@ import MirrorRotating from '../components/Stateful/Blocks/MirrorRotating/MirrorR
 import MirrorWall from '../components/Stateful/Blocks/MirrorWall/MirrorWall';
 import Wall from '../components/Stateful/Blocks/Wall/Wall';
 import WallBroken from '../components/Stateful/Blocks/WallBroken/WallBroken';
+import WallShoot from '../components/Stateful/Blocks/WallShoot/WallShoot';
 
 import IceBroken from '../components/Stateful/Grounds/IceBroken/IceBroken';
 import FloorBroken from '../components/Stateful/Grounds/FloorBroken/FloorBroken';
@@ -260,6 +261,26 @@ export default {
         connect: true,
         topConnect: false,
         type: 'top'
+      }
+    }
+  },
+  wallShoot: {
+    component: WallShoot,
+    allowMovement: false,
+    sprites: {
+      top: {
+        path: `${generalSettings.spritesDir}Outside_A4.png`,
+        offset: [0 * 64, 0 * (64 + 64 + 32)],
+        connect: true,
+        topConnect: false,
+        type: 'top'
+      },
+      side: {
+        path: `${generalSettings.spritesDir}Outside_A4.png`,
+        offset: [0 * 64, 0 * (64 + 64 + 32) + 64 + 32],
+        connect: true,
+        topConnect: false,
+        type: 'side'
       }
     }
   },
