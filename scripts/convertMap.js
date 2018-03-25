@@ -1,17 +1,22 @@
 #!/usr/bin/env node
 
+// Usage :
+// $ ./convertMap.js Peaceful.json
 const fetch = require('node-fetch');
 const blockMapping = require('./blockMapping');
 
 const serverUrl = 'https://urdre8k8nk.execute-api.eu-west-3.amazonaws.com/dev/load';
 const map = process.argv[2];
 
-fetch(serverUrl, {
+const request = {
   method: 'POST',
   body: `map-load-file=${map}`
-})
+};
+
+fetch(serverUrl, request)
   .then(response => response.json())
-  .then(data => convert(data.response.map));
+  .then(data => convert(data.response.map))
+  .catch(error => console.error(error));
 
 function convert(data) {
   const blocks0 = getTable('blocks', 0, data);
