@@ -50,7 +50,7 @@ class MirrorRotating extends PureComponent {
       borderWidth: `0 ${size / 4}px ${size / 4}px ${size / 4}px`,
     };
     return (
-      <div>
+      <div className="p3d">
         <div
           className="pos-abs"
           style={mirrorFrontStyles}

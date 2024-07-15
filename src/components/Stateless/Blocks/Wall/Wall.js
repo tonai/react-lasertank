@@ -82,7 +82,7 @@ class Wall extends PureComponent {
   render() {
     const { back, front, left, name, right, size } = this.props;
     return (
-      <div>
+      <div className="p3d">
         <canvas
           className="side--top pos-abs"
           width={size}

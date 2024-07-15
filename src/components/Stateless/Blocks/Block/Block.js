@@ -33,7 +33,7 @@ class Block extends PureComponent {
   render() {
     const { size } = this.props;
     return (
-      <div>
+      <div className="p3d">
         <canvas
           className="side--front pos-abs"
           width={size}

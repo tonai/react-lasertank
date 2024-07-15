@@ -66,7 +66,7 @@ class MirrorBlock extends PureComponent {
       opacity,
     };
     return (
-      <div>
+      <div className="p3d">
         <canvas
           className="side--top pos-abs"
           width={size}

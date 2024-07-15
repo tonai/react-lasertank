@@ -64,7 +64,7 @@ class MirrorWall extends PureComponent {
       background: 'linear-gradient(45deg, #000, #FFF 20%, #000 75%, #333 90%)',
     };
     return (
-      <div>
+      <div className="p3d">
         <canvas
           className="side--top pos-abs"
           width={size}

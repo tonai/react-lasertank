@@ -4,8 +4,12 @@ body {
   font-family: sans-serif;
 }
 
-.pos-abs {
-  position: absolute;
+.p3d {
   transform-style: preserve-3d;
+}
+
+.pos-abs {
+  transform-style: preserve-3d;
+  position: absolute;
   transition: all 200ms linear;
 }

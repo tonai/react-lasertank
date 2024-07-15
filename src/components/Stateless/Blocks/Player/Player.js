@@ -117,7 +117,7 @@ class Player extends PureComponent {
     this.shootPoint = this.getShootPoint(gunXMax, gunYMin + gunYSize / 2, gunZMin);
 
     return (
-      <div>
+      <div className="p3d">
         <div className="player__track-1--left-1 pos-abs" style={{opacity, width: trackXSize, height: 0, borderWidth: `0 ${trackXDelta}px ${trackZSize2}px`, borderColor: `${trackColor(90)} transparent`, borderStyle: 'solid', transformOrigin: '0 0 0', transform: `translateX(${trackXMin}px) translateY(${trackYMin1}px) translateZ(${trackZMin}px) rotateX(90deg)`}}/>
         <div className="player__track-1--left-2 pos-abs" style={{opacity, width: trackXSize2, height: trackZSize2, backgroundColor: trackColor(90), transformOrigin: '0 0 0', transform: `translateX(${trackXMin}px) translateY(${trackYMin1}px) translateZ(${trackZMid}px) rotateX(90deg)`}}/>
         <div className="player__track-1--right-1 pos-abs" style={{opacity, width: trackXSize, height: 0, borderWidth: `0 ${trackXDelta}px ${trackZSize2}px`, borderColor: `${trackColor(90)} transparent`, borderStyle: 'solid', transformOrigin: '0 0 0', transform: `translateX(${trackXMin}px) translateY(${trackYMax1}px) translateZ(${trackZMin}px) rotateX(90deg)`}}/>

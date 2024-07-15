@@ -105,7 +105,7 @@ class Board extends PureComponent {
     )(grounds);
 
     return (
-      <div className="Board">
+      <div className="Board p3d">
         {blocksBoard}
         {groundsBoard}
       </div>

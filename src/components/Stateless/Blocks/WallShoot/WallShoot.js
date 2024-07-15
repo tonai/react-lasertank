@@ -159,7 +159,7 @@ class WallShoot extends PureComponent {
     const { back, front, left, name, right, size } = this.props;
     // const topClipPath = 'polygon(0 0, 25% 0, 25% 25%, 0 25%, 0 0, 100% 0, 100% 25%, 75% 25%, 75% 0, 0 0, 0 100%, 25% 100%, 25% 75%, 0 75%, 0 100%, 75% 100%, 75% 75%, 100% 75%, 100% 100%, 0 100%)';
     return (
-      <div>
+      <div className="p3d">
         <canvas
           className="side--top pos-abs"
           width={size}

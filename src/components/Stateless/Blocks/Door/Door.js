@@ -23,7 +23,7 @@ class Door extends PureComponent {
       transform: `rotateX(-90deg) rotateY(90deg) translateX(${(1 + open * 2) * size / 4}px) translateY(-${size / 2}px) translateZ(${size / 4}px)`,
     };
     return (
-      <div className="door">
+      <div className="door p3d">
         <div
           className="side--front pos-abs"
           style={styles1}
