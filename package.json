@@ -2,6 +2,7 @@
   "name": "lasertank",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://tonai.github.io/react-lasertank",
   "dependencies": {
     "node-fetch": "^2.1.1",
     "ramda": "^0.25.0",
@@ -16,6 +17,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
